@@ -8,8 +8,9 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title =" The Eldershots";
-		config.width = 1000;
-		config.height = 800;
+		config.width = 500;
+		config.height = 400;
+
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

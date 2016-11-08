@@ -20,6 +20,9 @@ public class Player {
     private int currentScore;
     private int highScore;
 
+    private float x;
+    private float y;
+
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
 
@@ -32,6 +35,9 @@ public class Player {
         this.characterClass = characterClass;
         this.currentScore = currentScore;
         this.highScore = highScore;
+
+        x = MyGdxGame.WIDTH / 2;
+        y = MyGdxGame.HEIGHT / 2;
     }
 
     public Player(Body playerBody, String playerName) {
@@ -142,6 +148,17 @@ public class Player {
         return "Player "+ playerName + " heeft de klasse "+ characterClass
                 +". Zijn huidig level is "+ currentLevel+ " en heeft al "+ currentEXP+ " van de "
                 + neededExpCalc()+ ", zijn highscore is " + highScore;
+    }
+
+    public void update(float dt) {
+
+    }
+
+    public void alterPosX(float x){
+        this.x += x;
+    }
+    public void alterPosY(float y){
+        this.y += y;
     }
 
 }
