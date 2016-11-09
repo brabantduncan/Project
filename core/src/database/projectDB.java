@@ -9,6 +9,7 @@ import java.sql.SQLException;
 /**
  * Created by Duncan on 9/11/2016.
  */
+
 public class projectDB {
     private static final String URL = "jdbc:mysql://localhost/projectgeowars";
     private static final String USER = "duncan";
@@ -18,7 +19,21 @@ public class projectDB {
     private Connection connection;
 
 
-    public void registerDriver() throws ClassNotFoundException {
+    public static void main (String[] arg) {
+        try {
+            getInstance().addPlayer("duncan2", "duncan1", 987654321);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private projectDB() throws ClassNotFoundException, SQLException {
+        this.registerDriver();
+        this.openConnection();
+    }
+
+    private void registerDriver() throws ClassNotFoundException {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
@@ -29,33 +44,45 @@ public class projectDB {
         }
     }
 
-    public void openConnection() throws SQLException {
+    private void openConnection() throws SQLException {
         try {
             this.connection = DriverManager.getConnection(URL,USER,PASSWORD);
+
         } catch (SQLException e) {
+
             throw new SQLException("no connection opened", e);
         }
     }
 
-    public static projectDB getInstance()
-    {
+    public static projectDB getInstance(){
         if (instance == null)
         {
-            instance = new projectDB();
+            try {
+                instance = new projectDB();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return instance;
     }
 
-    public void addPlayer(String playername, String password, Integer highestScore) throws SQLException {
+
+
+
+
+
+    private void addPlayer(String playername, String password, Integer highestScore) throws SQLException {
         try
         {
-            String sql = "insert into player(pName, password, highestScore) values(?)";
+            String sql = "insert into player(pName, password, highestScore) values(?,?,?)";
 
             PreparedStatement prep = this.connection.prepareStatement(sql);
             prep.setString(1, playername);
-            prep.setString(1, password);
-            prep.setInt(1, highestScore);
+            prep.setString(2, password);
+            prep.setInt(3, highestScore);
 
             prep.executeUpdate();
 
