@@ -32,7 +32,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	private World world;
 	private Body player;
-	private Body worldBorder;
+	private Body object;
 
 	@Override
 	public void create() {
@@ -47,10 +47,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		world = new World(new Vector2(0, -5), false); // zwaartekracht is hier positief?
 		b2dr = new Box2DDebugRenderer();
 
-		player = createBox(100, 100, 32, 32, false);
-		worldBorder = createBox(0,0,1,1, false);
+		player = createBox(0, 0, 16, 16, false);
+		object = createBox(100, 100, 32, 32, true);
 
-		createBox(0, 0, 5, 5, true);
+
+		//createBox(0, 0, 5, 5, true);
 
 
 
@@ -103,16 +104,19 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			horizontalForce += 50;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce -= 50;
 		}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			horizontalForce += 50;
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			verticalForce += 50;
+			verticalForce -= 50;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			verticalForce -= 50;
+			verticalForce += 50;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+			player.setTransform(0,0,0);
 		}
 
 
@@ -154,9 +158,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		pBody = world.createBody(def);
 
 		PolygonShape shape = new PolygonShape();
+
 		shape.setAsBox(width / 2, height / 2 );
 
+
 		pBody.createFixture(shape, 1.0f);
+
 		shape.dispose();
 		return pBody;
 	}
