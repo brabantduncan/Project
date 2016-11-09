@@ -51,9 +51,6 @@ public class Player {
         this.characterClass = characterClass;
         this.currentScore = currentScore;
         this.highScore = highScore;
-
-        x = MyGdxGame.WIDTH / 2;
-        y = MyGdxGame.HEIGHT / 2;
     }
 
     public Player(Body playerBody, String playerName) {

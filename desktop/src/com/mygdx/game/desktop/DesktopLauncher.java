@@ -10,6 +10,8 @@ public class DesktopLauncher {
 		config.title =" The Eldershots";
 		config.width = 500;
 		config.height = 400;
+		config.backgroundFPS = 30;
+		config.foregroundFPS = 60;
 
 		new LwjglApplication(new MyGdxGame(), config);
 	}
