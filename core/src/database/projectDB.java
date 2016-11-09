@@ -1,10 +1,8 @@
 package database;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Duncan on 9/11/2016.
@@ -21,7 +19,8 @@ public class projectDB {
 
     public static void main (String[] arg) {
         try {
-            getInstance().addPlayer("duncan2", "duncan1", 987654321);
+            /*getInstance().addPlayer("duncan", "duncan", 987654321);*/
+            getInstance().getAllPlayerInfo();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,5 +95,33 @@ public class projectDB {
         }
     }
 
+    public ArrayList<String> getAllPlayerInfo() throws SQLException {
+        try
+        {
+            ArrayList<String> players = new ArrayList<String>();
+            String sql = "select * from player";
 
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            while (rs.next())
+            {
+                players.add(rs.getString("pName"));
+                players.add(rs.getString("password"));
+                players.add(rs.getString("highestScore"));
+            }
+
+            rs.close();
+            prep.close();
+            System.out.println(players);
+            return players;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("players not found", ex);
+        }
+    }
+
+    
 }
