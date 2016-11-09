@@ -118,6 +118,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
 			player.setTransform(0,0,0);
 		}
+		float distanceX = calcDistance(mouseX, playerX);
+		float distanceY = calcDistance(mouseY, playerY);
+		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
+		player.setTransform(playerX, playerY, transAngle);
 
 
 		player.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
@@ -131,6 +135,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	public boolean mouseMoved(int screenX, int screenY) {
 		return false;
 	}
+
+
 
 
 
@@ -166,8 +172,32 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		shape.dispose();
 		return pBody;
+
+
+
+	}
+	public float calcDistance(float cursorPos, float playerPos) {
+		float distance = 0;
+		if (playerPos < 0) {
+			distance = Math.abs(cursorPos - playerPos);
+		}
+
+		if (playerPos > 0) {
+			distance = Math.abs(cursorPos - playerPos);
+		}
+		return distance;
 	}
 
 
 
+	public double calcAngle(double o, double a){
+		double angle;
+		angle = Math.toDegrees(Math.atan(o/a));
+		return angle; //degrees
+	}
+
+
+
+
 }
+
