@@ -29,11 +29,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	private Box2DDebugRenderer b2dr;
 	private OrthographicCamera camera;
-	private OrthogonalTiledMapRenderer tmr;
-	private TiledMap map;
 
 	private World world;
 	private Body player;
+	private Body worldBorder;
 
 	@Override
 	public void create() {
@@ -45,15 +44,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w / SCALE, h / SCALE);
 
-		world = new World(new Vector2(0, 0), false); // zwaartekracht is hier positief?
+		world = new World(new Vector2(0, -5), false); // zwaartekracht is hier positief?
 		b2dr = new Box2DDebugRenderer();
 
 		player = createBox(100, 100, 32, 32, false);
+		worldBorder = createBox(0,0,1,1, false);
 
 		createBox(0, 0, 5, 5, true);
 
-//		batch = new SpriteBatch();
-//		tex = new Texture("player32p.png");
 
 
 
@@ -67,14 +65,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-		//.begin();
-		//batch.draw(tex, player.getPosition().x - tex.getWidth() / 2, player.getPosition().y  - tex.getHeight()/ 2);
-		//batch.end();
 
 		b2dr.render(world, camera.combined);
-
-
-		// tmr.render();
 
 
 
@@ -89,9 +81,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void dispose() {
 		world.dispose();
 		b2dr.dispose();
-		//batch.dispose();
-		//tex.dispose();
-		//tmr.dispose();
 	}
 
 	private void update(float delta) {
@@ -99,8 +88,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		inputUpdate(delta);
 		cameraUpdate(delta);
-		//tmr.setView(camera);
-		//batch.setProjectionMatrix(camera.combined);
 	}
 
 
@@ -146,9 +133,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void cameraUpdate(float delta) {
 		Vector3 position = camera.position;
-		// a + (b - a)
-		//b = target
-		//a = current camera position
 		position.x = camera.position.x + (player.getPosition().x - camera.position.x) * .1f;
 		position.y = camera.position.y + (player.getPosition().y - camera.position.y) * .1f;
 		camera.position.set(position);
