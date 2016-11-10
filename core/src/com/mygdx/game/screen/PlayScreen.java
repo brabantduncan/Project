@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.MyGdxGame;
 
 /**
- * Created by Shan on 11/10/2016.
+ * Created by Duncan on 11/10/2016.
  */
 public class PlayScreen implements Screen{
 
@@ -25,8 +25,7 @@ public class PlayScreen implements Screen{
 
     public PlayScreen(MyGdxGame game) {
         this.game = game;
-        stage = new Stage();
-        skin = new Skin();
+
     }
 
 
@@ -37,11 +36,6 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        game.batch.draw(text,0,0);
-        game.batch.end();
 
     }
 

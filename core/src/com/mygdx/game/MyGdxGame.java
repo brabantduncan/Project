@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screen.PlayScreen;
 import com.mygdx.game.screen.StartScreen;
+import com.sun.javafx.geom.transform.BaseTransform;
 
 
 public class MyGdxGame extends Game {
@@ -140,10 +142,7 @@ public class MyGdxGame extends Game {
 			player.getPlayerBody().setTransform(0,0,0);
 		}
 
-		float distanceX = calcDistance(mouseX, playerX);
-		float distanceY = calcDistance(mouseY, playerY);
-		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
-		player.getPlayerBody().setTransform(playerX, playerY,-transAngle);
+
 		
 
 

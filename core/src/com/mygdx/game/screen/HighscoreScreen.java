@@ -14,12 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.MyGdxGame;
-
+import javafx.scene.text.Text;
 
 /**
- * Created by Shan on 11/10/2016.
+ * Created by Duncan on 11/10/2016.
  */
-public class StartScreen implements Screen {
+public class HighscoreScreen implements Screen {
 
     Stage stage;
     TextButton button;
@@ -30,7 +30,7 @@ public class StartScreen implements Screen {
     private MyGdxGame game;
 
 
-    public StartScreen(final MyGdxGame game) {
+    public HighscoreScreen(final MyGdxGame game) {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -59,45 +59,21 @@ public class StartScreen implements Screen {
 
         skin.add("default", textButtonStyle);
 
-        final TextButton textButton = new TextButton("SINGLEPLAYER",textButtonStyle);
+        final TextButton textButton = new TextButton("HIGHSCORE",textButtonStyle);
         textButton.setPosition(270, 300);
         stage.addActor(textButton);
 
 
-        final TextButton textButton2 = new TextButton("MULTIPLAYER", textButtonStyle);
-        textButton2.setPosition(270, 230);
-        stage.addActor(textButton2);
-
-        final TextButton textButton3 = new TextButton("HIGHSCORES", textButtonStyle);
-        textButton3.setPosition(270, 160);
-        stage.addActor(textButton3);
-
 
         textButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new singleplayerLoginScreen(game));
-            }
-        });
 
-        textButton2.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new multiplayerLoginScreen(game));
-            }
-        });
-
-        textButton3.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new HighscoreScreen(game));
+                textButton.setText("Starting new game");
+                game.setScreen(new PlayScreen(game));
 
 
             }
         });
-
-
 
     }
 
@@ -126,7 +102,7 @@ public class StartScreen implements Screen {
     public void dispose () {
         stage.dispose();
         skin.dispose();
-        
+
     }
 
     @Override

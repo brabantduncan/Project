@@ -213,4 +213,13 @@ public class Player {
         this.y += y;
     }
 
+    public float getY(){
+        return y;
+    }
+
+    public float getX(){
+        return x;
+    }
+
+
 }
