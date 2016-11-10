@@ -39,6 +39,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	private BodyBuilder bodyBuilder;
 
+	private Bullet bullet;
+
 	@Override
 	public void create() {
 		float w = Gdx.graphics.getWidth();
@@ -120,36 +122,51 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce += 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
 			player.getPlayerBody().setTransform(0,0,0);
 		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+			Bullet bullet = new Bullet();
+			bullet.createBox(world, (int) playerX, (int) playerY, 20, true);
 
-		float distanceX = calcDistance(mouseX, playerX);
-		float distanceY = calcDistance(mouseY, playerY);
-		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
-		player.getPlayerBody().setTransform(playerX, playerY,-transAngle);
-		
+		}
 
 
-		player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
-		System.out.println("c: ("+ mouseX +","+ mouseY+")");
-		System.out.println("p: ("+ playerX +","+ playerY+")");
+
+
+
+
+
+	player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+
 
 
 
 	}
 
-
+	public void transform(float mouseX, float mouseY, float playerX, float playerY){
+		float distanceX = calcDistance(mouseX, playerX);
+		float distanceY = calcDistance(mouseY, playerY);
+		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
+		player.getPlayerBody().setTransform(playerX, playerY,transAngle);
+		System.out.println("c: ("+ mouseX +","+ mouseY+")");
+		System.out.println("p: ("+ playerX +","+ playerY+")");
+		System.out.println("angle: "+ transAngle);
+	}
 
 
 
