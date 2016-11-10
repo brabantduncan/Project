@@ -132,9 +132,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
 
 
 
