@@ -137,8 +137,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		float distanceX = calcDistance(mouseX, playerX);
 		float distanceY = calcDistance(mouseY, playerY);
 		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
-
 		player.getPlayerBody().setTransform(playerX, playerY,-transAngle);
+		
 
 
 		player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
