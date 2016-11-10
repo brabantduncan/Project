@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,13 +18,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.screen.PlayScreen;
+import com.mygdx.game.screen.StartScreen;
 
 
+public class MyGdxGame extends Game {
 
-public class MyGdxGame extends ApplicationAdapter {
+	public SpriteBatch batch;
 
-	SpriteBatch batch;
-	Texture tex;
 
 	private boolean DEBUG = false;
 	private final float SCALE = 2.0f;
@@ -62,6 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
+		setScreen(new StartScreen(this));
 
 		//createBox(0, 0, 5, 5, true);
 
@@ -73,6 +76,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+
+		super.render();
+/**
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -80,7 +86,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		b2dr.render(world, camera.combined);
-
+**/
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
 	}
