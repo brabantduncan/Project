@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screen.PlayScreen;
 import com.mygdx.game.screen.StartScreen;
 
+import java.util.ArrayList;
+
 
 public class MyGdxGame extends Game {
 
@@ -40,11 +42,12 @@ public class MyGdxGame extends Game {
 	private Body object;
 
 	private BodyBuilder bodyBuilder;
-
-	private Bullet bullet;
+	private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 
 	@Override
 	public void create() {
+		//setScreen(new StartScreen(this));
+
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
@@ -60,13 +63,12 @@ public class MyGdxGame extends Game {
 
 		bodyBuilder = new BodyBuilder();
 
-
-
 		player = new Player(bodyBuilder.createBox(world,0, 0, 36, 56, false),"Duncan");
 
 		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
-		setScreen(new StartScreen(this));
+
+
 
 		//createBox(0, 0, 5, 5, true);
 
@@ -80,7 +82,7 @@ public class MyGdxGame extends Game {
 	public void render() {
 
 		super.render();
-/**
+
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -88,9 +90,17 @@ public class MyGdxGame extends Game {
 
 
 		b2dr.render(world, camera.combined);
-**/
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		batch.begin();
+		for(Bullet bullet : bulletList){
+			bullet.draw(batch);
+		}
+		batch.end();
+
+		for(Bullet bullet : bulletList){
+			bullet.update(Gdx.graphics.getDeltaTime());
+		}
 	}
 
 	@Override
@@ -145,11 +155,10 @@ public class MyGdxGame extends Game {
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
 			player.getPlayerBody().setTransform(0,0,0);
 		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-			Bullet bullet = new Bullet();
-			bullet.createBox(world, (int) playerX, (int) playerY, 20, true);
-
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			bulletList.add(new Bullet((int)playerX, (int)playerY, 20));
 		}
+
 
 
 

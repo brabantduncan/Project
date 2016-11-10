@@ -17,6 +17,7 @@ public class PlayerTest {
 
     Player testPlayer2;
 
+
     int newHighScore;
 
     CharacterHandler handler = new WarriorHandler();

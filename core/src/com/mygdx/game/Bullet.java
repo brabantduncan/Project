@@ -1,38 +1,44 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.w3c.dom.css.Rect;
+
+import java.awt.*;
 
 /**
  * Created by laurens on 10/11/2016.
  */
 public class Bullet {
-    public Body createBox(World world, int x, int y, int radius, boolean isStatic) {
+    Rectangle hitbox;
+    float a, time;
+    int speed;
+    Texture text;
 
-        Body pBody;
-        BodyDef def = new BodyDef();
+    public Bullet(int x, int y, float angle){
+        time = 2;
+        speed = 50;
+        hitbox = new Rectangle(x, y, 10,10);
+        text = new Texture("badlogic.jpg");
 
-        if (isStatic) {
-            def.type = BodyDef.BodyType.StaticBody;
-        } else {
-            def.type = BodyDef.BodyType.DynamicBody;
-        }
-        def.position.set(x, y);
-        def.fixedRotation = true;
-        pBody = world.createBody(def);
-
-        PolygonShape shape = new PolygonShape();
-
-        shape.setRadius(radius);
-
-
-        pBody.createFixture(shape, 1.0f);
-
-        shape.dispose();
-        return pBody;
     }
 
+    public Rectangle getHitbox(){
+        return hitbox;
+    }
+
+    public void update(float delta){
+        hitbox.x +=  speed *(int)Math.sin(a) * (int) delta;
+        hitbox.y += speed * (int)Math.cos(a) * (int) delta;
+        time -= delta;
+    }
+    public boolean isDead(){
+        if(time < 0 ) return false;
+        return false;
+
+    }
+    public void draw(SpriteBatch batch){
+        batch.draw(text, hitbox.x, hitbox.y, 10, 10);
+    }
 
 }
