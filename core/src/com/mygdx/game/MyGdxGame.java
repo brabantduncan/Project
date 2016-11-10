@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,7 +20,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screen.PlayScreen;
 import com.mygdx.game.screen.StartScreen;
-import com.sun.javafx.geom.transform.BaseTransform;
+
+import java.util.ArrayList;
 
 
 public class MyGdxGame extends Game {
@@ -42,9 +42,12 @@ public class MyGdxGame extends Game {
 	private Body object;
 
 	private BodyBuilder bodyBuilder;
+	private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 
 	@Override
 	public void create() {
+		//setScreen(new StartScreen(this));
+
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
@@ -60,13 +63,12 @@ public class MyGdxGame extends Game {
 
 		bodyBuilder = new BodyBuilder();
 
-
-
 		player = new Player(bodyBuilder.createBox(world,0, 0, 36, 56, false),"Duncan");
 
 		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
-		setScreen(new StartScreen(this));
+
+
 
 		//createBox(0, 0, 5, 5, true);
 
@@ -80,7 +82,7 @@ public class MyGdxGame extends Game {
 	public void render() {
 
 		super.render();
-/**
+
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -88,9 +90,17 @@ public class MyGdxGame extends Game {
 
 
 		b2dr.render(world, camera.combined);
-**/
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		batch.begin();
+		for(Bullet bullet : bulletList){
+			bullet.draw(batch);
+		}
+		batch.end();
+
+		for(Bullet bullet : bulletList){
+			bullet.update(Gdx.graphics.getDeltaTime());
+		}
 	}
 
 	@Override
@@ -128,33 +138,50 @@ public class MyGdxGame extends Game {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce += 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 50;
+			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
 			player.getPlayerBody().setTransform(0,0,0);
 		}
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			bulletList.add(new Bullet((int)playerX, (int)playerY, 20));
+		}
 
 
-		
+
+
+
+
 
 
 		player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
-		System.out.println("c: ("+ mouseX +","+ mouseY+")");
-		System.out.println("p: ("+ playerX +","+ playerY+")");
+
 
 
 
 	}
 
-
+	public void transform(float mouseX, float mouseY, float playerX, float playerY){
+		float distanceX = calcDistance(mouseX, playerX);
+		float distanceY = calcDistance(mouseY, playerY);
+		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
+		player.getPlayerBody().setTransform(playerX, playerY,transAngle);
+		System.out.println("c: ("+ mouseX +","+ mouseY+")");
+		System.out.println("p: ("+ playerX +","+ playerY+")");
+		System.out.println("angle: "+ transAngle);
+	}
 
 
 
@@ -194,4 +221,3 @@ public class MyGdxGame extends Game {
 
 
 }
-
