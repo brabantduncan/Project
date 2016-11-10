@@ -24,6 +24,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 	Texture tex;
+
 	private boolean DEBUG = false;
 	private final float SCALE = 2.0f;
 
@@ -31,8 +32,12 @@ public class MyGdxGame extends ApplicationAdapter {
 	private OrthographicCamera camera;
 
 	private World world;
-	private Body player;
+
+	private Player player;
+
 	private Body object;
+
+	private BodyBuilder bodyBuilder;
 
 	@Override
 	public void create() {
@@ -47,8 +52,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		world = new World(new Vector2(0, -5), false); // zwaartekracht is hier positief?
 		b2dr = new Box2DDebugRenderer();
 
-		player = createBox(0, 0, 16, 16, false);
-		object = createBox(100, 100, 32, 32, true);
+		batch = new SpriteBatch();
+
+		bodyBuilder = new BodyBuilder();
+
+
+
+		player = new Player(bodyBuilder.createBox(world,0, 0, 36, 56, false),"Duncan");
+
+		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
 
 		//createBox(0, 0, 5, 5, true);
@@ -69,7 +81,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		b2dr.render(world, camera.combined);
 
-
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
 	}
 
@@ -82,6 +94,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void dispose() {
 		world.dispose();
 		b2dr.dispose();
+		batch.dispose();
 	}
 
 	private void update(float delta) {
@@ -89,6 +102,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		inputUpdate(delta);
 		cameraUpdate(delta);
+
+		batch.setProjectionMatrix(camera.combined);
 	}
 
 
@@ -99,8 +114,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		float mouseX = Gdx.input.getX();
 		float mouseY = Gdx.input.getY();
 
-		float playerX = player.getPosition().x;
-		float playerY = player.getPosition().y;
+		float playerX = player.getPlayerBody().getPosition().x;
+		float playerY = player.getPlayerBody().getPosition().y;
 
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -116,15 +131,17 @@ public class MyGdxGame extends ApplicationAdapter {
 			verticalForce += 50;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-			player.setTransform(0,0,0);
+			player.getPlayerBody().setTransform(0,0,0);
 		}
+
 		float distanceX = calcDistance(mouseX, playerX);
 		float distanceY = calcDistance(mouseY, playerY);
 		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
-		player.setTransform(playerX, playerY, transAngle);
+
+		player.getPlayerBody().setTransform(playerX, playerY,-transAngle);
 
 
-		player.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+		player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 		System.out.println("c: ("+ mouseX +","+ mouseY+")");
 		System.out.println("p: ("+ playerX +","+ playerY+")");
 
@@ -143,39 +160,14 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public void cameraUpdate(float delta) {
 		Vector3 position = camera.position;
-		position.x = camera.position.x + (player.getPosition().x - camera.position.x) * .1f;
-		position.y = camera.position.y + (player.getPosition().y - camera.position.y) * .1f;
+		position.x = camera.position.x + (player.getPlayerBody().getPosition().x - camera.position.x) * .1f;
+		position.y = camera.position.y + (player.getPlayerBody().getPosition().y - camera.position.y) * .1f;
 		camera.position.set(position);
 
 		camera.update();
 	}
 
-	public Body createBox(int x, int y, int width, int height, boolean isStatic) {
-		Body pBody;
-		BodyDef def = new BodyDef();
 
-		if (isStatic) {
-			def.type = BodyDef.BodyType.StaticBody;
-		} else {
-			def.type = BodyDef.BodyType.DynamicBody;
-		}
-		def.position.set(x, y);
-		def.fixedRotation = true;
-		pBody = world.createBody(def);
-
-		PolygonShape shape = new PolygonShape();
-
-		shape.setAsBox(width / 2, height / 2 );
-
-
-		pBody.createFixture(shape, 1.0f);
-
-		shape.dispose();
-		return pBody;
-
-
-
-	}
 	public float calcDistance(float cursorPos, float playerPos) {
 		float distance = 0;
 		if (playerPos < 0) {
