@@ -21,6 +21,10 @@ public class projectDB {
         try {
             /*getInstance().addPlayer("duncan", "duncan", 987654321);*/
             getInstance().getAllPlayerInfo();
+            getInstance().getEnemyByName("Brecht");
+            /*getInstance().addScore("Duncan", 8888);*/
+            getInstance().getHighScores();
+            getInstance().updateHighestScoreInPlayer("Duncan1", 2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,11 +72,6 @@ public class projectDB {
         return instance;
     }
 
-
-
-
-
-
     private void addPlayer(String playername, String password, Integer highestScore) throws SQLException {
         try
         {
@@ -92,6 +91,33 @@ public class projectDB {
         catch (SQLException ex)
         {
             throw new SQLException("player couldn't be added", ex);
+        }
+    }
+
+    public ArrayList<String> getEnemyByName( String enemyname) throws SQLException {
+        try
+        {
+            ArrayList<String> enemy = new ArrayList<String>();
+            String sql = "select * from enemy where eName = '"+enemyname+"'";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            while (rs.next())
+            {
+                enemy.add(rs.getString("eid"));
+                enemy.add(rs.getString("eName"));
+            }
+
+            rs.close();
+            prep.close();
+            System.out.println(enemy);
+            return enemy;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("enemy not found", ex);
         }
     }
 
@@ -123,5 +149,80 @@ public class projectDB {
         }
     }
 
-    
+    private void addScore(String playername, Integer score) throws SQLException {
+        try
+        {
+            String sql = "insert into score(pname, score) values(?,?)";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+            prep.setString(1, playername);
+            prep.setInt(2, score);
+
+            prep.executeUpdate();
+
+            prep.close();
+
+            connection.close();
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("score couldn't be added", ex);
+        }
+    }
+
+    public ArrayList<String> getHighScores() throws SQLException {
+        try
+        {
+            ArrayList<String> highscores = new ArrayList<String>();
+            String sql = "SELECT * " +
+                    "FROM score " +
+                    "ORDER BY score DESC " +
+                    "LIMIT 10 ";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            while (rs.next())
+            {
+                highscores.add(rs.getString("pname"));
+                highscores.add(rs.getString("score"));
+            }
+
+            rs.close();
+            prep.close();
+            System.out.println(highscores);
+            return highscores;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("players not found", ex);
+        }
+    }
+
+    private void updateHighestScoreInPlayer(String playername, Integer score) throws SQLException {
+        try
+        {
+            String sql = "UPDATE player " +
+                    "    SET highestScore=?" +
+                    "    WHERE pName=?";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+            prep.setInt(1, score);
+            prep.setString(2, playername);
+
+            prep.executeUpdate();
+
+            prep.close();
+
+            connection.close();
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("highestScore couldn't be changed", ex);
+        }
+    }
+
+
+
 }
