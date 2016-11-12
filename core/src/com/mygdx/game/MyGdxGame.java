@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -42,7 +43,8 @@ public class MyGdxGame extends Game {
 	private Body object;
 
 	private BodyBuilder bodyBuilder;
-	private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+
+	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 	@Override
 	public void create() {
@@ -68,8 +70,6 @@ public class MyGdxGame extends Game {
 		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
 
-
-
 		//createBox(0, 0, 5, 5, true);
 
 
@@ -81,26 +81,33 @@ public class MyGdxGame extends Game {
 	@Override
 	public void render() {
 
-		super.render();
-
+		//super.render();
 		update(Gdx.graphics.getDeltaTime());
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
 		b2dr.render(world, camera.combined);
-
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 		batch.begin();
-		for(Bullet bullet : bulletList){
-			bullet.draw(batch);
+		for (Bullet bullet : bullets){
+			bullet.render(batch);
 		}
 		batch.end();
 
-		for(Bullet bullet : bulletList){
+		ArrayList<Bullet> bulletsToRemove= new ArrayList<Bullet>();
+		for(Bullet bullet : bullets){
 			bullet.update(Gdx.graphics.getDeltaTime());
+			if(bullet.remove) bulletsToRemove.add(bullet);
+
 		}
+		bullets.removeAll(bulletsToRemove);
+
+
+
+
+
+
+
+
+
 	}
 
 	@Override
@@ -124,13 +131,21 @@ public class MyGdxGame extends Game {
 		batch.setProjectionMatrix(camera.combined);
 	}
 
+	public void updateBullets(float deltaTime){
+		ArrayList<Bullet> bulletsToRemove= new ArrayList<Bullet>();
+ 		for(Bullet bullet : bullets){
+			bullet.update(deltaTime);
+			bulletsToRemove.add(bullet);
+		}
+		bullets.removeAll(bulletsToRemove);
+
+	}
+
 
 	public void inputUpdate(float delta) {
 		int horizontalForce = 0;
 		int verticalForce = 0;
 
-		float mouseX = Gdx.input.getX();
-		float mouseY = Gdx.input.getY();
 
 		float playerX = player.getPlayerBody().getPosition().x;
 		float playerY = player.getPlayerBody().getPosition().y;
@@ -138,26 +153,33 @@ public class MyGdxGame extends Game {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			horizontalForce -= 50;
-			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			horizontalForce += 50;
-			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			verticalForce -= 50;
-			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			verticalForce += 50;
-			transform(mouseX, mouseY, playerX, playerY);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
 			player.getPlayerBody().setTransform(0,0,0);
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			bulletList.add(new Bullet((int)playerX, (int)playerY, 20));
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			System.out.println(playerX +" "+ playerY);
+			bullets.add(new Bullet(playerX, playerY));
+
+
+
+
+
+
+			//updateBullets(delta);
+
 		}
+
 
 
 
@@ -178,9 +200,6 @@ public class MyGdxGame extends Game {
 		float distanceY = calcDistance(mouseY, playerY);
 		float transAngle = (float) calcAngle((double) distanceY, (double) distanceX);
 		player.getPlayerBody().setTransform(playerX, playerY,transAngle);
-		System.out.println("c: ("+ mouseX +","+ mouseY+")");
-		System.out.println("p: ("+ playerX +","+ playerY+")");
-		System.out.println("angle: "+ transAngle);
 	}
 
 
