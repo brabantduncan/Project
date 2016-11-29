@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,14 +19,15 @@ public class PlayScreen implements Screen{
     Stage stage;
     TextButton button;
     Skin skin;
+    SpriteBatch batch;
 
 
-    private  MyGdxGame game;
+   // private  MyGdxGame game;
     Texture text = new Texture("badlogic.jpg");
 
 
-    public PlayScreen(MyGdxGame game) {
-        this.game = game;
+    public PlayScreen() {
+    batch = new SpriteBatch();
 
     }
 
@@ -36,6 +39,11 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
+
+        batch.begin();
+        batch.draw(text,0,0);
+        batch.end();
+
 
     }
 

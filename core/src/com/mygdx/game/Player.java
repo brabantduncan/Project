@@ -70,7 +70,7 @@ public class Player {
         currentScore = 0;
         highScore = 0;
 
-        
+
 
 
     }
@@ -220,6 +220,7 @@ public class Player {
     public float getX(){
         return x;
     }
+
 
 
 }

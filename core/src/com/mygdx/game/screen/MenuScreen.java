@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -19,18 +20,19 @@ import com.mygdx.game.MyGdxGame;
 /**
  * Created by Shan on 11/10/2016.
  */
-public class StartScreen implements Screen {
+public class MenuScreen implements Screen {
 
     Stage stage;
     TextButton button;
     Skin skin;
     SpriteBatch batch;
     Texture background;
+    String next;
 
-    private MyGdxGame game;
+    //private MyGdxGame game;
 
 
-    public StartScreen(final MyGdxGame game) {
+    public MenuScreen() {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -73,25 +75,26 @@ public class StartScreen implements Screen {
         stage.addActor(textButton3);
 
 
+
         textButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new singleplayerLoginScreen(game));
+                textButton.setText("Starting new game");
+                next = "Game";
             }
         });
 
         textButton2.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new multiplayerLoginScreen(game));
+                textButton.setText("Starting new game");
+                next = "mult";
             }
         });
 
         textButton3.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
 
-                /*textButton.setText("Starting new game");*/
-                game.setScreen(new HighscoreScreen(game));
+                textButton.setText("Starting new game");
+                next = "high";
 
 
             }
@@ -99,12 +102,12 @@ public class StartScreen implements Screen {
 
 
 
+
     }
 
-    public void render (float delta) {
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    @Override
+    public void render (float delta) {
 
 
         batch.begin();
@@ -126,6 +129,7 @@ public class StartScreen implements Screen {
     public void dispose () {
         stage.dispose();
         skin.dispose();
+        batch.dispose();
         
     }
 
@@ -134,6 +138,9 @@ public class StartScreen implements Screen {
         // TODO Auto-generated method stub
 
     }
+
+
+
 
     @Override
     public void hide() {
@@ -152,4 +159,6 @@ public class StartScreen implements Screen {
         // TODO Auto-generated method stub
 
     }
+
+
 }

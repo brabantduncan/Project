@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.mygdx.game.MyGdxGame;
+//import com.mygdx.game.MyGdxGame;
 import javafx.scene.text.Text;
 
 /**
@@ -27,10 +27,10 @@ public class multiplayerLoginScreen implements Screen {
     SpriteBatch batch;
     Texture background;
 
-    private MyGdxGame game;
+    //private MyGdxGame game;
 
 
-    public multiplayerLoginScreen(final MyGdxGame game) {
+    public multiplayerLoginScreen() {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -70,7 +70,7 @@ public class multiplayerLoginScreen implements Screen {
             public void changed (ChangeEvent event, Actor actor) {
 
                 textButton2.setText("Starting new game");
-                game.setScreen(new PlayScreen(game));
+                //game.setScreen(new PlayScreen());
 
 
             }
