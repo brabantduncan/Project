@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.mygdx.game.MyGdxGame;
+//import com.mygdx.game.MyGdxGame;
 import javafx.scene.layout.HBox;
 
 
@@ -31,10 +31,10 @@ public class singleplayerLoginScreen implements Screen {
     Texture background;
     CharSequence playername = "playername : ";
 
-    private MyGdxGame game;
+    //private MyGdxGame game;
 
 
-    public singleplayerLoginScreen(final MyGdxGame game) {
+    public singleplayerLoginScreen() {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -70,7 +70,7 @@ public class singleplayerLoginScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
 
-                game.create();
+               // game.create();
 
 
 

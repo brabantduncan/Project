@@ -1,26 +1,16 @@
 package com.mygdx.game;
-
-import com.badlogic.gdx.ApplicationAdapter;
+/**
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.screen.PlayScreen;
-import com.mygdx.game.screen.StartScreen;
 
 import java.util.ArrayList;
 
@@ -37,18 +27,21 @@ public class MyGdxGame extends Game {
 	private OrthographicCamera camera;
 
 	private World world;
-
 	private Player player;
-
 	private Body object;
-
 	private BodyBuilder bodyBuilder;
-
 	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 	@Override
 	public void create() {
-		//setScreen(new StartScreen(this));
+		//setScreen(new MenuScreen(this));
+		initGame();
+
+	}
+
+
+
+	public void initGame(){
 
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -65,18 +58,14 @@ public class MyGdxGame extends Game {
 
 		bodyBuilder = new BodyBuilder();
 
+
 		player = new Player(bodyBuilder.createBox(world,0, 0, 36, 56, false),"Duncan");
 
 		object = bodyBuilder.createBox(world,100, 100, 32, 32, true);
 
-
-		//createBox(0, 0, 5, 5, true);
-
-
-
-
-
 	}
+
+
 
 	@Override
 	public void render() {
@@ -103,11 +92,6 @@ public class MyGdxGame extends Game {
 
 
 
-
-
-
-
-
 	}
 
 	@Override
@@ -121,6 +105,7 @@ public class MyGdxGame extends Game {
 		b2dr.dispose();
 		batch.dispose();
 	}
+
 
 	private void update(float delta) {
 		world.step(1 / 60f, 6, 2);
@@ -239,4 +224,4 @@ public class MyGdxGame extends Game {
 
 
 
-}
+}**/

@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.mygdx.game.MyGdxGame;
+//import com.mygdx.game.MyGdxGame;
 import javafx.scene.text.Text;
 
 /**
@@ -27,10 +27,10 @@ public class HighscoreScreen implements Screen {
     SpriteBatch batch;
     Texture background;
 
-    private MyGdxGame game;
+    //private MyGdxGame game;
 
 
-    public HighscoreScreen(final MyGdxGame game) {
+    public HighscoreScreen() {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("background.jpg"));
@@ -69,7 +69,7 @@ public class HighscoreScreen implements Screen {
             public void changed (ChangeEvent event, Actor actor) {
 
                 textButton.setText("Starting new game");
-                game.setScreen(new PlayScreen(game));
+                //game.setScreen(new PlayScreen());
 
 
             }
