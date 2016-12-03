@@ -51,6 +51,7 @@ public class Player {
         this.characterClass = characterClass;
         this.currentScore = currentScore;
         this.highScore = highScore;
+        setUserData();
     }
 
     public Player(Body playerBody, String playerName) {
@@ -69,7 +70,7 @@ public class Player {
 
         currentScore = 0;
         highScore = 0;
-
+        setUserData();
 
 
 
@@ -221,6 +222,11 @@ public class Player {
         return x;
     }
 
-
+    public void setUserData(){
+        playerBody.setUserData(this);
+    }
+    public void kill(){
+        System.out.print("Player died");
+    }
 
 }

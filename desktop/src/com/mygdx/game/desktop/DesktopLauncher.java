@@ -7,11 +7,13 @@ import com.mygdx.game.testGDX;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title =" The Eldershots";
 		config.width = 720;
 		config.height = 480;
-		config.backgroundFPS = 30;
+
+        config.backgroundFPS = 30;
 		config.foregroundFPS = 60;
 
 		new LwjglApplication(new testGDX(), config);

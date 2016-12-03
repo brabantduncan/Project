@@ -38,7 +38,14 @@ public class Enemy {
     private float y;
 
 
+    public Body getBody() {
+        return body;
+    }
+
     private Body body;
+
+
+    private final int MOVEMENT_SPEED = 5;
 
 
 
@@ -57,7 +64,7 @@ public class Enemy {
         x = pointGenerator(250,500); // should be game.WITH / 2;
         y = pointGenerator(200, 400);
 
-
+        setUserData();
     }
 
 
@@ -88,30 +95,35 @@ public class Enemy {
 
         if( enemyX < playerX){
 
-            horizontalForce += 10;
+            horizontalForce += randomMovement(MOVEMENT_SPEED);
         }
         if(enemyX > playerX) {
-            horizontalForce -= 10;
+            horizontalForce -= randomMovement(MOVEMENT_SPEED);
         }
         if(enemyY < playerY){
-            verticalForce +=10;
+            verticalForce +=randomMovement(MOVEMENT_SPEED);
         }
         if(enemyY > playerY){
-            verticalForce -=10;
+            verticalForce -=randomMovement(MOVEMENT_SPEED);
         }
 
         body.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
-        System.out.print("Player is nu op " + playerX+" en "+ playerY+"\n");
-        System.out.print("Enemy is nu op " + x+" en "+ y +"\n");
+
     }
 
     public float getX(){ return x;}
     public float getY(){ return y;}
 
 
+    public int randomMovement(int origineel){
+        Random rand = new Random();
+        return rand.nextInt(origineel+10);
+    }
 
 
-
+    public void setUserData(){
+        body.setUserData(this);
+    }
 
 }
 
