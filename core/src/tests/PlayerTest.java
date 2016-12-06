@@ -1,7 +1,7 @@
 package tests;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.Player;
+import com.mygdx.game.player.Player;
 import com.mygdx.game.characterClass.CharacterHandler;
 import com.mygdx.game.characterClass.WarriorHandler;
 

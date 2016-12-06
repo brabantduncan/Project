@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.body;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -109,5 +109,27 @@ public class BodyBuilder {
 
 
     //public createBorders
+
+    public Body createGemBody(World world,Vector2 spawn){
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.fixedRotation = true;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(spawn.x, spawn.y);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(10,10);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape = shape;
+        fdef.density = 1.0f;
+        fdef.friction=0;
+
+
+        return world.createBody(bodyDef).createFixture(fdef).getBody();
+
+
+
+    }
 
 }

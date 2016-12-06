@@ -2,17 +2,26 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.*;
+import com.mygdx.game.Bonus.BonusHandler;
+import com.mygdx.game.Bonus.Gem;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
+import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.colision.CollisionDetector;
+import com.mygdx.game.controller.ControllerHandler;
 import com.mygdx.game.enemy.Enemy;
 import com.mygdx.game.enemy.EnemyManager;
+import com.mygdx.game.player.Hud;
+import com.mygdx.game.player.Player;
 import constants.Constants;
 
 /**
@@ -39,25 +48,36 @@ public class PlayState extends State {
     private Player player;
     private Body object;
 
+    //Nog appart maken
     private Body wall;
     private Body wall2;
     private Body wall3;
     private Body wall4;
 
+
     private BodyBuilder bodyBuilder;
     //private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-
 
 
     private EnemyManager enemyManager;
 
     private BulletManager bm;
 
+    private Hud hud;
+    private int level;
+
     public void setDestroy(boolean destroy) {
-        this.gameOver= destroy;
+        this.gameOver = destroy;
     }
 
+
+    private BonusHandler bonusHandler;
+
     private boolean gameOver = false;
+    public BonusHandler getBonusHandler() {
+        return bonusHandler;
+    }
+
 
 
     public PlayState(GameStateManager gms) {
@@ -85,8 +105,6 @@ public class PlayState extends State {
         //object = bodyBuilder.createWall(world,100, 100, 32, 32, true);
 
 
-
-
         wall = bodyBuilder.createWall(world, 0, 0, 1, Gdx.graphics.getHeight() / 2, true, Constants.Enemy, Constants.Wall);
         wall2 = bodyBuilder.createWall(world, 0, 0, Gdx.graphics.getWidth() / 2, 1, true, Constants.Enemy, Constants.Wall);
         wall3 = bodyBuilder.createWall(world, Gdx.graphics.getWidth() / 2, 0, 1, Gdx.graphics.getHeight() / 2, true, Constants.Enemy, Constants.Wall);
@@ -96,9 +114,14 @@ public class PlayState extends State {
 
         bm = new BulletManager(player);
 
-        enemyManager = new EnemyManager(bodyBuilder,world);
-        enemyManager.createEnemies(150);
+        enemyManager = new EnemyManager(bodyBuilder, world);
+        enemyManager.createEnemies(100);
 
+        hud = new Hud(batch, player);
+
+        level = 1;
+
+        bonusHandler = new BonusHandler(world,bodyBuilder);
 
     }
 
@@ -114,10 +137,19 @@ public class PlayState extends State {
 
         if (gameOver) {
             dispose();
+            Gdx.app.exit();
         } else {
+            handleLevel();
 
+            //bonusHandler.addGem();
+            //bonusHandler.destroyGems();
+
+
+            hud.update(player);
             destroyBullets();
             destroyEnemies();
+
+            //controllerHandler.handleInput(player,dt);
             inputUpdate(dt);
             //cameraUpdate(dt);
 
@@ -142,38 +174,16 @@ public class PlayState extends State {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         b2dr.render(world, camera.combined);
 
-//        batch.begin();
-/**
- for (Bullet bullet : bullets) {
- bullet.render(batch);
- }
- batch.end();
+        batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
+        //batch.begin();w
 
- ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
- for (Bullet bullet : bullets) {
- bullet.update(Gdx.graphics.getDeltaTime());
- if (bullet.remove) bulletsToRemove.add(bullet);
-
- }
- bullets.removeAll(bulletsToRemove);
-
- */
     }
 
-    /**
-     * public void updateBullets(float deltaTime) {
-     * ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
-     * for (Bullet bullet : bullets) {
-     * bullet.update(deltaTime);
-     * bulletsToRemove.add(bullet);
-     * }
-     * bullets.removeAll(bulletsToRemove);
-     * <p>
-     * }
-     **/
+
+    public void inputUpdate(Float dt) {
 
 
-    public void inputUpdate(float delta) {
         int horizontalForce = 0;
         int verticalForce = 0;
 
@@ -202,7 +212,7 @@ public class PlayState extends State {
 
         if (Gdx.input.isTouched()) {
 
-            createBullet(getMouseCoords(), delta);
+            createBullet(getMouseCoords(), dt);
 
         }
 
@@ -293,46 +303,54 @@ public class PlayState extends State {
     }
 
 
-
-    public void removeBullet(Body b1,Body b2){
-        if(b1.getUserData() instanceof Bullet){
+    public void removeBullet(Body b1, Body b2) {
+        if (b1.getUserData() instanceof Bullet) {
             bm.removeBullet(b1);
-        }
-        else {
+        } else {
             bm.removeBullet(b2);
         }
     }
 
-    public void destroyBullets(){
+    public void destroyBullets() {
 
 
+        if (bm.getDisposeBullets().size() > 0) {
 
-        if(bm.getDisposeBullets().size() >0){
-
-            for(Bullet b: bm.getDisposeBullets()){
+            for (Bullet b : bm.getDisposeBullets()) {
                 world.destroyBody(b.getB());
             }
             bm.clearDispose();
         }
     }
 
-    public void removeEnemies(Body b1,Body b2){
-        if(b1.getUserData() instanceof Enemy){
+    public void removeEnemies(Body b1, Body b2) {
+        if (b1.getUserData() instanceof Enemy) {
             enemyManager.removeEnemy(b1);
-        }
-        else {
+        } else {
             enemyManager.removeEnemy(b2);
         }
     }
 
-    public void destroyEnemies(){
-        if (enemyManager.getDisposeEnemies().size() >0){
+    public void destroyEnemies() {
+        if (enemyManager.getDisposeEnemies().size() > 0) {
 
-            for (Enemy e: enemyManager.getDisposeEnemies()){
+            for (Enemy e : enemyManager.getDisposeEnemies()) {
                 world.destroyBody(e.getBody());
             }
             enemyManager.clearDispose();
         }
+    }
+
+    public void handleLevel() {
+
+        if (enemyManager.getEnemies().isEmpty()) {
+            hud.updateLevel();
+            createEnemies(100);
+        }
+    }
+
+    public void spawnGem(Vector2 spawn){
+        bonusHandler.spawnGem(spawn);
     }
 
 }
