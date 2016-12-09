@@ -7,6 +7,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -176,6 +177,12 @@ public class PlayState extends State {
 
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        Sprite sprite = player.sprite;
+        player.sprite_batch.begin();
+        sprite.draw(player.sprite_batch);
+        sprite.setX(player.getPlayerBody().getPosition().x);
+        sprite.setY(player.getPlayerBody().getPosition().y);
+        player.sprite_batch.end();
         //batch.begin();w
 
     }

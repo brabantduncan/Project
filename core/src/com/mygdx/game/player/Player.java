@@ -1,6 +1,9 @@
 package com.mygdx.game.player;
 
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
@@ -38,6 +41,9 @@ public class Player {
 
     private float x;
     private float y;
+    public Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    public Sprite sprite = new Sprite(tex, 0, 0, 32, 32);
+    public SpriteBatch sprite_batch = new SpriteBatch();
 
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
