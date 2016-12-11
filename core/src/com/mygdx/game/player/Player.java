@@ -41,9 +41,9 @@ public class Player {
 
     private float x;
     private float y;
-    public Texture tex = new Texture("../assets/Monsters/alteroit.png");
-    public Sprite sprite = new Sprite(tex, 0, 0, 32, 32);
-    public SpriteBatch sprite_batch = new SpriteBatch();
+    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
+
 
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
@@ -234,5 +234,8 @@ public class Player {
     public void kill(){
         System.out.print("Player died");
     }
-
+    public Sprite getSprite(){
+        return sprite;
+    }
 }
+
