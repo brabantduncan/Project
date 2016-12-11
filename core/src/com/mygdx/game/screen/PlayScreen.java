@@ -9,13 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.mygdx.game.MyGdxGame;
+
 
 /**
  * Created by Duncan on 11/10/2016.
  */
 public class PlayScreen implements Screen{
-
+// shan je stinkt een beetje
     Stage stage;
     TextButton button;
     Skin skin;

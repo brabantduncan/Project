@@ -1,6 +1,9 @@
 package com.mygdx.game.player;
 
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
@@ -38,6 +41,9 @@ public class Player {
 
     private float x;
     private float y;
+    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
+
 
     public boolean isDead() {
         return dead;
@@ -244,5 +250,8 @@ public class Player {
     public void kill(){
         System.out.print("Player died");
     }
-
+    public Sprite getSprite(){
+        return sprite;
+    }
 }
+

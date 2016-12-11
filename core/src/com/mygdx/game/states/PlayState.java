@@ -7,6 +7,8 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -77,7 +79,6 @@ public class PlayState extends State {
     public BonusHandler getBonusHandler() {
         return bonusHandler;
     }
-
 
 
     public PlayState(GameStateManager gms) {
@@ -178,7 +179,16 @@ public class PlayState extends State {
 
         batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        //batch.begin();w
+
+        Sprite sprite = player.getSprite();
+        batch.begin();
+
+        sprite.draw(batch);
+        sprite.setPosition(player.getPlayerBody().getPosition().x, player.getPlayerBody().getPosition().y);
+        batch.end();
+//        System.out.println("x " + sprite.getX()+ " player x "+ player.getPlayerBody().getPosition().x);
+//        System.out.println("y " + sprite.getY()+ " player y "+ player.getPlayerBody().getPosition().y);
+        //batch.begin();
 
     }
 
@@ -194,16 +204,16 @@ public class PlayState extends State {
         float playerY = player.getPlayerBody().getPosition().y;
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 50;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             horizontalForce += 50;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             verticalForce -= 50;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             verticalForce += 50;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
@@ -267,6 +277,7 @@ public class PlayState extends State {
         Vector2 d = sp2.sub(a);
 
         player.getPlayerBody().setTransform(player.getPlayerBody().getPosition(), d.angleRad());
+        //System.out.println(player.getPlayerBody().getPosition());
     }
 
 
