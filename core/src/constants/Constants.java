@@ -9,5 +9,7 @@ public class Constants {
     public static final short Enemy = 2;
     public static final short Wall = 3;
 
+    public static final short GEM = 4;
+
     public static final int BULLET_SPEED =100;
 }

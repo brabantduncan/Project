@@ -118,12 +118,14 @@ public class BodyBuilder {
         bodyDef.position.set(spawn.x, spawn.y);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(10,10);
+        shape.setAsBox(1,1);
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
         fdef.density = 1.0f;
         fdef.friction=0;
+        fdef.filter.categoryBits = 4;
+        fdef.filter.maskBits = 1;
 
 
         return world.createBody(bodyDef).createFixture(fdef).getBody();

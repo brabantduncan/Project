@@ -84,7 +84,7 @@ public class EnemyManager {
 
             if (e.getBody().equals(b)) {
                 disposeEnemies.add(e);
-
+                System.out.print("Dispose set");
             }
         }
         enemies.removeAll(disposeEnemies);

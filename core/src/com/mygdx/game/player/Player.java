@@ -39,6 +39,12 @@ public class Player {
     private float x;
     private float y;
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    private boolean dead;
+
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
 
@@ -52,6 +58,7 @@ public class Player {
         this.currentScore = currentScore;
         this.highScore = highScore;
         setUserData();
+        dead = false;
     }
 
     public Player(Body playerBody, String playerName) {
@@ -225,6 +232,15 @@ public class Player {
     public void setUserData(){
         playerBody.setUserData(this);
     }
+
+    public void damage(int enemyDamage){
+        health -= enemyDamage;
+        if (health == 0){
+            dead = true;
+            kill();
+        }
+    }
+
     public void kill(){
         System.out.print("Player died");
     }

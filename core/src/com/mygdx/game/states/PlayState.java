@@ -115,7 +115,7 @@ public class PlayState extends State {
         bm = new BulletManager(player);
 
         enemyManager = new EnemyManager(bodyBuilder, world);
-        enemyManager.createEnemies(100);
+        enemyManager.createEnemies(1);
 
         hud = new Hud(batch, player);
 
@@ -135,19 +135,21 @@ public class PlayState extends State {
     public void update(float dt) {
         world.step(1 / 60f, 6, 2);
 
-        if (gameOver) {
+        if (player.isDead()) {
             dispose();
-            Gdx.app.exit();
+            gms.set(new MenuState(gms));
         } else {
-            handleLevel();
+           handleLevel();
 
-            //bonusHandler.addGem();
-            //bonusHandler.destroyGems();
+            destroyBullets();
+            destroyEnemies();
+
+            bonusHandler.addGem();
+            bonusHandler.destroyGems(player);
 
 
             hud.update(player);
-            destroyBullets();
-            destroyEnemies();
+
 
             //controllerHandler.handleInput(player,dt);
             inputUpdate(dt);
@@ -324,8 +326,10 @@ public class PlayState extends State {
     }
 
     public void removeEnemies(Body b1, Body b2) {
+        System.out.print("Kill");
         if (b1.getUserData() instanceof Enemy) {
             enemyManager.removeEnemy(b1);
+
         } else {
             enemyManager.removeEnemy(b2);
         }

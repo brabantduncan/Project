@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,15 +81,18 @@ public class BonusHandler {
         gemSpawn.removeAll(gemRemove);
     }
 
-    public void destroyGems() {
+    public void destroyGems(Player p ) {
         if (!(gemRemove.size() == 0)) {
             for (Gem g : gemRemove) {
+                g.addBonus(p);
                 world.destroyBody(g.getB());
             }
             gemRemove.clear();
         }
 
     }
+
+    //public void excuteBonus(){}
 
 }
 

@@ -6,7 +6,7 @@ import com.mygdx.game.player.Player;
 /**
  * Created by Shan on 12/4/2016.
  */
-public class Gem {
+public class Gem implements BonusInterface {
 
     private int score;
 
@@ -28,6 +28,11 @@ public class Gem {
 
       b.setUserData(this);
     };
+
+    @Override
+    public void addBonus(Player player) {
+     player.increaseCurrentScore(10);
+    }
 
 
 }

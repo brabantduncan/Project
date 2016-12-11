@@ -2,6 +2,7 @@ package com.mygdx.game.colision;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bonus.Gem;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
@@ -68,6 +69,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
             if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
 
+                p.removeEnemies(b1,b2);
                 // in aparte method steken
                 if (b1.getUserData() instanceof Enemy) {
 
@@ -77,20 +79,25 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 }
                 if (b1.getUserData() instanceof Enemy) {
                     p.getBonusHandler().addGemCoord(new Vector2(b2.getPosition()));
-                    // p.spawnGem(b1.getPosition());
+
+                    //p.spawnGem(b1.getPosition());
                 }
 
                 p.removeEnemies(b1, b2);
-                p.getPlayer().increaseCurrentScore(10);
+                //p.getPlayer().increaseCurrentScore(10);
                 System.out.print(p.getPlayer().getCurrentScore() + "\n");
             }
 
 
         }
 
-        if ((b1.getUserData() instanceof Gem && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Gem)) {
+        if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
+
+            //zorgen dat wanneer de gem met muur collide dat alles weggaat
             if(b1.getUserData() instanceof Gem ){
                 p.getBonusHandler().setRemoveList(b1);
+
+
             }
             if(b2.getUserData() instanceof Gem ){
                 p.getBonusHandler().setRemoveList(b2);
@@ -102,13 +109,11 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
     }
 
     public void handlePlayerEnemy() {
-        p.getPlayer().kill();
-        p.setDestroy(true);
-
-    }
-
-    public void addBonus(Body b){
+        p.getPlayer().damage(50);
+        System.out.print(p.getPlayer().getHealth()+"\n");
 
 
     }
+
+
 }
