@@ -22,7 +22,7 @@ public class BodyBuilder {
         def.fixedRotation = true; //hier kijken voor rotatie
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(10,5);
+        shape.setAsBox(width,height);
         FixtureDef fdef = new FixtureDef();
         fdef.shape =shape;
         fdef.density =1000f;

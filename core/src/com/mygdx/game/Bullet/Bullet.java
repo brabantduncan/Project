@@ -1,5 +1,6 @@
 package com.mygdx.game.Bullet;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 
 /**
@@ -10,6 +11,7 @@ public class Bullet {
 
 
     private Body b;
+    private Texture texture = new Texture("../assets/MinecraftIngots/Laser_Shuriken.png");
 
 
     public Bullet(Body b){
@@ -28,6 +30,7 @@ public class Bullet {
     }
 
 
-
-
+    public Texture getTexture() {
+        return texture;
+    }
 }

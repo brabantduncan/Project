@@ -94,4 +94,22 @@ public class EnemyManager {
         disposeEnemies.clear();
     }
 
+
+    public void removeEnemies(Body b1, Body b2) {
+        if (b1.getUserData() instanceof Enemy) {
+            removeEnemy(b1);
+
+        } else {
+            removeEnemy(b2);
+        }
+    }
+
+    public void  updateEnemyMovement(Vector2 playerPosition) {
+        for (Enemy e : enemies) {
+            e.updatePosition(playerPosition);
+        }
+
+    }
+
+
 }

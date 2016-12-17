@@ -2,6 +2,7 @@ package com.mygdx.game.player;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,14 +18,9 @@ public class Player {
 
     private String playerName;
 
-    //worden beinvloed door de charachterclass
     private String characterClass;
     private CharacterHandler handler;
 
-    // vieze manier:
-    // int soort;   en steek er 1 2 of 3 in
-
-    // beter;
 
     private int health;
     private int attackSpeed;
@@ -34,22 +30,15 @@ public class Player {
     private int currentLevel;
     private int currentEXP;
 
-
-
     private int currentScore;
     private int highScore;
 
-    private float x;
-    private float y;
-    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
-    private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
+    private Hud hud;
 
-
-    public boolean isDead() {
-        return dead;
-    }
-
+    private boolean invincible;
     private boolean dead;
+    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    //private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
 
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
@@ -65,6 +54,7 @@ public class Player {
         this.highScore = highScore;
         setUserData();
         dead = false;
+        invincible = false;
     }
 
     public Player(Body playerBody, String playerName) {
@@ -78,15 +68,24 @@ public class Player {
 
         characterClass = "Adventurer";
 
-        handler= new AdventurerHandler();
+        handler = new AdventurerHandler();
         addBonus();
 
         currentScore = 0;
         highScore = 0;
         setUserData();
 
+        invincible = false;
+
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
 
 
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
     }
 
 
@@ -97,7 +96,6 @@ public class Player {
     public String getPlayerName() {
         return playerName;
     }
-
 
 
     public int getCurrentLevel() {
@@ -111,36 +109,33 @@ public class Player {
     public void setCurrentEXP(int extraEXP) {
 
         int expBeforeLevelUp = neededExpCalc();
-        if((expBeforeLevelUp <= currentEXP + extraEXP)){
+        if ((expBeforeLevelUp <= currentEXP + extraEXP)) {
             levelUp();
 
             int remainingExp = (currentEXP + extraEXP) - expBeforeLevelUp;
 
             setCurrentEXP(remainingExp);
 
-        }
-        else {
+        } else {
 
             currentEXP = 0;
             currentEXP = extraEXP;
         }
 
 
-
     }
 
     public void levelUp() {
-        currentLevel = currentLevel +1;
+        currentLevel = currentLevel + 1;
 
 
     }
 
-    public int neededExpCalc(){
+    public int neededExpCalc() {
 
-        return currentLevel * 100 ;
+        return currentLevel * 100;
 
     }
-
 
 
     public String getCharacterClass() {
@@ -152,14 +147,13 @@ public class Player {
     }
 
 
-
     public int getCurrentScore() {
         return currentScore;
     }
 
     public void increaseCurrentScore(int score) {
         currentScore += score;
-        if(highScore < currentScore)
+        if (highScore < currentScore)
             setHighScore();
     }
 
@@ -169,16 +163,15 @@ public class Player {
 
     public void setHighScore() {
 
-            highScore = currentScore;
+        highScore = currentScore;
+    }
+
+    public void resetScore() {
+        currentScore = 0;
     }
 
 
-    @Override
-    public  String toString(){
-        return "Player "+ playerName + " heeft de klasse "+ characterClass
-                +". Zijn huidig level is "+ currentLevel+ " en heeft al "+ currentEXP+ " van de "
-                + neededExpCalc()+ ", zijn highscore is " + highScore;
-    }
+
 
     public int getHealth() {
         return health;
@@ -205,13 +198,13 @@ public class Player {
     }
 
 
-    public void addBonus(){
+    public void addBonus() {
 
         handler.addBonus(this);
 
     }
 
-    public void changeClass(CharacterHandler newHandler){
+    public void changeClass(CharacterHandler newHandler) {
         handler = newHandler;
         addBonus();
     }
@@ -220,38 +213,46 @@ public class Player {
 
     }
 
-    public void alterPosX(float x){
-        this.x += x;
-    }
-    public void alterPosY(float y){
-        this.y += y;
-    }
 
-    public float getY(){
-        return y;
-    }
-
-    public float getX(){
-        return x;
-    }
-
-    public void setUserData(){
+    public void setUserData() {
         playerBody.setUserData(this);
     }
 
-    public void damage(int enemyDamage){
-        health -= enemyDamage;
-        if (health == 0){
+    public void damage(int enemyDamage) {
+        if (!invincible)
+            health -= enemyDamage;
+        if (health == 0) {
             dead = true;
             kill();
         }
     }
 
-    public void kill(){
+    public void kill() {
         System.out.print("Player died");
     }
-    public Sprite getSprite(){
-        return sprite;
+
+    public Texture getTexture() {
+        return tex;
+    }
+
+    public void updateHud(){
+        hud.update(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Player " + playerName + " heeft de klasse " + characterClass
+                + ". Zijn huidig level is " + currentLevel + " en heeft al " + currentEXP + " van de "
+                + neededExpCalc() + ", zijn highscore is " + highScore;
+    }
+
+    public Hud getHud(){
+        return hud;
+    }
+
+    public void createHud(Batch batch){
+        hud = new Hud(batch);
     }
 }
+
 

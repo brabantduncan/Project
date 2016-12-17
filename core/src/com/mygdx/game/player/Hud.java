@@ -2,6 +2,7 @@ package com.mygdx.game.player;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -39,7 +40,7 @@ public class Hud {
 
     FillViewport port;
 
-    public  Hud(SpriteBatch sb, Player p){
+    public  Hud(Batch batch){
 
         score =0;
         health =100;
@@ -47,7 +48,7 @@ public class Hud {
         level =1;
 
         port = new FillViewport(720,480,new OrthographicCamera());
-        stage = new Stage(port,sb);
+        stage = new Stage(port,batch);
 
         Table table = new Table();
         table.top();
@@ -82,6 +83,7 @@ public class Hud {
 
         stage.addActor(table);
 
+
     }
 
     public void update(Player p){
@@ -96,9 +98,14 @@ public class Hud {
         healthLabel.setText(Integer.toString(health));
 
     }
-    public void updateLevel(){
-        level+=1;
+
+    public void updateLevel(int level){
+
         levelLabel.setText(Integer.toString(level));
+
+    }
+
+    public void render(Batch batch){
 
     }
 

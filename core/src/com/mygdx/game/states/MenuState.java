@@ -19,7 +19,7 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.isTouched()){
+       if(Gdx.input.isTouched()){
             gms.set(new PlayState(gms));
         }
 

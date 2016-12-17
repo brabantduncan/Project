@@ -7,92 +7,88 @@ import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Shan on 12/5/2016.
  */
 
+//Manier vinden om random drops te maken en zorgen dat deze kan uitgebreid worden
+
 
 public class BonusHandler {
 
-    //HashMap<Vector2,Item> spawnlocation;
-
     //alle items in interface doen
-    ArrayList<Vector2> gemSpawnCoord;
-    ArrayList<Gem> gemRemove;
-    ArrayList<Gem> gemSpawn;
+    ArrayList<Vector2> bonusSpawnCoord;
+    ArrayList<BonusInterface> bonusToRemove;
+    ArrayList<BonusInterface> bonusToSpawn;
 
     private World world;
     private BodyBuilder bodyBuilder;
 
+    private BonusFactory bonusFactory;
+
 
 
     public BonusHandler(World w, BodyBuilder b) {
-        //spawnlocation = new HashMap<Vector2, Item>();
-        gemSpawnCoord = new ArrayList<Vector2>();
-        gemSpawn = new ArrayList<Gem>();
-        gemRemove = new ArrayList<Gem>();
+        bonusSpawnCoord = new ArrayList<Vector2>();
+        bonusToSpawn = new ArrayList<BonusInterface>();
+        bonusToRemove = new ArrayList<BonusInterface>();
+        bonusFactory = new BonusFactory();
         this.world = w;
         this.bodyBuilder = b;
     }
 
-    public Gem spawnGem(Vector2 spawn) {
+    public BonusInterface spawnBonus(Vector2 spawn) {
 
-        return new Gem(bodyBuilder.createGemBody(world, spawn));
+        return bonusFactory.generateBonus(bodyBuilder.createGemBody(world,spawn));
 
     }
 
-    /**
-     * public void addBonus(Vector2 spawn){
-     * //System.out.print("Spawn item at "+spawn+" \n");
-     * };
-     */
+    public void addSpawnCoord(Vector2 spawn) {
 
-
-    public void addGemCoord(Vector2 spawn) {
-
-        gemSpawnCoord.add(spawn);
+        bonusSpawnCoord.add(spawn);
 
 
     }
 
-    public void addGem() {
+    public void addBonus() {
 
-        if (!(gemSpawnCoord.size() == 0)) {
-            for (Vector2 v : gemSpawnCoord) {
-                gemSpawn.add(spawnGem(v));
+        if (!(bonusSpawnCoord.size() == 0)) {
+            for (Vector2 v : bonusSpawnCoord) {
+                 bonusToSpawn.add(spawnBonus(v));
 
 
             }
-            gemSpawnCoord.clear();
+            bonusSpawnCoord.clear();
         }
         //System.out.print("Niks\n");
 
     }
 
-    public void setRemoveList(Body gemBody) {
+    public void setRemoveList(Body bonusBody) {
 
-        for (Gem g : gemSpawn) {
-            if (g.getB().equals(gemBody)) {
-                gemRemove.add(g);
+        for (BonusInterface g :  bonusToSpawn) {
+            if (g.getBody().equals(bonusBody)) {
+                bonusToRemove.add(g);
             }
         }
-        gemSpawn.removeAll(gemRemove);
+         bonusToSpawn.removeAll(bonusToRemove);
     }
 
     public void destroyGems(Player p ) {
-        if (!(gemRemove.size() == 0)) {
-            for (Gem g : gemRemove) {
+        if (!(bonusToRemove.size() == 0)) {
+            for (BonusInterface g : bonusToRemove) {
                 g.addBonus(p);
-                world.destroyBody(g.getB());
+                world.destroyBody(g.getBody());
             }
-            gemRemove.clear();
+            bonusToRemove.clear();
         }
 
     }
 
-    //public void excuteBonus(){}
+    public ArrayList<BonusInterface> getBonusToSpawn(){
+        return bonusToSpawn;
+    }
 
 }
 

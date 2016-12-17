@@ -1,5 +1,6 @@
 package com.mygdx.game.enemy;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -43,6 +44,8 @@ public class Enemy {
 
 
     private final int MOVEMENT_SPEED = 5;
+
+    private Texture texture = new Texture("../assets/Monsters/killerbee.png");
 
 
 
@@ -120,6 +123,10 @@ public class Enemy {
 
     public void setUserData(){
         body.setUserData(this);
+    }
+
+    public Texture getTexture(){
+        return texture;
     }
 
 }

@@ -12,28 +12,24 @@ import com.mygdx.game.states.PlayState;
 public class ControllerHandler {
 
 
-    Controller c;
+    //Controller c;
     Boolean hasController;
     PlayState playState;
 
 
     public  ControllerHandler(PlayState p){
 
-        this.c= c;
+        //this.c= c;
         this.playState = p;
         hasController = false;
 
     }
 
-    public void handleInput(Player p, float delta){
-/**
+    public void handleInput(){
+
         if (hasController = false){
             int horizontalForce = 0;
             int verticalForce = 0;
-
-
-            float playerX = p.getPlayerBody().getPosition().x;
-            float playerY = p.getPlayerBody().getPosition().y;
 
 
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -49,23 +45,23 @@ public class ControllerHandler {
                 verticalForce += 50;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-                p.getPlayerBody().setTransform(0, 0, 0);
+                playState.getPlayer().getPlayerBody().setTransform(0, 0, 0);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
 
             if (Gdx.input.isTouched()) {
 
-                playState.createBullet(playState.getMouseCoords(), delta);
+                playState.createBullet(playState.getMouseCoords());
 
             }
 
 
-            p.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
+            playState.getPlayer().getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 
 
         }
-    */
+
     }
 
 
