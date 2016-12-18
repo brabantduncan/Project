@@ -1,7 +1,6 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,25 +16,24 @@ import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
-import com.mygdx.game.enemy.Enemy;
+import com.mygdx.game.controller.ControllerHandler;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.follower.Follower;
 import com.mygdx.game.player.Player;
 import constants.Constants;
-
 import java.util.ArrayList;
 
 /**
  * Created by Shan on 11/28/2016.
  */
-public class PlayState extends State {
+public class PlayState extends State implements GameInterface {
 
     public SpriteBatch batch;
 
     float w = Gdx.graphics.getWidth();
     float h = Gdx.graphics.getHeight();
 
-    private final float SCALE = 2.0f;
+
 
     private Box2DDebugRenderer b2dr;  // wegdoen om alleen maar sprites te tonen
     private OrthographicCamera camera;
@@ -44,8 +42,8 @@ public class PlayState extends State {
     private World world;
     private Player player;
 
+    private ControllerHandler controllerHandler;
 
-    //Nog appart maken
     ArrayList<Body> objects;
 
 
@@ -55,9 +53,6 @@ public class PlayState extends State {
     private BonusHandler bonusHandler;
     private LevelHandler levelHandler;
     private RenderHandler renderHandler;
-
-
-    private int level;
 
 
     public BonusHandler getBonusHandler() {
@@ -72,7 +67,7 @@ public class PlayState extends State {
         super(gms);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w / SCALE, h / SCALE);
+        camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
 
         world = new World(new Vector2(0, 0), false); // zwaartekracht is hier positief?
         b2dr = new Box2DDebugRenderer();
@@ -85,50 +80,25 @@ public class PlayState extends State {
         player.createHud(batch);
 
         this.world.setContactListener(new CollisionDetector(this));
-        bm = new BulletManager(player);
+        bm = new BulletManager(player,world,camera);
 
         enemyManager = new EnemyManager(bodyBuilder, world);
 
 
-        levelHandler = new LevelHandler(enemyManager);
+        levelHandler = new LevelHandler(player,enemyManager,gms);
 
         bonusHandler = new BonusHandler(world, bodyBuilder);
         renderHandler = new RenderHandler();
         objects = new ArrayList<Body>();
         createBorders();
+        controllerHandler = new ControllerHandler();
 
     }
 
     @Override
     public void handleInput() {
-
-        int horizontalForce = 0;
-        int verticalForce = 0;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            horizontalForce -= 50;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            horizontalForce += 50;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            verticalForce -= 50;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            verticalForce += 50;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
-
-
-        if (Gdx.input.isTouched()) {
-
-            createBullet(getMouseCoords());
-
-        }
-
-
-        player.getPlayerBody().setLinearVelocity(horizontalForce * 5, verticalForce * 5);
-
+        controllerHandler.handleInput(this);
+        enemyManager.updateEnemyMovement(player.getPlayerBody().getPosition());
     }
 
 
@@ -142,17 +112,16 @@ public class PlayState extends State {
 
         } else {
 
-            destroyBullets();
+            bm.destroyBullets();
             levelHandler.updateLevel(world);
             player.getHud().updateLevel(levelHandler.getLevel());
             player.updateHud();
             bonusHandler.addBonus();
             bonusHandler.destroyGems(player);
-            //controllerHandler.handleInput(player,dt);
+
             handleInput();
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
-            enemyManager.updateEnemyMovement(player.getPlayerBody().getPosition());
 
             updatePlayerRotation(getMouseCoords());
         }
@@ -207,24 +176,21 @@ public class PlayState extends State {
     }
 
     public void createBorders() {
-        objects.add(bodyBuilder.createWall(world, 0, 0, 1, (int) (Gdx.graphics.getHeight() / SCALE), true, Constants.Enemy, Constants.Wall));
-        objects.add(bodyBuilder.createWall(world, 0, 0, (int) (Gdx.graphics.getWidth() / SCALE), 1, true, Constants.Enemy, Constants.Wall));
-        objects.add(bodyBuilder.createWall(world, Gdx.graphics.getWidth() / 2, 0, 1, (int) (Gdx.graphics.getHeight() / SCALE), true, Constants.Enemy, Constants.Wall));
-        objects.add(bodyBuilder.createWall(world, 0, (int) (Gdx.graphics.getHeight() / SCALE), Gdx.graphics.getWidth() / 2, 1, true, Constants.Enemy, Constants.Wall));
+        objects.add(bodyBuilder.createWall(world, 0, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true, Constants.Enemy, Constants.Wall));
+        objects.add(bodyBuilder.createWall(world, 0, 0, (int) (Gdx.graphics.getWidth() / Constants.SCALE), 1, true, Constants.Enemy, Constants.Wall));
+        objects.add(bodyBuilder.createWall(world, Gdx.graphics.getWidth() / 2, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true, Constants.Enemy, Constants.Wall));
+        objects.add(bodyBuilder.createWall(world, 0, (int) (Gdx.graphics.getHeight() / Constants.SCALE), Gdx.graphics.getWidth() / 2, 1, true, Constants.Enemy, Constants.Wall));
 
 
     }
 
+    @Override
     public Player getPlayer() {
         return player;
     }
 
-    public void createBullet(Vector2 mouseLocation) {
 
-        bm.addBullet(camera, new Bullet(bodyBuilder.createBulletBody(world, player.getPlayerBody().getPosition())), mouseLocation);
-
-    }
-
+    @Override
     public void removeBullet(Body b1, Body b2) {
         if (b1.getUserData() instanceof Bullet) {
             bm.removeBullet(b1);
@@ -233,34 +199,31 @@ public class PlayState extends State {
         }
     }
 
-    public void destroyBullets() {
-
-
-        if (bm.getDisposeBullets().size() > 0) {
-
-            for (Bullet b : bm.getDisposeBullets()) {
-                world.destroyBody(b.getB());
-            }
-            bm.clearDispose();
-        }
+    public void createBullet(Vector2 mouse){
+        bm.addBullet(getMouseCoords(),bodyBuilder.createBulletBody(world,player.getPlayerBody().getPosition()));
     }
 
+    @Override
     public void removeEnemies(Body b1, Body b2) {
         enemyManager.removeEnemies(b1, b2);
     }
 
 
+    @Override
     public void addCoordToBonusHandler(Vector2 coord) {
         bonusHandler.addSpawnCoord(coord);
     }
 
+
+    @Override
     public void dispose() {
 
         world.destroyBody(player.getPlayerBody());
-        batch.dispose();
+//        batch.dispose();
         //b2dr.dispose();
         //world.dispose();
     }
+
 
 
 }

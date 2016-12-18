@@ -1,5 +1,6 @@
 package com.mygdx.game.colision;
 
+import com.badlogic.gdx.ai.utils.random.GaussianDoubleDistribution;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Bonus.BonusInterface;
@@ -7,16 +8,18 @@ import com.mygdx.game.Bonus.Gem;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
 import com.mygdx.game.player.Player;
+import com.mygdx.game.states.GameInterface;
 import com.mygdx.game.states.PlayState;
+import com.mygdx.game.states.State;
 
 /**
  * Created by Shan on 11/30/2016.
  */
 public class CollisionDetector implements com.badlogic.gdx.physics.box2d.ContactListener {
 
-    PlayState p;
+    GameInterface p;
 
-    public CollisionDetector(PlayState p) {
+    public CollisionDetector(GameInterface p) {
         this.p = p;
     }
 

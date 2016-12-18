@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.player.Player;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import constants.Constants;
@@ -19,25 +20,29 @@ public class BulletManager {
     ArrayList<Bullet> bullets;
 
 
-
     ArrayList<Bullet> disposeBullets;
     Player p;
+    World world;
+    Camera camera;
 
-    public BulletManager(Player p) {
+    public BulletManager(Player p, World world, Camera camera) {
 
         bullets = new ArrayList<Bullet>();
-        disposeBullets= new ArrayList<Bullet>();
+        disposeBullets = new ArrayList<Bullet>();
         this.p = p;
+        this.world = world;
+        this.camera = camera;
     }
 
-    public void addBullet(Camera camera, Bullet b, Vector2 mouseLocationAim) {
-        bullets.add(b);
-        handleBulletMovement(camera, b, mouseLocationAim);
+    public void addBullet(Vector2 mouseLocationAim, Body b) {
+        Bullet bullet = new Bullet(b);
+        bullets.add(bullet);
+        handleBulletMovement(bullet, mouseLocationAim);
 
     }
 
 
-    public void handleBulletMovement(Camera camera, Bullet b, Vector2 mouseCoords) {
+    public void handleBulletMovement(Bullet b, Vector2 mouseCoords) {
 
         int bulletSpeed = Constants.BULLET_SPEED;
         Vector3 sp3 = camera.unproject(new Vector3(mouseCoords.x, mouseCoords.y, 0));
@@ -60,16 +65,21 @@ public class BulletManager {
         bullets.removeAll(disposeBullets);
     }
 
-    public ArrayList<Bullet> getDisposeBullets() {
-        return disposeBullets;
-    }
 
-    public  void clearDispose(){
-        disposeBullets.clear();
-    }
-
-    public ArrayList<Bullet> getBullets(){
+    public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public void destroyBullets() {
+
+
+        if (disposeBullets.size() > 0) {
+
+            for (Bullet b : disposeBullets) {
+                world.destroyBody(b.getB());
+            }
+            disposeBullets.clear();
+        }
     }
 
 }

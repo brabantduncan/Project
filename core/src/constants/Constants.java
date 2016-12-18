@@ -5,6 +5,8 @@ package constants;
  */
 public class Constants {
 
+    public static final float SCALE = 2.0f;
+
     // Define collision
     public static final short PLAYER = 1;
     public static final short Enemy = 2;

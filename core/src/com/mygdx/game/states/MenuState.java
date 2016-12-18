@@ -39,4 +39,9 @@ public class MenuState extends State {
         display.render(Gdx.graphics.getDeltaTime());
 
     }
+
+    @Override
+    public void dispose() {
+
+    }
 }
