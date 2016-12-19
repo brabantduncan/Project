@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,6 +18,7 @@ import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
+import com.mygdx.game.TiledObjectUtil;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
 import com.mygdx.game.controller.ControllerHandler;
@@ -38,6 +42,9 @@ public class PlayState extends State implements GameInterface {
 
     private Box2DDebugRenderer b2dr;  // wegdoen om alleen maar sprites te tonen
     private OrthographicCamera camera;
+    private OrthogonalTiledMapRenderer tmr;
+    private TiledMap map;
+
 
 
     private World world;
@@ -67,6 +74,11 @@ public class PlayState extends State implements GameInterface {
 
         super(gms);
         background = new Texture("../assets/background.jpg");
+        map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
+        tmr = new OrthogonalTiledMapRenderer(map);
+        System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
+
+        //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@é");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
 
@@ -93,7 +105,11 @@ public class PlayState extends State implements GameInterface {
         objects = new ArrayList<Body>();
 
         controllerHandler = new ControllerHandler();
+<<<<<<< HEAD
         followerManager = new FollowerManager();
+=======
+        TiledObjectUtil.parseTiledObjectLayer(map, world);
+>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
         createBorders();
 
 
@@ -124,6 +140,7 @@ public class PlayState extends State implements GameInterface {
             bonusHandler.addBonus();
             bonusHandler.destroyGems(player);
             handleInput();
+            tmr.setView(camera);
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
             followerManager.moveFollower(player);
@@ -139,9 +156,18 @@ public class PlayState extends State implements GameInterface {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         b2dr.render(world, camera.combined);
+<<<<<<< HEAD
 
 
 
+=======
+        batch.begin();
+       // batch.draw(background, 0, 0);
+        batch.end();
+        tmr.render();
+        batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
+        player.getHud().stage.draw();
+>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
 
         batch.begin();
        // batch.draw(background, 0, 0);
@@ -162,7 +188,6 @@ public class PlayState extends State implements GameInterface {
         position.x = camera.position.x + (player.getPlayerBody().getPosition().x - camera.position.x) * .1f;
         position.y = camera.position.y + (player.getPlayerBody().getPosition().y - camera.position.y) * .1f;
         camera.position.set(position);
-
         camera.update();
     }
 
@@ -232,6 +257,7 @@ public class PlayState extends State implements GameInterface {
 //        batch.dispose();
         //b2dr.dispose();
         //world.dispose();
+
     }
 
     @Override
