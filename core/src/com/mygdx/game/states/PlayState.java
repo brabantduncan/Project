@@ -54,11 +54,10 @@ public class PlayState extends State implements GameInterface {
     private RenderHandler renderHandler;
 
 
+
     public BonusHandler getBonusHandler() {
         return bonusHandler;
     }
-
-    public Follower follower;
 
 
     public PlayState(GameStateManager gms) {
@@ -92,6 +91,7 @@ public class PlayState extends State implements GameInterface {
 
         controllerHandler = new ControllerHandler();
         createBorders();
+
     }
 
     @Override

@@ -21,13 +21,15 @@ public class BonusFactory {
     private BonusInterface getRandomPowerUp(Body b, int i) {
 
         BonusInterface bonus;
+
         if (30 < i && i < 31) {
             bonus = new Overshield(b);
         } else {
             if (40 < i && i < 45) {
                 bonus = new Multiplier(b);
             } else {
-                bonus = new Gem(b);
+               //bonus = new Gem(b);
+                bonus = new FollowerBonus(b);
             }
         }
         return bonus;

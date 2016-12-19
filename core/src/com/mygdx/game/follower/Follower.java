@@ -15,11 +15,11 @@ public class Follower implements FollowerInterface {
 
 
     private Body body;
-    private Camera cam;
 
 
-    public Follower(Camera cam,Body body){
-        this.cam = cam;
+
+
+    public Follower(Body body){
         this.body = body;
         setData();
     }
@@ -54,7 +54,7 @@ public class Follower implements FollowerInterface {
 
         body.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
     }
-    public void turn(Vector2 enemyPosition){
+    public void turn(Vector2 enemyPosition, Camera cam){
 
         Vector3 sp3 = cam.unproject(new Vector3(enemyPosition.x, enemyPosition.y, 0));
         Vector2 sp2 = new Vector2(sp3.x, sp3.y);
@@ -66,8 +66,8 @@ public class Follower implements FollowerInterface {
     }
 
     @Override
-    public void move(Vector2 MouseCoords, Vector2 playerPosition) {
-        turn(MouseCoords);
+    public void move(Vector2 MouseCoords, Vector2 playerPosition,Camera cam) {
+        turn(MouseCoords,cam);
         update(playerPosition);
     }
 
