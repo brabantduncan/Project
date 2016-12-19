@@ -3,7 +3,6 @@ package com.mygdx.game.enemy;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.body.BodyBuilder;
 import constants.Constants;
 
@@ -15,22 +14,12 @@ import java.util.Random;
  */
 public class EnemyManager {
 
-    private BodyBuilder bodyBuilder;
     private ArrayList<Vector2> spawnPoints;
-
-
-
-
     private ArrayList<Enemy> enemies;
-
     public ArrayList<Enemy> getDisposeEnemies() {
         return disposeEnemies;
     }
-
     private ArrayList<Enemy> disposeEnemies;
-
-    private World w;
-
 
     private void setSpawnPoints(){
 
@@ -41,12 +30,10 @@ public class EnemyManager {
     };
 
 
-    public EnemyManager(BodyBuilder bodyBuilder, World w){
-        this.bodyBuilder = bodyBuilder;
+    public EnemyManager(){
         spawnPoints = new ArrayList<Vector2>();
         enemies = new ArrayList<Enemy>();
         disposeEnemies = new ArrayList<Enemy>();
-        this.w = w;
         setSpawnPoints();
 
 
@@ -54,7 +41,7 @@ public class EnemyManager {
     }
 
     public Enemy spawnEnemy(){
-        return new Enemy(bodyBuilder.createEnemy(w, choseSpawnPoint() ,false, Constants.Enemy, Constants.PLAYER));
+        return new Enemy(BodyBuilder.getInstance().createEnemy(choseSpawnPoint() ,false, Constants.Enemy, Constants.PLAYER));
 
     }
 
@@ -90,9 +77,7 @@ public class EnemyManager {
         enemies.removeAll(disposeEnemies);
     }
 
-    public void clearDispose(){
-        disposeEnemies.clear();
-    }
+
 
 
     public void removeEnemies(Body b1, Body b2) {
@@ -112,4 +97,13 @@ public class EnemyManager {
     }
 
 
+    public void destroyEnemies() {
+        if (disposeEnemies.size() > 0) {
+
+            for (Enemy e : disposeEnemies) {
+                BodyBuilder.getInstance().destroyBody(e.getBody());
+            }
+            disposeEnemies.clear();
+        }
+    }
 }

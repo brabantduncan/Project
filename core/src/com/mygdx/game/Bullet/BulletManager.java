@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.player.Player;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import constants.Constants;
@@ -22,15 +23,13 @@ public class BulletManager {
 
     ArrayList<Bullet> disposeBullets;
     Player p;
-    World world;
     Camera camera;
 
-    public BulletManager(Player p, World world, Camera camera) {
+    public BulletManager(Player p, Camera camera) {
 
         bullets = new ArrayList<Bullet>();
         disposeBullets = new ArrayList<Bullet>();
         this.p = p;
-        this.world = world;
         this.camera = camera;
     }
 
@@ -76,7 +75,7 @@ public class BulletManager {
         if (disposeBullets.size() > 0) {
 
             for (Bullet b : disposeBullets) {
-                world.destroyBody(b.getB());
+                BodyBuilder.getInstance().destroyBody(b.getB());
             }
             disposeBullets.clear();
         }

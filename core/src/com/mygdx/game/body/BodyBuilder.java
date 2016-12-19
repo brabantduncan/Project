@@ -8,7 +8,52 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BodyBuilder {
 
-    public Body createPlayer(World world, int x, int y, int width, int height, boolean isStatic, short isA) {
+
+    private static BodyBuilder instance;
+    private World world;
+
+    private BodyBuilder(){
+
+    }
+
+    public static BodyBuilder getInstance(){
+        if(instance == null){
+            instance = new BodyBuilder();
+
+        }
+        return instance;
+    }
+
+    public void setWorld(World world){
+        this.world = world;
+    }
+
+    public Body setLevelWall(int x, int y, int width, int height, boolean isStatic, short isA, short collWith) {
+        this.world = world;
+
+        BodyDef def = new BodyDef();
+
+        if (isStatic) {
+            def.type = BodyDef.BodyType.StaticBody;
+        } else {
+            def.type = BodyDef.BodyType.DynamicBody;
+        }
+        def.position.set(x, y);
+        def.fixedRotation = true; //hier kijken voor rotatie
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width,height);
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape =shape;
+        fdef.density =1000f;
+        fdef.filter.categoryBits =  isA;
+        fdef.filter.maskBits = collWith;
+
+
+        return world.createBody(def).createFixture(fdef).getBody();
+    }
+
+    public Body createPlayer(int x, int y, int width, int height, boolean isStatic, short isA) {
 
         Body pBody;
         BodyDef def = new BodyDef();
@@ -33,32 +78,7 @@ public class BodyBuilder {
         return world.createBody(def).createFixture(fdef).getBody();
     }
 
-    public Body createWall(World world, int x, int y, int width, int height, boolean isStatic, short isA, short collWith) {
-
-
-        BodyDef def = new BodyDef();
-
-        if (isStatic) {
-            def.type = BodyDef.BodyType.StaticBody;
-        } else {
-            def.type = BodyDef.BodyType.DynamicBody;
-        }
-        def.position.set(x, y);
-        def.fixedRotation = true; //hier kijken voor rotatie
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width,height);
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape =shape;
-        fdef.density =1000f;
-        fdef.filter.categoryBits =  isA;
-        fdef.filter.maskBits = collWith;
-
-
-        return world.createBody(def).createFixture(fdef).getBody();
-    }
-
-    public Body createEnemy(World world, Vector2 spawn, boolean isStatic, short isA, short collidesWith){
+    public Body createEnemy(Vector2 spawn, boolean isStatic, short isA, short collidesWith){
 
         Body pBody;
         BodyDef def = new BodyDef();
@@ -86,7 +106,7 @@ public class BodyBuilder {
 
     }
 
-    public Body createBulletBody(World world, Vector2 spawn){
+    public Body createBulletBody(Vector2 spawn){
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.fixedRotation = true;
@@ -110,7 +130,7 @@ public class BodyBuilder {
 
     //public createBorders
 
-    public Body createGemBody(World world,Vector2 spawn){
+    public Body createGemBody(Vector2 spawn){
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.fixedRotation = true;
@@ -134,4 +154,7 @@ public class BodyBuilder {
 
     }
 
+    public void destroyBody(Body body){
+        world.destroyBody(body);
+    }
 }

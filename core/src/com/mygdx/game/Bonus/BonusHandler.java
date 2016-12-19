@@ -22,25 +22,20 @@ public class BonusHandler {
     ArrayList<BonusInterface> bonusToRemove;
     ArrayList<BonusInterface> bonusToSpawn;
 
-    private World world;
-    private BodyBuilder bodyBuilder;
-
     private BonusFactory bonusFactory;
 
 
 
-    public BonusHandler(World w, BodyBuilder b) {
+    public BonusHandler() {
         bonusSpawnCoord = new ArrayList<Vector2>();
         bonusToSpawn = new ArrayList<BonusInterface>();
         bonusToRemove = new ArrayList<BonusInterface>();
         bonusFactory = new BonusFactory();
-        this.world = w;
-        this.bodyBuilder = b;
     }
 
     public BonusInterface spawnBonus(Vector2 spawn) {
 
-        return bonusFactory.generateBonus(bodyBuilder.createGemBody(world,spawn));
+        return bonusFactory.generateBonus(BodyBuilder.getInstance().createGemBody(spawn));
 
     }
 
@@ -56,8 +51,6 @@ public class BonusHandler {
         if (!(bonusSpawnCoord.size() == 0)) {
             for (Vector2 v : bonusSpawnCoord) {
                  bonusToSpawn.add(spawnBonus(v));
-
-
             }
             bonusSpawnCoord.clear();
         }
@@ -79,7 +72,7 @@ public class BonusHandler {
         if (!(bonusToRemove.size() == 0)) {
             for (BonusInterface g : bonusToRemove) {
                 g.addBonus(p);
-                world.destroyBody(g.getBody());
+                BodyBuilder.getInstance().destroyBody(g.getBody());
             }
             bonusToRemove.clear();
         }

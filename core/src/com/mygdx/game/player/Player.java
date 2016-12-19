@@ -1,6 +1,7 @@
 package com.mygdx.game.player;
 
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
+import com.mygdx.game.follower.Follower;
 
 /**
  * Created by Shan on 11/7/2016.
@@ -32,6 +34,8 @@ public class Player {
 
     private int currentScore;
     private int highScore;
+
+    private Follower follower;
 
     private Hud hud;
 
@@ -74,6 +78,7 @@ public class Player {
         currentScore = 0;
         highScore = 0;
         setUserData();
+
 
         invincible = false;
 
@@ -171,8 +176,6 @@ public class Player {
     }
 
 
-
-
     public int getHealth() {
         return health;
     }
@@ -207,10 +210,6 @@ public class Player {
     public void changeClass(CharacterHandler newHandler) {
         handler = newHandler;
         addBonus();
-    }
-
-    public void update(float dt) {
-
     }
 
 
@@ -252,6 +251,10 @@ public class Player {
 
     public void createHud(Batch batch){
         hud = new Hud(batch);
+    }
+
+    public void spawnFollower(Camera camera, Body body){
+        follower = new Follower(camera,body);
     }
 }
 

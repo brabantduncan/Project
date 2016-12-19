@@ -59,14 +59,14 @@ public class BossState extends State implements GameInterface {
         world = new World(new Vector2(0, 0), false); // zwaartekracht is hier positief?
         b2dr = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        bodyBuilder = new BodyBuilder();
+        bodyBuilder = BodyBuilder.getInstance();
         this.player = player;
         player.updateHud();
         this.world.setContactListener(new CollisionDetector(this));
-        bm = new BulletManager(player,world,camera);
-        enemyManager = new EnemyManager(bodyBuilder, world);
+        bm = new BulletManager(player,camera);
+        enemyManager = new EnemyManager();
         levelHandler = new LevelHandler(player,enemyManager,gms);
-        bonusHandler = new BonusHandler(world, bodyBuilder);
+        bonusHandler = new BonusHandler();
         renderHandler = new RenderHandler();
     }
 

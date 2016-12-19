@@ -18,8 +18,9 @@ public class Follower implements FollowerInterface {
     private Camera cam;
 
 
-    public Follower(Camera cam){
+    public Follower(Camera cam,Body body){
         this.cam = cam;
+        this.body = body;
         setData();
     }
 
