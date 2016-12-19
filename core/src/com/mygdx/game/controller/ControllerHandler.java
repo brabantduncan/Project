@@ -32,21 +32,21 @@ public class ControllerHandler {
         int verticalForce = 0;
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Q) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 50;
-            System.out.print("Q pressed+\n");
+            System.out.print("A pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             horizontalForce += 50;
             System.out.print("D pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             verticalForce -= 50;
             System.out.print("S pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.Z) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             verticalForce += 50;
-            System.out.print("Z pressed+\n");
+            System.out.print("W pressed+\n");
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             playState.getPlayer().getPlayerBody().setTransform(0, 0, 0);
