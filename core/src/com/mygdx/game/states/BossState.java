@@ -118,7 +118,7 @@ public class BossState extends State implements GameInterface {
         player.getHud().stage.draw();
 
         batch.begin();
-        renderHandler.renderPlayer(batch, player.getTexture(), player.getPlayerBody());
+        renderHandler.renderPlayer(batch, player.getTexture(), player);
         renderHandler.renderEnemies(batch, enemyManager.getEnemies());
         renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
         renderHandler.renderBullets(batch, bm.getBullets());
@@ -156,6 +156,10 @@ public class BossState extends State implements GameInterface {
         return null;
     }
 
+    @Override
+    public void destroyAllPeasants() {
+
+    }
 
 
 }

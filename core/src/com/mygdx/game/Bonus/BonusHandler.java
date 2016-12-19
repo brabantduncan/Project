@@ -60,7 +60,7 @@ public class BonusHandler {
 
     public void setRemoveList(Body bonusBody) {
 
-        for (BonusInterface g :  bonusToSpawn) {
+       for (BonusInterface g :  bonusToSpawn) {
             if (g.getBody().equals(bonusBody)) {
                 bonusToRemove.add(g);
             }
@@ -72,7 +72,7 @@ public class BonusHandler {
         if (!(bonusToRemove.size() == 0)) {
             for (BonusInterface g : bonusToRemove) {
                 g.addBonus(p);
-                BodyBuilder.getInstance().destroyBody(g.getBody());
+                BodyBuilder.getInstance().addToDestroy(g.getBody());
             }
             bonusToRemove.clear();
         }

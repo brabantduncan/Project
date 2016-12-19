@@ -21,4 +21,6 @@ public interface GameInterface {
     public Player getPlayer();
 
 
+    public abstract void destroyAllPeasants();
+
 }

@@ -1,12 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
+import com.mygdx.game.follower.FollowerInterface;
+import com.mygdx.game.player.Player;
 import constants.Constants;
 
 import java.util.ArrayList;
@@ -21,10 +21,12 @@ public class RenderHandler {
 
     }
 
-    public void renderPlayer(Batch batch, Texture texture, Body playerBody){
+    public void renderPlayer(SpriteBatch batch, Texture texture, Player player){
 
-        batch.draw(texture,playerBody.getPosition().x* Constants.SCALE -(texture.getWidth()/2),playerBody.getPosition().y*Constants.SCALE-(texture.getHeight()/2));
-
+        batch.draw(texture,player.getPlayerBody().getPosition().x* Constants.SCALE -(texture.getWidth()/2),player.getPlayerBody().getPosition().y*Constants.SCALE-(texture.getHeight()/2));
+        if (player.getFollower() !=null){
+            renderFollower(batch,player.getFollower());
+        }
     }
 
     public void renderEnemies(SpriteBatch batch, ArrayList<Enemy> enemies) {
@@ -52,5 +54,9 @@ public class RenderHandler {
             batch.draw(t,b.getB().getPosition().x*Constants.SCALE - (t.getWidth()/2),b.getB().getPosition().y*Constants.SCALE-(t.getHeight()/2));
         }
 
+    }
+
+    private void renderFollower(SpriteBatch batch, FollowerInterface follower){
+        batch.draw(follower.getTexture(),follower.getBody().getPosition().x* Constants.SCALE -(follower.getTexture().getWidth()/2),follower.getBody().getPosition().y*Constants.SCALE-(follower.getTexture().getHeight()/2));
     }
 }

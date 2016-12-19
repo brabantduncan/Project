@@ -7,6 +7,8 @@ import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bonus.Gem;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
+import com.mygdx.game.follower.FollowerInterface;
+import com.mygdx.game.follower.FrontWatcherFollower;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.states.GameInterface;
 import com.mygdx.game.states.PlayState;
@@ -83,7 +85,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
                 }
-                System.out.print(p.getPlayer().getCurrentScore() + "\n");
+
             }
 
 
@@ -101,14 +103,25 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 p.getBonusHandler().setRemoveList(b2);
             }
 
+
+        }
+
+        checkFollowerEnenmy(b1,b2);
+    }
+
+
+    public void checkFollowerEnenmy(Body b1,Body b2){
+
+        if (b1.getUserData() instanceof FrontWatcherFollower && b2.getUserData() instanceof Enemy || b2.getUserData()instanceof FrontWatcherFollower && b1.getUserData()instanceof Enemy ){
+            p.getPlayer().destroyFollower();
         }
 
 
     }
 
+
     public void handlePlayerEnemy() {
         p.getPlayer().damage(50);
-        System.out.print(p.getPlayer().getHealth()+"\n");
 
 
     }

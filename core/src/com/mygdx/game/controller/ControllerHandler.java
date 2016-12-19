@@ -52,6 +52,12 @@ public class ControllerHandler {
             playState.getPlayer().getPlayerBody().setTransform(0, 0, 0);
 
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.B)){
+            if(playState.getPlayer().isHasBomb()){
+                playState.destroyAllPeasants();
+                playState.getPlayer().setHasBomb(false);
+            }
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
 

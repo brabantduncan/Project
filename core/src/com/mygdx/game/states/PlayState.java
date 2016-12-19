@@ -19,7 +19,7 @@ import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
 import com.mygdx.game.controller.ControllerHandler;
 import com.mygdx.game.enemy.EnemyManager;
-import com.mygdx.game.follower.Follower;
+import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
 import constants.Constants;
 
@@ -54,6 +54,8 @@ public class PlayState extends State implements GameInterface {
     private LevelHandler levelHandler;
     private RenderHandler renderHandler;
     private Texture background;
+
+    private FollowerManager followerManager;
 
 
     public BonusHandler getBonusHandler() {
@@ -91,7 +93,9 @@ public class PlayState extends State implements GameInterface {
         objects = new ArrayList<Body>();
 
         controllerHandler = new ControllerHandler();
+        followerManager = new FollowerManager();
         createBorders();
+
 
     }
 
@@ -112,6 +116,7 @@ public class PlayState extends State implements GameInterface {
 
         } else {
 
+            BodyBuilder.getInstance().destroyBodies();
             bm.destroyBullets();
             levelHandler.updateLevel();
             player.getHud().updateLevel(levelHandler.getLevel());
@@ -121,7 +126,8 @@ public class PlayState extends State implements GameInterface {
             handleInput();
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
-
+            followerManager.moveFollower(player);
+            followerManager.doAction(player,getMouseCoords(), bm);
             updatePlayerRotation(getMouseCoords());
         }
     }
@@ -133,20 +139,22 @@ public class PlayState extends State implements GameInterface {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         b2dr.render(world, camera.combined);
-        batch.begin();
-        batch.draw(background, 0, 0);   
-        batch.end();
-        batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
-        player.getHud().stage.draw();
+
+
+
 
         batch.begin();
+       // batch.draw(background, 0, 0);
 
-        renderHandler.renderPlayer(batch, player.getTexture(), player.getPlayerBody());
+        renderHandler.renderPlayer(batch, player.getTexture(), player);
         renderHandler.renderEnemies(batch, enemyManager.getEnemies());
         renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
         renderHandler.renderBullets(batch, bm.getBullets());
 
+
         batch.end();
+        batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
+        player.getHud().stage.draw();
     }
 
     public void cameraUpdate(float delta) {
@@ -178,10 +186,10 @@ public class PlayState extends State implements GameInterface {
     }
 
     public void createBorders() {
-        objects.add(BodyBuilder.getInstance().setLevelWall(0, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true, Constants.Enemy, Constants.Wall));
-        objects.add(BodyBuilder.getInstance().setLevelWall(0, 0, (int) (Gdx.graphics.getWidth() / Constants.SCALE), 1, true, Constants.Enemy, Constants.Wall));
-        objects.add(BodyBuilder.getInstance().setLevelWall(Gdx.graphics.getWidth() / 2, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true, Constants.Enemy, Constants.Wall));
-        objects.add(BodyBuilder.getInstance().setLevelWall(0, (int) (Gdx.graphics.getHeight() / Constants.SCALE), Gdx.graphics.getWidth() / 2, 1, true, Constants.Enemy, Constants.Wall));
+        objects.add(BodyBuilder.getInstance().setLevelWall(0, 0, (int) (Gdx.graphics.getWidth() / Constants.SCALE), 1, true));
+        objects.add(BodyBuilder.getInstance().setLevelWall(0, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true));
+        objects.add(BodyBuilder.getInstance().setLevelWall(Gdx.graphics.getWidth() / 2, 0, 1, (int) (Gdx.graphics.getHeight() / Constants.SCALE), true));
+        objects.add(BodyBuilder.getInstance().setLevelWall(0, (int) (Gdx.graphics.getHeight() / Constants.SCALE), Gdx.graphics.getWidth() / 2, 1, true));
 
 
     }
@@ -220,11 +228,18 @@ public class PlayState extends State implements GameInterface {
     @Override
     public void dispose() {
 
-        BodyBuilder.getInstance().destroyBody(player.getPlayerBody());
+        BodyBuilder.getInstance().addToDestroy(player.getPlayerBody());
 //        batch.dispose();
         //b2dr.dispose();
         //world.dispose();
     }
+
+    @Override
+    public void destroyAllPeasants() {
+        enemyManager.destroyAllPeasants();
+    }
+
+
 
 
 }

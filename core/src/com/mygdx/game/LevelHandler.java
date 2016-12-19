@@ -22,7 +22,7 @@ public class LevelHandler {
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
-        enemyManager.createEnemies(1);
+        enemyManager.createEnemies(100);
         this.player = player;
     }
 

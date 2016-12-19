@@ -14,7 +14,7 @@ public class BonusFactory {
 
     public BonusInterface generateBonus(Body b) {
         Random r = new Random();//
-        return getRandomPowerUp(b,r.nextInt(50));
+        return getRandomPowerUp(b, r.nextInt(50));
     }
 
 
@@ -28,8 +28,10 @@ public class BonusFactory {
             if (40 < i && i < 45) {
                 bonus = new Multiplier(b);
             } else {
-               //bonus = new Gem(b);
+                //bonus = new Gem(b);
+                //bonus = new Bomb(b);
                 bonus = new FollowerBonus(b);
+
             }
         }
         return bonus;
@@ -45,6 +47,15 @@ public class BonusFactory {
  * <p>
  * public BonusInterface create(Body b);
  * }
+ * private static final BonusMaker[] bonusPrototypes = new BonusMaker[]{
+ * <p>
+ * <p>
+ * new BonusMaker() { public BonusInterface create(Body b){return new Gem(b);} },
+ * new BonusMaker() { public BonusInterface create(Body b){return new Multiplier(b);} },
+ * new BonusMaker() { public BonusInterface create(Body b){return new Overshield(b);} }
+ * <p>
+ * };
+ * <p>
  * private static final BonusMaker[] bonusPrototypes = new BonusMaker[]{
  * <p>
  * <p>

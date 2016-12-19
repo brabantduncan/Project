@@ -3,32 +3,27 @@ package com.mygdx.game.Bonus;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.player.Player;
-
+import constants.Constants;
 
 /**
  * Created by Shan on 12/19/2016.
  */
-public class FollowerBonus implements BonusInterface {
+public class Bomb implements BonusInterface {
 
 
     private Body b;
-    private Texture texture = new Texture("../assets/MinecraftIngots/chicken.png");
+    private Texture texture = new Texture("../assets/MinecraftIngots/Diamond_(Gem).png");
 
 
-    public FollowerBonus(Body body) {
 
-        this.b = body;
+    public Bomb(Body body){
+        this.b =body;
         setUserData();
     }
 
-
     @Override
     public void addBonus(Player p) {
-        if (p.getFollower() == null) {
-            p.spawnFollower();
-
-        }
-
+        p.setHasBomb(true);
     }
 
     @Override
