@@ -23,7 +23,7 @@ public class RenderHandler {
 
     public void renderPlayer(Batch batch, Texture texture, Body playerBody){
 
-        batch.draw(texture,playerBody.getPosition().x* Constants.SCALE -(texture.getWidth()/2),playerBody.getPosition().y*Constants.SCALE-(texture.getHeight()/2));
+        batch.draw(texture,playerBody.getPosition().x -(texture.getWidth()/2),playerBody.getPosition().y-(texture.getHeight()/2));
 
     }
 
@@ -31,7 +31,7 @@ public class RenderHandler {
 
         for (Enemy e: enemies){
             Texture t = e.getTexture();
-            batch.draw(t,e.getBody().getPosition().x*Constants.SCALE - (t.getWidth()/2),e.getBody().getPosition().y*Constants.SCALE-(t.getHeight()/2));
+            batch.draw(t,e.getBody().getPosition().x - (t.getWidth()/2),e.getBody().getPosition().y-(t.getHeight()/2));
         }
 
     }
@@ -40,7 +40,7 @@ public class RenderHandler {
 
         for (BonusInterface b: bonus){
             Texture t = b.getTexture();
-            batch.draw(t,b.getBody().getPosition().x*Constants.SCALE - (t.getWidth()/2),b.getBody().getPosition().y*Constants.SCALE-(t.getHeight()/2));
+            batch.draw(t,b.getBody().getPosition().x - (t.getWidth()/2),b.getBody().getPosition().y-(t.getHeight()/2));
         }
 
     }
@@ -49,7 +49,7 @@ public class RenderHandler {
 
         for (Bullet b: bullets){
             Texture t = b.getTexture();
-            batch.draw(t,b.getB().getPosition().x*Constants.SCALE - (t.getWidth()/2),b.getB().getPosition().y*Constants.SCALE-(t.getHeight()/2));
+            batch.draw(t,b.getB().getPosition().x - (t.getWidth()/2),b.getB().getPosition().y-(t.getHeight()/2));
         }
 
     }
