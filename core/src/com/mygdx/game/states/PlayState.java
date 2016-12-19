@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -52,7 +53,7 @@ public class PlayState extends State implements GameInterface {
     private BonusHandler bonusHandler;
     private LevelHandler levelHandler;
     private RenderHandler renderHandler;
-
+    private Texture background;
 
     public BonusHandler getBonusHandler() {
         return bonusHandler;
@@ -64,7 +65,7 @@ public class PlayState extends State implements GameInterface {
     public PlayState(GameStateManager gms) {
 
         super(gms);
-
+        background = new Texture("../assets/background.jpg");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
 
@@ -92,6 +93,7 @@ public class PlayState extends State implements GameInterface {
 
         controllerHandler = new ControllerHandler();
         createBorders();
+
     }
 
     @Override
@@ -132,11 +134,14 @@ public class PlayState extends State implements GameInterface {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         b2dr.render(world, camera.combined);
-
+        batch.begin();
+        batch.draw(background, 0, 0);   
+        batch.end();
         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
         player.getHud().stage.draw();
 
         batch.begin();
+
         renderHandler.renderPlayer(batch, player.getTexture(), player.getPlayerBody());
         renderHandler.renderEnemies(batch, enemyManager.getEnemies());
         renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());

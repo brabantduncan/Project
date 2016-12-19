@@ -32,19 +32,19 @@ public class ControllerHandler {
         int verticalForce = 0;
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             horizontalForce -= 50;
             System.out.print("A pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
             horizontalForce += 50;
             System.out.print("D pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             verticalForce -= 50;
             System.out.print("S pressed+\n");
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             verticalForce += 50;
             System.out.print("W pressed+\n");
         }
