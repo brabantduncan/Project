@@ -18,6 +18,7 @@ import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
+import com.mygdx.game.TiledObjectUtil;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
 import com.mygdx.game.controller.ControllerHandler;
@@ -74,6 +75,9 @@ public class PlayState extends State implements GameInterface {
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
         tmr = new OrthogonalTiledMapRenderer(map);
+        System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
+
+        //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@é");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
 
@@ -100,6 +104,7 @@ public class PlayState extends State implements GameInterface {
         objects = new ArrayList<Body>();
 
         controllerHandler = new ControllerHandler();
+        TiledObjectUtil.parseTiledObjectLayer(map, world);
         createBorders();
 
     }

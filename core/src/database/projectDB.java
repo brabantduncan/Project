@@ -1,6 +1,7 @@
 package database;
 
 
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,9 +10,9 @@ import java.util.ArrayList;
  */
 
 public class projectDB {
-    private static final String URL = "jdbc:mysql://localhost/projectgeowars";
-    private static final String USER = "duncan";
-    private static final String PASSWORD = "duncan";
+    private static final String URL = "jdbc:mysql://79.170.44.81/cl39-groep18";
+    private static final String USER = "cl39-groep18";
+    private static final String PASSWORD = "groep181337";
 
     private static projectDB instance;
     private Connection connection;
