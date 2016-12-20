@@ -46,7 +46,7 @@ public class LevelHandler {
 
             gameStateManager.set(new BossState(gameStateManager, player));
         }
-        if (enemyManager.getEnemies().isEmpty()) {
+        else if (enemyManager.getEnemies().isEmpty()) {
             NextLevel();
 
         }
