@@ -275,6 +275,7 @@ public class Player {
 
     public void spawnFollower(){
         follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+        follower.spawnExtra(playerBody);
     }
     public void destroyFollower(){
         BodyBuilder.getInstance().addToDestroy(follower.getBody());

@@ -161,5 +161,10 @@ public class BossState extends State implements GameInterface {
 
     }
 
+    @Override
+    public EnemyManager getEnemyManager() {
+        return null;
+    }
+
 
 }

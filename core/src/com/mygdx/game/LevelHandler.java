@@ -53,7 +53,7 @@ public class LevelHandler {
     }
 
     public int spawnCount() {
-        return 1; //random waarden
+        return 100; //random waarden
 
     }
 

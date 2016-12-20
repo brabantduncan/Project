@@ -12,6 +12,8 @@ public class Constants {
     public static final short Enemy = 0x0002;
     public static final short Wall = 0x0004;
     public static final short FOLOWER = 0x0008;
+    public static final short ACHOR = 0x0016;
+    public static final short ROTOR = 0x0032;
 
     //define values
     public static final short GEM = 5;

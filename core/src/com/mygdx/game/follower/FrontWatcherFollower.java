@@ -39,6 +39,11 @@ public class FrontWatcherFollower implements FollowerInterface {
     }
 
     @Override
+    public void spawnExtra(Body playerPostion) {
+
+    }
+
+    @Override
     public void update(Vector2 playerPosition){
 
         aiControllerHandler.moveToPlayer(playerPosition,body);
@@ -48,6 +53,7 @@ public class FrontWatcherFollower implements FollowerInterface {
 
     @Override
     public void action(Vector2 mouseCoord, BulletManager bulletManager) {
+
         aiControllerHandler.aiShoot(bulletManager,mouseCoord,body);
 
     }
