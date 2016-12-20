@@ -39,18 +39,19 @@ public class MenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin();
-
+        //create a texture for buttons
         Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.GREEN);
         pixmap.fill();
 
         skin.add("white", new Texture(pixmap));
 
-
+        //fontcreation
         BitmapFont bfont=new BitmapFont();
         bfont.getData().scale(1);
         skin.add("default",bfont);
 
+        //create button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
         textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
@@ -61,6 +62,8 @@ public class MenuScreen implements Screen {
 
         skin.add("default", textButtonStyle);
 
+
+        //maimenu
         final TextButton textButton = new TextButton("SINGLEPLAYER",textButtonStyle);
         textButton.setPosition(300*2, 300*2);
         stage.addActor(textButton);
