@@ -20,9 +20,11 @@ public class BodyBuilder {
     private static BodyBuilder instance;
     private World world;
     private ArrayList<Body> bodiesToDestroy;
+    private ArrayList<Joint> jointsToDestroy;
 
     private BodyBuilder() {
         bodiesToDestroy = new ArrayList<Body>();
+        jointsToDestroy = new ArrayList<Joint>();
     }
 
     public static BodyBuilder getInstance() {
@@ -198,28 +200,28 @@ public class BodyBuilder {
     }
 
 
-    public void creatJoint(Body anchorPoint, Body turningBody) {
+    public void creatJoint(Body anchorPoint, Body turningBody, Body jointBox) {
 
 
-
-        Body rotator = createBox(40, 40, anchorPoint.getPosition().x, anchorPoint.getPosition().y); //wat rond object zit
-        rotator.setType(BodyDef.BodyType.DynamicBody);
+        //Body rotator = createBox(40, 40, anchorPoint.getPosition().x, anchorPoint.getPosition().y); //wat rond object zit
+        //rotator.setType(BodyDef.BodyType.DynamicBody);
 
         turningBody.setType(BodyDef.BodyType.DynamicBody);
 
         RevoluteJointDef revoluteJointDef = new RevoluteJointDef();
-        revoluteJointDef.initialize(anchorPoint, rotator, anchorPoint.getWorldCenter());
+        revoluteJointDef.initialize(anchorPoint, jointBox, anchorPoint.getWorldCenter());
         revoluteJointDef.enableMotor = true;
         revoluteJointDef.motorSpeed = 2000000;
         revoluteJointDef.maxMotorTorque = 999999999;
 
         WeldJointDef weldJointDef = new WeldJointDef();
-        weldJointDef.initialize(rotator, turningBody, rotator.getWorldCenter());
+        weldJointDef.initialize(jointBox, turningBody, jointBox.getWorldCenter());
 
-        world.createJoint(revoluteJointDef);
-        world.createJoint(weldJointDef);
+        Joint j1 = world.createJoint(revoluteJointDef);
+        Joint j2 = world.createJoint(weldJointDef);
 
-
+        jointsToDestroy.add(j1);
+        jointsToDestroy.add(j2);
     }
 
 
@@ -254,5 +256,19 @@ public class BodyBuilder {
         return nodeFixtureDefinition;
     }
 
+    public  void destroyJoint(){
+        System.out.print("\nDestroying body\n");
+        if(0<jointsToDestroy.size()){
+            System.out.print("\nThere are joints to destroy "+ bodiesToDestroy.size()+"\n");
+
+            for (Joint j: jointsToDestroy){
+                System.out.print("\nDestroying joint\n");
+                world.destroyJoint(j);
+
+            }
+
+        }
+        jointsToDestroy.clear();
+    }
 
 }

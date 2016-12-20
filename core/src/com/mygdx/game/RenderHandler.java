@@ -66,7 +66,7 @@ public class RenderHandler {
     }
 
     private void renderFollower(SpriteBatch batch, FollowerInterface follower) {
-        batch.draw(follower.getTexture(), follower.getBody().getPosition().x - (follower.getTexture().getWidth() / 2), follower.getBody().getPosition().y - (follower.getTexture().getHeight() / 2));
+        batch.draw(follower.getTexture(), follower.getBody().get(0).getPosition().x - (follower.getTexture().getWidth() / 2), follower.getBody().get(0).getPosition().y - (follower.getTexture().getHeight() / 2));
        // batch.draw(texture,player.getPlayerBody().getPosition().x -(texture.getWidth()/2),player.getPlayerBody().getPosition().y-(texture.getHeight()/2));
 
     }

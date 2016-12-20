@@ -19,16 +19,27 @@ import java.util.ArrayList;
 public class ShieldFollower implements FollowerInterface {
 
     private Body body;
+    private Body jointBox;
+    private ArrayList<Body> bodies;
+
     private Texture tex = new Texture("../assets/Monsters/alteroit.png");
     private AiControllerHandler aiControllerHandler;
     private ArrayList<Enemy> enemiesKilled;
+    private int timeCanExist;
 
+
+
+    private int born;
 
     public ShieldFollower(Body body){
         this.body = body;
         setData();
         System.out.print("\nFollower is born");
         aiControllerHandler = new AiControllerHandler();
+        timeCanExist =3600;
+        born =0;
+        bodies = new ArrayList<Body>();
+
     }
 
 
@@ -45,8 +56,14 @@ public class ShieldFollower implements FollowerInterface {
     }
 
     @Override
-    public Body getBody() {
-        return body;
+    public ArrayList<Body> getBody() {
+        setBody();
+        return bodies;
+    }
+
+    public void setBody(){
+        bodies.add(body);
+        bodies.add(jointBox);
     }
 
     @Override
@@ -62,14 +79,36 @@ public class ShieldFollower implements FollowerInterface {
 
     @Override
     public void spawnExtra(Body playerBody) {
-        BodyBuilder.getInstance().creatJoint(playerBody,body);
+        jointBox = BodyBuilder.getInstance().createBox(40, 40, playerBody.getPosition().x, playerBody.getPosition().y);
+        BodyBuilder.getInstance().creatJoint(playerBody,body,jointBox);
 
     }
+
 
     // public void moveAroundPlayer(Vector2 coords)
 
     public void addEnemie(Enemy enemy){
         enemiesKilled.add(enemy);
     }
+
+    @Override
+    public int getTimeExist() {
+        return timeCanExist;
+    }
+
+    public int getBorn() {
+        return born;
+    }
+
+    @Override
+    public void increaseBorn() {
+        born+=1;
+    }
+
+    public void setBorn(int born) {
+        this.born = born;
+    }
+
+
 
 }

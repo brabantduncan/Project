@@ -11,6 +11,8 @@ import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.controller.AiControllerHandler;
 import com.mygdx.game.states.PlayState;
 
+import java.util.ArrayList;
+
 import static sun.audio.AudioPlayer.player;
 
 /**
@@ -24,12 +26,16 @@ public class FrontWatcherFollower implements FollowerInterface {
     private Texture tex = new Texture("../assets/Monsters/alteroit.png");
     private AiControllerHandler aiControllerHandler;
 
+    private int timeCanExist;
+    private int born;
 
     public FrontWatcherFollower(Body body){
         this.body = body;
         setData();
         System.out.print("Follower is born");
         aiControllerHandler = new AiControllerHandler();
+        timeCanExist = 3600;
+        born = 0;
     }
 
     @Override
@@ -43,12 +49,13 @@ public class FrontWatcherFollower implements FollowerInterface {
 
     }
 
+
+
     @Override
     public void update(Vector2 playerPosition){
 
         aiControllerHandler.moveToPlayer(playerPosition,body);
     }
-
 
 
     @Override
@@ -64,7 +71,29 @@ public class FrontWatcherFollower implements FollowerInterface {
     }
 
     @Override
-    public Body getBody() {
-        return body;
+    public ArrayList<Body> getBody() {
+        ArrayList arrayList = new ArrayList<Body>();
+        arrayList.add(body);
+        return arrayList;
     }
+
+
+
+
+    @Override
+    public int getTimeExist() {
+        return timeCanExist;
+    }
+
+    @Override
+    public int getBorn() {
+        return born ;
+    }
+
+    @Override
+    public void increaseBorn() {
+        born +=1;
+    }
+
+
 }

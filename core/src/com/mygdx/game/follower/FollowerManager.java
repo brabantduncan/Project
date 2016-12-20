@@ -9,17 +9,37 @@ import com.mygdx.game.player.Player;
  */
 public class FollowerManager {
 
-    public void moveFollower(Player p){
-        if (p.getFollower() != null){
+    public int timer;
+
+    public FollowerManager() {
+        timer = 1;
+    }
+
+    public void moveFollower(Player p) {
+
+        if (p.getFollower() != null) {
             p.getFollower().update(p.getPlayerBody().getPosition());
+            controleTimer(p);
         }
 
     }
 
-    public void doAction(Player player,Vector2 mouseCoords, BulletManager bm) {
-        if (player.getFollower() != null){
-            player.getFollower().action(mouseCoords,bm);
+    public void doAction(Player player, Vector2 mouseCoords, BulletManager bm) {
+        if (player.getFollower() != null) {
+            player.getFollower().action(mouseCoords, bm);
         }
 
     }
+
+    public void controleTimer(Player p) {
+        if (p.getFollower().getBorn() >= p.getFollower().getTimeExist()) {
+            p.destroyFollower();
+
+        } else {
+            p.getFollower().increaseBorn();
+        }
+
+    }
+
+
 }

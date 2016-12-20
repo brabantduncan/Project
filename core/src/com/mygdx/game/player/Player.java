@@ -277,10 +277,19 @@ public class Player {
         follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
         follower.spawnExtra(playerBody);
     }
+
     public void destroyFollower(){
-        BodyBuilder.getInstance().addToDestroy(follower.getBody());
+
+        for (Body b: follower.getBody()){
+            BodyBuilder.getInstance().addToDestroy(b);
+        }
+        if(follower instanceof ShieldFollower){
+            BodyBuilder.getInstance().destroyJoint();
+        }
         follower =null;
     }
+
+
 
 
 

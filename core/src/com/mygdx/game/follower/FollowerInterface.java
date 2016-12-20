@@ -10,6 +10,8 @@ import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.states.PlayState;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shan on 12/18/2016.
  */
@@ -19,14 +21,19 @@ public interface FollowerInterface {
 
     public Texture getTexture();
 
-    public Body getBody();
+    public ArrayList<Body> getBody();
 
     public void update(Vector2 position);
 
     public void setData();
 
-
     public void spawnExtra(Body playerPostion);
+
+    public int getTimeExist();
+
+    public int getBorn();
+
+    public void increaseBorn();
 }
 
 

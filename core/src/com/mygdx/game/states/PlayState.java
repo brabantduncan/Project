@@ -68,6 +68,7 @@ public class PlayState extends State implements GameInterface {
 
     private FollowerManager followerManager;
 
+    private int counter;
 
     public BonusHandler getBonusHandler() {
         return bonusHandler;
@@ -116,7 +117,7 @@ public class PlayState extends State implements GameInterface {
        // TiledObjectUtil.parseTiledObjectLayer(map, world);
 //>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
         createBorders();
-
+        counter = 0;
 
     }
 
@@ -151,6 +152,11 @@ public class PlayState extends State implements GameInterface {
             followerManager.moveFollower(player);
             followerManager.doAction(player,getMouseCoords(), bm);
             updatePlayerRotation(getMouseCoords());
+
+            counter+=1;
+            System.out.print("De voorbijgaande tijd is "+counter+"\n");
+            if (counter == 3600)
+                System.out.print("1/2 min gedaan kdsssssssssssssssssssssssssssssssssssss");
         }
     }
 
