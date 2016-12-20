@@ -141,11 +141,14 @@ public class PlayState extends State implements GameInterface {
                 e.printStackTrace();
             }
             dispose();
+            if (player.getFollower()!= null)
+                player.destroyFollower();
             gms.set(new MenuState(gms));
 
-        } else {
+        }
+        else {
 
-            BodyBuilder.getInstance().destroyBodies();
+
             bm.destroyBullets();
             levelHandler.updateLevel();
             player.getHud().updateLevel(levelHandler.getLevel());
@@ -160,10 +163,7 @@ public class PlayState extends State implements GameInterface {
             followerManager.doAction(player,getMouseCoords(), bm);
             updatePlayerRotation(getMouseCoords());
 
-            counter+=1;
-            System.out.print("De voorbijgaande tijd is "+counter+"\n");
-            if (counter == 3600)
-                System.out.print("1/2 min gedaan kdsssssssssssssssssssssssssssssssssssss");
+            BodyBuilder.getInstance().destroyBodies();
         }
     }
 
@@ -275,7 +275,7 @@ public class PlayState extends State implements GameInterface {
     @Override
     public void dispose() {
 
-        BodyBuilder.getInstance().addToDestroy(player.getPlayerBody());
+        //BodyBuilder.getInstance().addToDestroy(player.getPlayerBody());
 //        batch.dispose();
         //b2dr.dispose();
         //world.dispose();

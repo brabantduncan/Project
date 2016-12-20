@@ -102,6 +102,8 @@ public class Player {
         invincible = false;
         hasBomb = false;
 
+        dead = false;
+
     }
 
     public boolean isDead() {
@@ -274,7 +276,7 @@ public class Player {
     }
 
     public void spawnFollower(){
-        follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+        follower = new FrontWatcherFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
         follower.spawnExtra(playerBody);
     }
 

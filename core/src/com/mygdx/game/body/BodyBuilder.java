@@ -185,7 +185,11 @@ public class BodyBuilder {
     }
 
     private void destroyBody(Body body) {
-        world.destroyBody(body);
+        if (body != null){
+            System.out.print("\nkijk hier fag"+body.getUserData());
+            world.destroyBody(body);
+        }
+
     }
 
     public void addToDestroy(Body b) {
@@ -193,10 +197,13 @@ public class BodyBuilder {
     }
 
     public void destroyBodies() {
-        for (Body body : bodiesToDestroy) {
-            destroyBody(body);
+        if (bodiesToDestroy.size() > 0){
+            for (Body body : bodiesToDestroy) {
+                destroyBody(body);
+            }
+            bodiesToDestroy.clear();
         }
-        bodiesToDestroy.clear();
+
     }
 
 

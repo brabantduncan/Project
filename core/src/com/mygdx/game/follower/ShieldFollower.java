@@ -36,7 +36,7 @@ public class ShieldFollower implements FollowerInterface {
         setData();
         System.out.print("\nFollower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist =3600;
+        timeCanExist =1600;
         born =0;
         bodies = new ArrayList<Body>();
 
