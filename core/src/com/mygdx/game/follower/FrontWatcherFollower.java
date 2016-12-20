@@ -34,7 +34,7 @@ public class FrontWatcherFollower implements FollowerInterface {
         setData();
         System.out.print("Follower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist = 2600;
+        timeCanExist = 2000;
         born = 0;
     }
 

@@ -10,7 +10,7 @@ import com.mygdx.game.player.Player;
 public class Overshield implements BonusInterface  {
 
     private Body body;
-    private Texture texture = new Texture("../assets/MinecraftIngots/Shield.png");
+    private Texture texture = new Texture("../assets/MinecraftIngots/overshield.png");
 
 
     public Overshield(Body body){

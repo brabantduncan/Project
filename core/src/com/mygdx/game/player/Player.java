@@ -78,6 +78,7 @@ public class Player {
         dead = false;
         invincible = false;
         hasBomb = false;
+        follower = null;
     }
 
     public Player(Body playerBody, String playerName) {
@@ -103,6 +104,7 @@ public class Player {
         hasBomb = false;
 
         dead = false;
+        follower = null;
 
     }
 
@@ -276,7 +278,7 @@ public class Player {
     }
 
     public void spawnFollower(){
-        follower = new FrontWatcherFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+        follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
         follower.spawnExtra(playerBody);
     }
 
@@ -284,11 +286,15 @@ public class Player {
 
         for (Body b: follower.getBody()){
             BodyBuilder.getInstance().addToDestroy(b);
+            System.out.print("Destroying follower\n");
         }
+        follower =null;
+
         if(follower instanceof ShieldFollower){
             BodyBuilder.getInstance().destroyJoint();
         }
-        follower =null;
+
+        System.out.print("Follower destroyed\n");
     }
 
 

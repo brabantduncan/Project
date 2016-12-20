@@ -85,7 +85,6 @@ public class PlayState extends State implements GameInterface {
        // tmr = new OrthogonalTiledMapRenderer(map);
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
 
-        //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@é");
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
 
@@ -96,7 +95,7 @@ public class PlayState extends State implements GameInterface {
 
         BodyBuilder.getInstance().setWorld(world);
 
-        player = new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), "Duncan");
+        player = new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), "John Cena");
         player.createHud(batch);
         //player.spawnFollower();
 
@@ -136,14 +135,15 @@ public class PlayState extends State implements GameInterface {
 
         if (player.isDead()) {
             try {
-                projectDB.getInstance().addScore(player.getPlayerName(),player.getCurrentScore());
+                projectDB.getInstance().addScore(player.getPlayerName(), player.getCurrentScore());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            dispose();
-            if (player.getFollower()!= null)
+            if (player.getFollower() != null) {
                 player.destroyFollower();
+            }
             gms.set(new MenuState(gms));
+
 
         }
         else {
@@ -174,31 +174,27 @@ public class PlayState extends State implements GameInterface {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-//<<<<<<< HEAD
 
-
-
-//=======
         batch.begin();
         batch.draw(background, 0, 0);
         batch.end();
-//
-// tmr.render();
+
+        // tmr.render();
 
         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
         player.getHud().stage.draw();
-//>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
+
 
         b2dr.render(world, camera.combined);
 
         batch.begin();
        // batch.draw(background, 0, 0);
-/**
+
         renderHandler.renderPlayer(batch, player.getTexture(), player);
         renderHandler.renderEnemies(batch, enemyManager.getEnemies());
         renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
         renderHandler.renderBullets(batch, bm.getBullets());
-**/
+
 
         batch.end();
         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);

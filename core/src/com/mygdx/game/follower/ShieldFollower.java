@@ -22,7 +22,7 @@ public class ShieldFollower implements FollowerInterface {
     private Body jointBox;
     private ArrayList<Body> bodies;
 
-    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    private Texture texture = new Texture("../assets/MinecraftIngots/shield.png");;
     private AiControllerHandler aiControllerHandler;
     private ArrayList<Enemy> enemiesKilled;
     private int timeCanExist;
@@ -36,7 +36,7 @@ public class ShieldFollower implements FollowerInterface {
         setData();
         System.out.print("\nFollower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist =1600;
+        timeCanExist =20;
         born =0;
         bodies = new ArrayList<Body>();
 
@@ -52,7 +52,7 @@ public class ShieldFollower implements FollowerInterface {
 
     @Override
     public Texture getTexture() {
-        return tex;
+        return texture;
     }
 
     @Override
@@ -62,6 +62,7 @@ public class ShieldFollower implements FollowerInterface {
     }
 
     public void setBody(){
+        bodies.clear();
         bodies.add(body);
         bodies.add(jointBox);
     }
@@ -104,11 +105,6 @@ public class ShieldFollower implements FollowerInterface {
     public void increaseBorn() {
         born+=1;
     }
-
-    public void setBorn(int born) {
-        this.born = born;
-    }
-
 
 
 }

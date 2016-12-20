@@ -186,7 +186,6 @@ public class BodyBuilder {
 
     private void destroyBody(Body body) {
         if (body != null){
-            System.out.print("\nkijk hier fag"+body.getUserData());
             world.destroyBody(body);
         }
 
@@ -201,9 +200,9 @@ public class BodyBuilder {
             for (Body body : bodiesToDestroy) {
                 destroyBody(body);
             }
-            bodiesToDestroy.clear();
-        }
 
+        }
+        bodiesToDestroy.clear();
     }
 
 
@@ -227,6 +226,7 @@ public class BodyBuilder {
         Joint j1 = world.createJoint(revoluteJointDef);
         Joint j2 = world.createJoint(weldJointDef);
 
+        jointsToDestroy.clear();
         jointsToDestroy.add(j1);
         jointsToDestroy.add(j2);
     }
@@ -271,11 +271,11 @@ public class BodyBuilder {
             for (Joint j: jointsToDestroy){
                 System.out.print("\nDestroying joint\n");
                 world.destroyJoint(j);
-
             }
-
         }
+        System.out.print("\nCLearing arraylist\n");
         jointsToDestroy.clear();
     }
+
 
 }
