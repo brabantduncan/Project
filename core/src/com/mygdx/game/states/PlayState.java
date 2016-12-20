@@ -86,7 +86,7 @@ public class PlayState extends State implements GameInterface {
         super(gms);
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
-       // tmr = new OrthogonalTiledMapRenderer(map);
+       tmr = new OrthogonalTiledMapRenderer(map);
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
 
         camera = new OrthographicCamera();
@@ -119,7 +119,7 @@ public class PlayState extends State implements GameInterface {
 //<<<<<<< HEAD
         followerManager = new FollowerManager();
 //=======
-       // TiledObjectUtil.parseTiledObjectLayer(map, world);
+       TiledObjectUtil.parseTiledObjectLayer(map, world);
 //>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
         createBorders();
         counter = 0;
@@ -170,7 +170,7 @@ public class PlayState extends State implements GameInterface {
             bonusHandler.addBonus();
             bonusHandler.destroyGems(player);
             handleInput();
-//            tmr.setView(camera);
+            tmr.setView(camera);
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
             followerManager.moveFollower(player);
@@ -190,10 +190,10 @@ public class PlayState extends State implements GameInterface {
 
 
         batch.begin();
-        batch.draw(background, 0, 0);
+        //batch.draw(background, 0, 0);
         batch.end();
 
-        // tmr.render();
+        tmr.render();
 
         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
         player.getHud().stage.draw();
