@@ -199,6 +199,7 @@ public class projectDB {
         {
             throw new SQLException("players not found", ex);
         }
+
     }
 
     private void updateHighestScoreInPlayer(String playername, Integer score) throws SQLException {

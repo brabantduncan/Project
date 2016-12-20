@@ -277,5 +277,10 @@ public class BodyBuilder {
         jointsToDestroy.clear();
     }
 
+    public void clearLists(){
+        bodiesToDestroy.clear();
+        jointsToDestroy.clear();
+    }
+
 
 }

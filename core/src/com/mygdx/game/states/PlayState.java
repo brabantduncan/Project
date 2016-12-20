@@ -142,6 +142,7 @@ public class PlayState extends State implements GameInterface {
             if (player.getFollower() != null) {
                 player.destroyFollower();
             }
+            BodyBuilder.getInstance().clearLists();
             gms.set(new MenuState(gms));
 
 
@@ -185,7 +186,7 @@ public class PlayState extends State implements GameInterface {
         player.getHud().stage.draw();
 
 
-        b2dr.render(world, camera.combined);
+        //b2dr.render(world, camera.combined);
 
         batch.begin();
        // batch.draw(background, 0, 0);
