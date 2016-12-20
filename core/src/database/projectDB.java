@@ -23,9 +23,9 @@ public class projectDB {
             /*getInstance().addPlayer("duncan", "duncan", 987654321);*/
             getInstance().getAllPlayerInfo();
             getInstance().getEnemyByName("Brecht");
-            /*getInstance().addScore("Duncan", 8888);*/
+            //getInstance().addScore("Duncan", 2);
             getInstance().getHighScores();
-            getInstance().updateHighestScoreInPlayer("Duncan1", 2);
+            //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -150,7 +150,7 @@ public class projectDB {
         }
     }
 
-    private void addScore(String playername, Integer score) throws SQLException {
+    public void addScore(String playername, Integer score) throws SQLException {
         try
         {
             String sql = "insert into score(pname, score) values(?,?)";

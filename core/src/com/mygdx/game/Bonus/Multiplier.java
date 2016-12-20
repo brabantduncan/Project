@@ -30,7 +30,9 @@ public class Multiplier implements BonusInterface {
 
         int score = p.getCurrentScore();
         p.resetScore();
-        p.increaseCurrentScore(score + Math.round(score * multiplier));
+
+        int procentBonus = (int)(Math.round(0.05*score));
+        p.increaseCurrentScore(score + procentBonus);
 
     }
 

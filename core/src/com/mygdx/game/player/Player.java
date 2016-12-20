@@ -76,7 +76,7 @@ public class Player {
         this.highScore = highScore;
         setUserData();
         dead = false;
-        invincible = true;
+        invincible = false;
         hasBomb = false;
     }
 
@@ -94,12 +94,12 @@ public class Player {
         handler = new AdventurerHandler();
         addBonus();
 
-        currentScore = 0;
+        currentScore = 1;
         highScore = 0;
         setUserData();
 
 
-        invincible = true;
+        invincible = false;
         hasBomb = false;
 
     }

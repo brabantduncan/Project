@@ -26,7 +26,9 @@ import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
 import constants.Constants;
+import database.projectDB;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -132,6 +134,11 @@ public class PlayState extends State implements GameInterface {
         world.step(1 / 60f, 6, 2);
 
         if (player.isDead()) {
+            try {
+                projectDB.getInstance().addScore(player.getPlayerName(),player.getCurrentScore());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             dispose();
             gms.set(new MenuState(gms));
 
