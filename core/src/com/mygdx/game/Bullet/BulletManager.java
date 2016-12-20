@@ -75,7 +75,7 @@ public class BulletManager {
         if (disposeBullets.size() > 0) {
 
             for (Bullet b : disposeBullets) {
-                BodyBuilder.getInstance().destroyBody(b.getB());
+                BodyBuilder.getInstance().addToDestroy(b.getB());
             }
             disposeBullets.clear();
         }

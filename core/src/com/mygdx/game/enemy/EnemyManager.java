@@ -16,9 +16,6 @@ public class EnemyManager {
 
     private ArrayList<Vector2> spawnPoints;
     private ArrayList<Enemy> enemies;
-    public ArrayList<Enemy> getDisposeEnemies() {
-        return disposeEnemies;
-    }
     private ArrayList<Enemy> disposeEnemies;
 
     private void setSpawnPoints(){
@@ -41,7 +38,7 @@ public class EnemyManager {
     }
 
     public Enemy spawnEnemy(){
-        return new Enemy(BodyBuilder.getInstance().createEnemy(choseSpawnPoint() ,false, Constants.Enemy, Constants.PLAYER));
+        return new Enemy(BodyBuilder.getInstance().createEnemy(choseSpawnPoint() ,false));
 
     }
 
@@ -78,8 +75,6 @@ public class EnemyManager {
     }
 
 
-
-
     public void removeEnemies(Body b1, Body b2) {
         if (b1.getUserData() instanceof Enemy) {
             removeEnemy(b1);
@@ -101,9 +96,24 @@ public class EnemyManager {
         if (disposeEnemies.size() > 0) {
 
             for (Enemy e : disposeEnemies) {
-                BodyBuilder.getInstance().destroyBody(e.getBody());
+                BodyBuilder.getInstance().addToDestroy(e.getBody());
             }
             disposeEnemies.clear();
         }
+    }
+
+    public void destroyAllPeasants(){
+        ArrayList<Enemy> enemyCopy = clone(enemies);
+        for (Enemy e: enemyCopy){
+            removeEnemy(e.getBody());
+        }
+    }
+
+    public ArrayList clone(ArrayList<Enemy> host){
+        ArrayList clone = new ArrayList<Enemy>();
+        for (Enemy e:host){
+            clone.add(e);
+        }
+        return clone;
     }
 }

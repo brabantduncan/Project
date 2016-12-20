@@ -4,14 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
-import com.sun.org.apache.xpath.internal.operations.String;
+import com.mygdx.game.Bonus.Bomb;
 
 
 /**
@@ -25,6 +22,7 @@ public class Hud {
     private int health;
     private int exp;
     private int level;
+    private boolean bomb;
 
     Label expLabel;
     Label expLabel2;
@@ -37,6 +35,9 @@ public class Hud {
 
     Label healthLabel;
     Label healthLabel2;
+
+    Label bombLabel;
+    Label bombLabel2;
 
     FillViewport port;
 
@@ -66,6 +67,8 @@ public class Hud {
         healthLabel=new Label(Integer.toString(health),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         healthLabel2=new Label("HEALTH",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
+        bombLabel=new Label(translateBomb(),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        bombLabel2=new Label("Bomb",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //Layout nog veranderen
 
@@ -75,12 +78,13 @@ public class Hud {
         table.add(scoreLabel2).expandX().pad(10);
         table.add(levelLabel2).expandX().pad(10);
         table.add(healthLabel2).expandX().pad(10);
+        table.add(bombLabel2).expandX().pad(10);
         table.row();
         table.add(expLabel).expandX().pad(5);
         table.add(scoreLabel).expandX().pad(5);
         table.add(levelLabel).expandX().pad(5);
         table.add(healthLabel).expandX().pad(5);
-
+        table.add(bombLabel).expandX().pad(5);
         stage.addActor(table);
 
 
@@ -90,12 +94,14 @@ public class Hud {
         score = p.getCurrentScore();
         exp = p.getCurrentEXP();
         health= p.getHealth();
+        bomb = p.isHasBomb();
 
 
         expLabel.setText(Integer.toString(exp));
         scoreLabel.setText(Integer.toString(score));
 
         healthLabel.setText(Integer.toString(health));
+        bombLabel.setText(translateBomb());
 
     }
 
@@ -106,6 +112,18 @@ public class Hud {
     }
 
     public void render(Batch batch){
+
+    }
+
+    public java.lang.String translateBomb(){
+        if (bomb == true){
+            java.lang.String translate = "Ready";
+            return translate;
+        }
+        else {
+            return "nope";
+        }
+
 
     }
 

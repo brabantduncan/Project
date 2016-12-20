@@ -1,15 +1,17 @@
 package com.mygdx.game.player;
 
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bonus.Bomb;
+import com.mygdx.game.Bonus.BonusInterface;
+import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
-import com.mygdx.game.follower.Follower;
+import com.mygdx.game.follower.FrontWatcherFollower;
+import com.mygdx.game.follower.FollowerInterface;
+import com.mygdx.game.follower.ShieldFollower;
 
 /**
  * Created by Shan on 11/7/2016.
@@ -35,12 +37,28 @@ public class Player {
     private int currentScore;
     private int highScore;
 
-    private Follower follower;
+
+    public FollowerInterface getFollower() {
+        return follower;
+    }
+
+    private FollowerInterface follower;
 
     private Hud hud;
 
     private boolean invincible;
     private boolean dead;
+
+    public boolean isHasBomb() {
+        return hasBomb;
+    }
+
+    public void setHasBomb(boolean hasBomb) {
+        this.hasBomb = hasBomb;
+    }
+
+    private boolean hasBomb;
+
     private Texture tex = new Texture("../assets/Monsters/alteroit.png");
     //private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
 
@@ -58,7 +76,8 @@ public class Player {
         this.highScore = highScore;
         setUserData();
         dead = false;
-        invincible = false;
+        invincible = true;
+        hasBomb = false;
     }
 
     public Player(Body playerBody, String playerName) {
@@ -80,7 +99,8 @@ public class Player {
         setUserData();
 
 
-        invincible = false;
+        invincible = true;
+        hasBomb = false;
 
     }
 
@@ -253,9 +273,17 @@ public class Player {
         hud = new Hud(batch);
     }
 
-    public void spawnFollower(Camera camera, Body body){
-        follower = new Follower(camera,body);
+    public void spawnFollower(){
+        follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+        follower.spawnExtra(playerBody);
     }
+    public void destroyFollower(){
+        BodyBuilder.getInstance().addToDestroy(follower.getBody());
+        follower =null;
+    }
+
+
+
 }
 
 
