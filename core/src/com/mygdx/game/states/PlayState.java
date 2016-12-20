@@ -86,7 +86,11 @@ public class PlayState extends State implements GameInterface {
         super(gms);
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
+<<<<<<< HEAD
        tmr = new OrthogonalTiledMapRenderer(map);
+=======
+        tmr = new OrthogonalTiledMapRenderer(map);
+>>>>>>> 32c13e73baed83d96c19db602f7fad526220be90
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
 
         camera = new OrthographicCamera();
@@ -119,7 +123,11 @@ public class PlayState extends State implements GameInterface {
 //<<<<<<< HEAD
         followerManager = new FollowerManager();
 //=======
+<<<<<<< HEAD
        TiledObjectUtil.parseTiledObjectLayer(map, world);
+=======
+        TiledObjectUtil.parseTiledObjectLayer(map, world);
+>>>>>>> 32c13e73baed83d96c19db602f7fad526220be90
 //>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
         createBorders();
         counter = 0;
@@ -145,8 +153,9 @@ public class PlayState extends State implements GameInterface {
 
         if (player.isDead()) {
 
+            //stop de muziek
             gameMusic.stop();
-            
+
             try {
                 projectDB.getInstance().addScore(player.getPlayerName(), player.getCurrentScore());
             } catch (SQLException e) {
@@ -170,7 +179,11 @@ public class PlayState extends State implements GameInterface {
             bonusHandler.addBonus();
             bonusHandler.destroyGems(player);
             handleInput();
+<<<<<<< HEAD
             tmr.setView(camera);
+=======
+               tmr.setView(camera);
+>>>>>>> 32c13e73baed83d96c19db602f7fad526220be90
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
             followerManager.moveFollower(player);
@@ -268,6 +281,8 @@ public class PlayState extends State implements GameInterface {
 
     public void createBullet(Vector2 mouse) {
         bm.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+
+
     }
 
     @Override
