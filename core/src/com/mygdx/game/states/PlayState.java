@@ -1,6 +1,7 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,6 +56,9 @@ public class PlayState extends State implements GameInterface {
     private ControllerHandler controllerHandler;
 
     ArrayList<Body> objects;
+
+
+    private Music gameMusic;
 
     @Override
     public EnemyManager getEnemyManager() {
@@ -120,6 +124,12 @@ public class PlayState extends State implements GameInterface {
         createBorders();
         counter = 0;
 
+        //music
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/gameMusic.mp3"));
+        gameMusic.setVolume(.25f);
+        gameMusic.setLooping(true);
+        gameMusic.play();
+
     }
 
     @Override
@@ -134,6 +144,9 @@ public class PlayState extends State implements GameInterface {
         world.step(1 / 60f, 6, 2);
 
         if (player.isDead()) {
+
+            gameMusic.stop();
+            
             try {
                 projectDB.getInstance().addScore(player.getPlayerName(), player.getCurrentScore());
             } catch (SQLException e) {
