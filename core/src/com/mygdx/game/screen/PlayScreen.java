@@ -22,6 +22,7 @@ public class PlayScreen implements Screen{
     SpriteBatch batch;
 
 
+
    // private  MyGdxGame game;
     Texture text = new Texture("badlogic.jpg");
 
