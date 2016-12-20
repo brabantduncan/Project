@@ -62,16 +62,16 @@ public class MenuScreen implements Screen {
         skin.add("default", textButtonStyle);
 
         final TextButton textButton = new TextButton("SINGLEPLAYER",textButtonStyle);
-        textButton.setPosition(285*2, 300*2);
+        textButton.setPosition(290*2, 300*2);
         stage.addActor(textButton);
 
 
         final TextButton textButton2 = new TextButton("MULTIPLAYER", textButtonStyle);
-        textButton2.setPosition(285*2, 230*2);
+        textButton2.setPosition(290*2, 230*2);
         stage.addActor(textButton2);
 
         final TextButton textButton3 = new TextButton("HIGHSCORES", textButtonStyle);
-        textButton3.setPosition(285*2, 160*2);
+        textButton3.setPosition(290*2, 160*2);
         stage.addActor(textButton3);
 
 
