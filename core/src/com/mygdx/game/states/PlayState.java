@@ -1,6 +1,8 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,17 +20,15 @@ import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
-import com.mygdx.game.TiledObjectUtil;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
 import com.mygdx.game.controller.ControllerHandler;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
+import com.mygdx.game.player.PlayerFactory;
 import constants.Constants;
-import database.projectDB;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -48,9 +48,8 @@ public class PlayState extends State implements GameInterface {
     private TiledMap map;
 
 
-
     private World world;
-    private Player player;
+    private ArrayList<Player> players;
 
     private ControllerHandler controllerHandler;
 
@@ -70,11 +69,12 @@ public class PlayState extends State implements GameInterface {
 
     private FollowerManager followerManager;
 
-    private int counter;
 
     public BonusHandler getBonusHandler() {
         return bonusHandler;
     }
+
+    public ArrayList<Controller> controllers;
 
 
     public PlayState(GameStateManager gms) {
@@ -82,87 +82,79 @@ public class PlayState extends State implements GameInterface {
         super(gms);
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
-       // tmr = new OrthogonalTiledMapRenderer(map);
+        // tmr = new OrthogonalTiledMapRenderer(map);
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
-
         world = new World(new Vector2(0, 0), false); // zwaartekracht is hier positief?
         b2dr = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
+        controllerHandler = new ControllerHandler();
+
 
         BodyBuilder.getInstance().setWorld(world);
+        PlayerFactory playerFactoy = new PlayerFactory();
+        players = playerFactoy.getPlayers(2);
+        controllerHandler.giveControles(players);
 
-        player = new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), "John Cena");
-        player.createHud(batch);
+        //Nog hun hud tekenen
+
         //player.spawnFollower();
 
         this.world.setContactListener(new CollisionDetector(this));
 
-        bm = new BulletManager(player, camera);
+        bm = new BulletManager(camera);
         enemyManager = new EnemyManager();
 
 
-        levelHandler = new LevelHandler(player, enemyManager, gms);
+        levelHandler = new LevelHandler(enemyManager, gms);
 
         bonusHandler = new BonusHandler();
         renderHandler = new RenderHandler();
         objects = new ArrayList<Body>();
 
         controllerHandler = new ControllerHandler();
-//<<<<<<< HEAD
-        followerManager = new FollowerManager();
-//=======
-       // TiledObjectUtil.parseTiledObjectLayer(map, world);
-//>>>>>>> b4f5f51513cbb818a2e03ec3104eee990a0495ba
-        createBorders();
-        counter = 0;
 
+        followerManager = new FollowerManager();
+
+        // TiledObjectUtil.parseTiledObjectLayer(map, world);
+
+        createBorders();
     }
 
     @Override
     public void handleInput() {
-        controllerHandler.handleInput(this);
-        enemyManager.updateEnemyMovement(player.getPlayerBody().getPosition());
+        controllerHandler.handleInput(players, this);
+        enemyManager.updateEnemyMovement(players);
     }
 
 
     @Override
     public void update(float dt) {
         world.step(1 / 60f, 6, 2);
-
-        if (player.isDead()) {
-            try {
-                projectDB.getInstance().addScore(player.getPlayerName(), player.getCurrentScore());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            if (player.getFollower() != null) {
-                player.destroyFollower();
-            }
-            BodyBuilder.getInstance().clearLists();
-            gms.set(new MenuState(gms));
-
-
-        }
-        else {
-
+        if (checkAllPlayersDeath()) {
+            endGame();
+        } else {
 
             bm.destroyBullets();
             levelHandler.updateLevel();
-            player.getHud().updateLevel(levelHandler.getLevel());
-            player.updateHud();
-            bonusHandler.addBonus();
-            bonusHandler.destroyGems(player);
+            /**
+             * //hud interface maken die een gezamelijk hud heeft en een aparte
+             player.getHud().updateLevel(levelHandler.getLevel());
+             player.updateHud();**/
+
+            bonusHandler.addBonus(); // spawned alle bonussen;
+            bonusHandler.destroyGems(players);
             handleInput();
 //            tmr.setView(camera);
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
-            followerManager.moveFollower(player);
-            followerManager.doAction(player,getMouseCoords(), bm);
-            updatePlayerRotation(getMouseCoords());
+           // followerManager.moveFollower(players);
+            followerManager.doAction(players.get(0), getMouseCoords(), bm);
+
+            updatePlayerRotation(getMouseCoords(), players.get(0));
 
             BodyBuilder.getInstance().destroyBodies();
         }
@@ -182,33 +174,37 @@ public class PlayState extends State implements GameInterface {
 
         // tmr.render();
 
-        batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
-        player.getHud().stage.draw();
+        /**
+         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
+         player.getHud().stage.draw();
+         **/
 
-
-        //b2dr.render(world, camera.combined);
+        b2dr.render(world, camera.combined);
 
         batch.begin();
-       // batch.draw(background, 0, 0);
+        // batch.draw(background, 0, 0);
+/**
+ renderHandler.renderPlayer(batch, players.get(0).getTexture(), players.get(0));
+ renderHandler.renderEnemies(batch, enemyManager.getEnemies());
+ renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
+ renderHandler.renderBullets(batch, bm.getBullets());
 
-        renderHandler.renderPlayer(batch, player.getTexture(), player);
-        renderHandler.renderEnemies(batch, enemyManager.getEnemies());
-        renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
-        renderHandler.renderBullets(batch, bm.getBullets());
-
-
+ **/
         batch.end();
-        batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
-        player.getHud().stage.draw();
+        /**
+         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
+         player.getHud().stage.draw();**/
     }
 
-    public void cameraUpdate(float delta) {
-        Vector3 position = camera.position;
-        position.x = camera.position.x + (player.getPlayerBody().getPosition().x - camera.position.x) * .1f;
-        position.y = camera.position.y + (player.getPlayerBody().getPosition().y - camera.position.y) * .1f;
-        camera.position.set(position);
-        camera.update();
-    }
+    /**
+     * public void cameraUpdate(float delta) {
+     * Vector3 position = camera.position;
+     * position.x = camera.position.x + (player.getPlayerBody().getPosition().x - camera.position.x) * .1f;
+     * position.y = camera.position.y + (player.getPlayerBody().getPosition().y - camera.position.y) * .1f;
+     * camera.position.set(position);
+     * camera.update();
+     * }
+     **/
 
     public Vector2 getMouseCoords() {
         int xmouse = Gdx.input.getX();
@@ -217,7 +213,7 @@ public class PlayState extends State implements GameInterface {
         return new Vector2(xmouse, ymouse);
     }
 
-    public void updatePlayerRotation(Vector2 mouseCoords) {
+    public void updatePlayerRotation(Vector2 mouseCoords, Player player) {
 
         Vector3 sp3 = camera.unproject(new Vector3(mouseCoords.x, mouseCoords.y, 0));
         Vector2 sp2 = new Vector2(sp3.x, sp3.y);
@@ -239,8 +235,8 @@ public class PlayState extends State implements GameInterface {
     }
 
     @Override
-    public Player getPlayer() {
-        return player;
+    public ArrayList<Player> getPlayer() {
+        return players;
     }
 
 
@@ -253,7 +249,7 @@ public class PlayState extends State implements GameInterface {
         }
     }
 
-    public void createBullet(Vector2 mouse) {
+    public void createBullet(Vector2 mouse, Player player) {
         bm.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
     }
 
@@ -285,6 +281,31 @@ public class PlayState extends State implements GameInterface {
     }
 
 
+    public void endGame(){
+        /**
+         for(Players p: players){
 
+         try {
+         projectDB.getInstance().addScore(p.getPlayerName(), p.getCurrentScore());
+         } catch (SQLException e) {
+         e.printStackTrace();
+         }
 
+         }
+         **/
+        followerManager.destroyMultipleFollowers(players);
+        BodyBuilder.getInstance().clearLists();
+        gms.set(new MenuState(gms));
+
+    }
+
+    public boolean checkAllPlayersDeath(){
+        boolean allDead = true;
+        for (Player p:players){
+            if(!p.isDead()){
+                allDead = false;
+            }
+        }
+        return allDead;
+    }
 }

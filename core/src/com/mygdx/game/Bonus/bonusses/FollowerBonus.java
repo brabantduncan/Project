@@ -1,7 +1,8 @@
-package com.mygdx.game.Bonus;
+package com.mygdx.game.Bonus.bonusses;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.player.Player;
 
 

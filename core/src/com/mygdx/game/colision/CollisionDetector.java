@@ -1,19 +1,13 @@
 package com.mygdx.game.colision;
 
-import com.badlogic.gdx.ai.utils.random.GaussianDoubleDistribution;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Bonus.BonusInterface;
-import com.mygdx.game.Bonus.Gem;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
-import com.mygdx.game.follower.FollowerInterface;
 import com.mygdx.game.follower.FrontWatcherFollower;
 import com.mygdx.game.follower.ShieldFollower;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.states.GameInterface;
-import com.mygdx.game.states.PlayState;
-import com.mygdx.game.states.State;
 
 /**
  * Created by Shan on 11/30/2016.
@@ -96,12 +90,12 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
             //zorgen dat wanneer de gem met muur collide dat alles weggaat
             if (b1.getUserData() instanceof BonusInterface) {
-                p.getBonusHandler().setRemoveList(b1);
+                p.getBonusHandler().setRemoveList(b1,b2);
 
 
             }
             if (b2.getUserData() instanceof BonusInterface) {
-                p.getBonusHandler().setRemoveList(b2);
+                p.getBonusHandler().setRemoveList(b2,b2);
             }
 
 
@@ -117,7 +111,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
             if (b1.getUserData() instanceof FrontWatcherFollower || b2.getUserData() instanceof FrontWatcherFollower) {
-                p.getPlayer().destroyFollower();
+               // p.getPlayer().destroyFollower();
             }
             if (b1.getUserData() instanceof ShieldFollower || b2.getUserData() instanceof ShieldFollower) {
                 sendBody(b1, b2);
@@ -131,7 +125,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
     public void handlePlayerEnemy() {
-        p.getPlayer().damage(50);
+       // p.getPlayer().damage(50);
 
 
     }

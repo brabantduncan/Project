@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.player.Player;
 import constants.Constants;
 
 import java.util.ArrayList;
@@ -84,12 +85,25 @@ public class EnemyManager {
         }
     }
 
-    public void  updateEnemyMovement(Vector2 playerPosition) {
+    public void updateEnemyMovement(ArrayList<Player> players) {
         for (Enemy e : enemies) {
-            e.updatePosition(playerPosition);
+            Body closest = calcClosest(players, e.getBody().getPosition());
+            e.updatePosition(closest.getPosition());
         }
 
     }
+
+    private Body calcClosest(ArrayList<Player> players, Vector2 enemyPosition ) {
+        Body closest = players.get(0).getPlayerBody();
+        for(Player p: players){
+            if (p.getPlayerBody().getPosition().dst(enemyPosition) <closest.getPosition().dst(enemyPosition)){
+                closest = p.getPlayerBody();
+            }
+        }
+        return closest;
+    }
+
+
 
 
     public void destroyEnemies() {

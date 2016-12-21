@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Shan on 12/13/2016.
- */
+ *//**
 public class BossState extends State implements GameInterface {
 
 
@@ -168,3 +168,4 @@ public class BossState extends State implements GameInterface {
 
 
 }
+**/

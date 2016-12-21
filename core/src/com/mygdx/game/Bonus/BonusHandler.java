@@ -25,7 +25,6 @@ public class BonusHandler {
     private BonusFactory bonusFactory;
 
 
-
     public BonusHandler() {
         bonusSpawnCoord = new ArrayList<Vector2>();
         bonusToSpawn = new ArrayList<BonusInterface>();
@@ -50,28 +49,30 @@ public class BonusHandler {
 
         if (!(bonusSpawnCoord.size() == 0)) {
             for (Vector2 v : bonusSpawnCoord) {
-                 bonusToSpawn.add(spawnBonus(v));
+                bonusToSpawn.add(spawnBonus(v));
             }
             bonusSpawnCoord.clear();
         }
-        //System.out.print("Niks\n");
+
 
     }
 
-    public void setRemoveList(Body bonusBody) {
+    public void setRemoveList(Body bonusBody, Body playerbody) {
 
-       for (BonusInterface g :  bonusToSpawn) {
+        for (BonusInterface g : bonusToSpawn) {
             if (g.getBody().equals(bonusBody)) {
                 bonusToRemove.add(g);
             }
         }
-         bonusToSpawn.removeAll(bonusToRemove);
+        bonusToSpawn.removeAll(bonusToRemove);
     }
 
-    public void destroyGems(Player p ) {
+    public void destroyGems(ArrayList<Player> players) {
         if (!(bonusToRemove.size() == 0)) {
             for (BonusInterface g : bonusToRemove) {
-                g.addBonus(p);
+                for (Player p : players) {
+                    g.addBonus(p);
+                }
                 BodyBuilder.getInstance().addToDestroy(g.getBody());
             }
             bonusToRemove.clear();
@@ -79,7 +80,7 @@ public class BonusHandler {
 
     }
 
-    public ArrayList<BonusInterface> getBonusToSpawn(){
+    public ArrayList<BonusInterface> getBonusToSpawn() {
         return bonusToSpawn;
     }
 

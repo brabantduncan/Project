@@ -1,15 +1,13 @@
 package com.mygdx.game.player;
 
 
+import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.Bonus.Bomb;
-import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
-import com.mygdx.game.follower.FrontWatcherFollower;
 import com.mygdx.game.follower.FollowerInterface;
 import com.mygdx.game.follower.ShieldFollower;
 
@@ -59,8 +57,9 @@ public class Player {
 
     private boolean hasBomb;
 
-    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
-    //private Sprite sprite = new Sprite(tex, 0, 0, 48, 45);
+    private Texture tex = new Texture("../assets/MinecraftIngots/alteroit.png");
+    private Controller controller;
+
 
 
     public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
@@ -76,7 +75,7 @@ public class Player {
         this.highScore = highScore;
         setUserData();
         dead = false;
-        invincible = false;
+        invincible = true;
         hasBomb = false;
         follower = null;
     }
@@ -100,11 +99,12 @@ public class Player {
         setUserData();
 
 
-        invincible = false;
+        invincible = true;
         hasBomb = false;
 
         dead = false;
         follower = null;
+        this.controller = controller;
 
     }
 
@@ -298,9 +298,13 @@ public class Player {
     }
 
 
+    public Controller getController() {
+        return controller;
+    }
 
-
-
+    public void setController(Controller controller){
+        this.controller = controller;
+    }
 }
 
 

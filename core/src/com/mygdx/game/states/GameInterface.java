@@ -6,6 +6,8 @@ import com.mygdx.game.Bonus.BonusHandler;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.player.Player;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shan on 12/18/2016.
  */
@@ -19,7 +21,7 @@ public interface GameInterface {
 
     public BonusHandler getBonusHandler();
 
-    public Player getPlayer();
+    public ArrayList<Player> getPlayer();
 
     public  void destroyAllPeasants();
 
