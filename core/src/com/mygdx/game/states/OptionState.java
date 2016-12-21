@@ -11,7 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import javafx.scene.control.RadioButton;
+import database.projectDB;
+
+import java.sql.SQLException;
 
 /**
  * Created by Laurens Druwel on 21/12/2016.
@@ -22,7 +24,7 @@ public class OptionState extends State {
     private Texture background;
     private Skin skin;
     public Texture petSprite;
-    private 
+    private TextField description;
 
     public OptionState(GameStateManager gsm){
         super(gsm);
@@ -95,7 +97,11 @@ public class OptionState extends State {
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println(pet.getSelected().toLowerCase());
                 petSprite = new Texture("../assets/Monsters/"+ pet.getSelected().toLowerCase()+".png");
-                discription = new TextArea("", skin);
+                try {
+                    description = new TextField(projectDB.getInstance().getDescription(pet.getSelected()),skin);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
