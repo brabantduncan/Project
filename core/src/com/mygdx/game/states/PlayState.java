@@ -55,6 +55,7 @@ public class PlayState extends State implements GameInterface {
     private ControllerHandler controllerHandler;
 
     ArrayList<Body> objects;
+    Body b;
 
 
     private Music gameMusic;
@@ -87,7 +88,6 @@ public class PlayState extends State implements GameInterface {
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
         // tmr = new OrthogonalTiledMapRenderer(map);
-
 
        tmr = new OrthogonalTiledMapRenderer(map);
         tmr = new OrthogonalTiledMapRenderer(map);

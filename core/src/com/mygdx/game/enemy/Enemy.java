@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by laurens on 8/11/2016.
  */
-public class Enemy {
+public class Enemy implements EnemyInterface{
 
     private float x;
     private float y;

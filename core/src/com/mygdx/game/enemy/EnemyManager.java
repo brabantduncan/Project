@@ -16,10 +16,8 @@ import java.util.Random;
  */
 public class EnemyManager {
 
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Enemy> disposeEnemies;
-    private ArrayList<FasterEnemy> fasterenemies;
-    private ArrayList<FasterEnemy> disposeFasterenemies;
+    private ArrayList<EnemyInterface> enemies;
+    private ArrayList<EnemyInterface> disposeEnemies;
 
     public int makeSpawnPointsX() {
         Random x = new Random();
@@ -42,37 +40,29 @@ public class EnemyManager {
     }
 
     public EnemyManager(){
-        enemies = new ArrayList<Enemy>();
-        fasterenemies = new ArrayList<FasterEnemy>();
-        disposeEnemies = new ArrayList<Enemy>();
+        enemies = new ArrayList<EnemyInterface>();
+        disposeEnemies = new ArrayList<EnemyInterface>();
+
     }
 
-    public Enemy spawnEnemy(){
-        return new Enemy(BodyBuilder.getInstance().createEnemy(makeRandomVector() ,false));
+    public EnemyInterface spawnEnemy(){
+        return new EnemyFactory().generateEnemy(BodyBuilder.getInstance().createEnemy(makeRandomVector(), false));
     }
 
-    public FasterEnemy spawnFasterEnemy(){
-        return new FasterEnemy(BodyBuilder.getInstance().createEnemy(makeRandomVector(), false));
-    }
 
     public void createEnemies(int amount){
         for (int i = 0; i < amount; i++) {
             enemies.add(spawnEnemy());
-            fasterenemies.add(spawnFasterEnemy());
         }
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<EnemyInterface> getEnemies() {
         return enemies;
-    }
-
-    public ArrayList<FasterEnemy> getFasterenemies(){
-        return fasterenemies;
     }
 
     public  void removeEnemy(Body b) {
 
-        for (Enemy e : enemies) {
+        for (EnemyInterface e : enemies) {
 
             if (e.getBody().equals(b)) {
                 disposeEnemies.add(e);
@@ -82,45 +72,24 @@ public class EnemyManager {
         enemies.removeAll(disposeEnemies);
     }
 
-    public  void removeFasterEnemy(Body b) {
-
-        for (FasterEnemy f : fasterenemies) {
-
-            if (f.getBody().equals(b)) {
-                disposeFasterenemies.add(f);
-                System.out.print("Dispose faster set");
-            }
-        }
-        fasterenemies.removeAll(disposeFasterenemies);
-    }
-
 
     public void removeEnemies(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface) {
             removeEnemy(b1);
 
         } else {
             removeEnemy(b2);
         }
 
-        if (b1.getUserData() instanceof FasterEnemy) {
-            removeFasterEnemy(b1);
-
-        } else {
-            removeFasterEnemy(b2);
-        }
     }
 
+
     public void updateEnemyMovement(ArrayList<Player> players) {
-        for (Enemy e : enemies) {
+        for (EnemyInterface e : enemies) {
             Body closest = calcClosest(players, e.getBody().getPosition());
             e.updatePosition(closest.getPosition());
         }
 
-        for (FasterEnemy e : fasterenemies) {
-            Body closest = calcClosest(players, e.getBody().getPosition());
-            e.updatePosition(closest.getPosition());
-        }
     }
 
     private Body calcClosest(ArrayList<Player> players, Vector2 enemyPosition ) {
@@ -136,44 +105,26 @@ public class EnemyManager {
     public void destroyEnemies() {
         if (disposeEnemies.size() > 0) {
 
-            for (Enemy e : disposeEnemies) {
+            for (EnemyInterface e : disposeEnemies) {
                 BodyBuilder.getInstance().addToDestroy(e.getBody());
             }
             disposeEnemies.clear();
         }
-        if (disposeFasterenemies.size() > 0) {
-
-            for (FasterEnemy f : disposeFasterenemies) {
-                BodyBuilder.getInstance().addToDestroy(f.getBody());
-            }
-            disposeFasterenemies.clear();
-        }
     }
 
     public void destroyAllPeasants(){
-        ArrayList<Enemy> enemyCopy = clone(enemies);
-        for (Enemy e: enemyCopy){
+        ArrayList<EnemyInterface> enemyCopy = clone(enemies);
+        for (EnemyInterface e: enemyCopy){
             removeEnemy(e.getBody());
-        }
-        ArrayList<FasterEnemy> fasterCopy = cloneF(fasterenemies);
-        for (FasterEnemy f: fasterCopy){
-            removeEnemy(f.getBody());
         }
     }
 
-    public ArrayList clone(ArrayList<Enemy> host){
+    public ArrayList clone(ArrayList<EnemyInterface> host){
         ArrayList clone = new ArrayList<Enemy>();
-        for (Enemy e:host){
+        for (EnemyInterface e:host){
             clone.add(e);
         }
         return clone;
     }
 
-    public ArrayList cloneF(ArrayList<FasterEnemy> host){
-        ArrayList cloneF = new ArrayList<FasterEnemy>();
-        for (FasterEnemy f:host){
-            cloneF.add(f);
-        }
-        return cloneF;
-    }
 }
