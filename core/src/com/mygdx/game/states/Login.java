@@ -23,7 +23,6 @@ import java.sql.SQLException;
 public class Login extends State {
     public SpriteBatch batch;
     private Stage stage;
-    private TextButton button_SinglePlayer, button_MuliPlayer, button_HighScores;
     private Texture background;
     private Skin skin;
 
@@ -35,84 +34,48 @@ public class Login extends State {
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-        batch = new SpriteBatch();
-        stage = new Stage();
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
         skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
 
-        Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
 
-
-
-        TextField.TextFieldStyle tfs = new TextField.TextFieldStyle();
-        tfs.fontColor = Color.RED;
-        tfs.font = new BitmapFont();
-
-        TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-        tbs.fontColor = Color.RED;
-        tbs.font = new BitmapFont();
-
-        final Label.LabelStyle ls = new Label.LabelStyle();
-        ls.fontColor = Color.RED;
-        ls.font = new BitmapFont();
-
-
-        Label login = new Label("Login", ls);
+        Label login = new Label("Login", skin);
         login.setPosition(stage.getWidth() /2, 600);
         stage.addActor(login);
 
-        Label usernameLabel = new Label("Username", ls);
+        Label usernameLabel = new Label("Username", skin);
 
-        final TextField usernameInput = new TextField("", tfs);
+        final TextField usernameInput = new TextField("", skin);
         usernameInput.setPosition(stage.getWidth() / 2, 550);
 
         usernameInput.setMessageText("<Username>");
 
         usernameInput.setColor(Color.WHITE);
 
-        Label passwordLabel = new Label("Password", ls);
+        Label passwordLabel = new Label("Password", skin);
 
-        final TextField passwordInput = new TextField("", tfs);
+        final TextField passwordInput = new TextField("", skin);
+        passwordInput.setPasswordMode(true);
         passwordInput.setMessageText("<Password>");
         passwordInput.setColor(Color.WHITE);
 
-        TextButton loginButton = new TextButton("login", tbs);
+
+        TextButton loginButton = new TextButton("login", skin);
         loginButton.setPosition(stage.getWidth() / 2 - (loginButton.getWidth() / 2), 420);
         loginButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
                 try {
-                    if(projectDB.getInstance().loginCheck(username, password)){
-                        gms.set(new PlayState(gms)); // get login
-                    }
-                    else{
-
-                    }
+                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new PlayState(gms)); // get login
                 } catch (SQLException e) {
-
-                    final Dialog loginErrorDlg = new Dialog("Error", skin);
-                    loginErrorDlg.setSize(400, 80);
-                    loginErrorDlg.setPosition(stage.getWidth() / 2 -(loginErrorDlg.getWidth() / 2), stage.getHeight() / 2);
-                    loginErrorDlg.setMovable(false);
-                    TextButton okButton = new TextButton("Ok", skin);
-                    okButton.addListener(new ChangeListener() {
-                        public void changed (ChangeEvent event, Actor actor) {
-                            loginErrorDlg.remove();}});
-                    Label errorLabel = new Label("Unable to retrieve username/password \n please check if typed correctly", skin);
-                    loginErrorDlg.add(errorLabel);
-                    loginErrorDlg.add(okButton);
-                    stage.addActor(loginErrorDlg);
+                    stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                 }
             }});
         stage.addActor(loginButton);
 
 
-        TextButton createAccountButton = new TextButton("create new account", tbs);
+        TextButton createAccountButton = new TextButton("create new account", skin);
         createAccountButton.setPosition(stage.getWidth() / 2 - (createAccountButton.getWidth() / 2), 400);
         createAccountButton.addListener(new ChangeListener() {
             @Override
@@ -133,13 +96,25 @@ public class Login extends State {
                 Label passwordLabel = new Label("Password", skin);
                 createAccountdlg.add(passwordLabel);
 
-                final TextField passwordInput = new TextField("", skin);
+                final TextField passwordInput = new TextField("", skin, "password");
                 passwordInput.setMessageText("<Password>");
                 passwordInput.setColor(Color.WHITE);
                 createAccountdlg.add(passwordInput);
 
                 TextButton okButton = new TextButton("Ok", skin);
-                //okButton.addListener();
+                okButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        String username = usernameInput.getText();
+                        String password = passwordInput.getText();
+                        try {
+                            projectDB.getInstance().addPlayer(username, password);
+                        } catch (SQLException e) {
+                            stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
+                        }
+                        gms.set(new PlayState(gms));
+                    }
+                });
                 createAccountdlg.add(okButton);
                 stage.addActor(createAccountdlg);
             }
@@ -188,7 +163,25 @@ public class Login extends State {
 
     @Override
     public void dispose() {
+        stage.dispose();
+        skin.dispose();
+        batch.dispose();
+    }
 
+    public Dialog getDialog(String msg){
+        final Dialog dlg = new Dialog("Error", skin);
+        dlg.setSize(400, 80);
+        dlg.setPosition(stage.getWidth() / 2 -(dlg.getWidth() / 2), stage.getHeight() / 2);
+        dlg.setMovable(false);
+        TextButton okButton = new TextButton("Ok", skin);
+        okButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                dlg.remove();}});
+        Label errorLabel = new Label("Unable to retrieve username/password \n please check if typed correctly", skin);
+        dlg.add(errorLabel);
+        dlg.add(okButton);
+
+        return dlg;
     }
 
 

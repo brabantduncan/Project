@@ -5,9 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.states.GameStateManager;
-import com.mygdx.game.states.MenuState;
-import com.mygdx.game.states.PlayState;
+import com.mygdx.game.states.*;
 
 
 /**
@@ -28,9 +26,28 @@ public class testGDX implements ApplicationListener {
 
         batch = new SpriteBatch();
         gsm = new GameStateManager();
-        Gdx.gl.glClearColor(0,0,0,1);
+
+        Gdx.gl.glClearColor(1,0,0,1);
         //gsm.push(new MenuState(gsm)); // start in menu
-        gsm.push(new PlayState(gsm)); //start in game
+        //gsm.push(new PlayState(gsm));
+
+        Gdx.gl.glClearColor(0,0,0,1);
+
+        //gsm.push(new MenuState(gsm)); // start in menu
+
+        gsm.push(new Login(gsm));
+
+        gsm.push(new Login(gsm));
+
+        gsm.push(new OptionState(gsm));
+
+
+        gsm.push(new PlayState(gsm));
+
+        //gsm.push(new MenuState(gsm)); // start in menu
+        gsm.push(new PlayState(gsm));
+
+
     }
 
     @Override

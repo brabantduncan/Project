@@ -1,10 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.enemy.Enemy;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.enemy.EnemyManager;
-import com.mygdx.game.player.Player;
-import com.mygdx.game.states.BossState;
 import com.mygdx.game.states.GameStateManager;
 
 /**
@@ -15,15 +12,15 @@ public class LevelHandler {
     int level;
     EnemyManager enemyManager;
     GameStateManager gameStateManager;
-    Player player;
 
-    public LevelHandler(Player player, EnemyManager enemyManager, GameStateManager gameStateManager) {
+
+    public LevelHandler(EnemyManager enemyManager, GameStateManager gameStateManager) {
         level = 1;
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
         enemyManager.createEnemies(100);
-        this.player = player;
+
     }
 
     public void updateLevel() {
@@ -41,12 +38,7 @@ public class LevelHandler {
     }
 
     public void handleLevel() {
-
-        if (level == 20) {
-
-            gameStateManager.set(new BossState(gameStateManager, player));
-        }
-        else if (enemyManager.getEnemies().isEmpty()) {
+        if (enemyManager.getEnemies().isEmpty()) {
             NextLevel();
 
         }

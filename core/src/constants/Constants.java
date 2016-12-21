@@ -16,7 +16,7 @@ public class Constants {
     public static final short ROTOR = 0x0032;
 
     //define values
-    public static final short GEM = 5;
+    public static final short GEM = 0x0064;
 
     //define speed
     public static final int BULLET_SPEED =100;

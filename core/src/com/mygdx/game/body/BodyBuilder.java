@@ -58,7 +58,7 @@ public class BodyBuilder {
         fdef.shape = shape;
         fdef.density = 1000f;
         fdef.filter.categoryBits = Constants.Wall;
-        fdef.filter.maskBits = Constants.PLAYER;
+        fdef.filter.maskBits = Constants.PLAYER | Constants.GEM;
 
 
         return world.createBody(def).createFixture(fdef).getBody();
@@ -175,8 +175,8 @@ public class BodyBuilder {
         fdef.shape = shape;
         fdef.density = 1.0f;
         fdef.friction = 0;
-        fdef.filter.categoryBits = 4;
-        fdef.filter.maskBits = 1;
+        fdef.filter.categoryBits = Constants.GEM;
+        fdef.filter.maskBits = Constants.PLAYER| Constants.Wall;
 
 
         return world.createBody(bodyDef).createFixture(fdef).getBody();
@@ -184,7 +184,7 @@ public class BodyBuilder {
 
     }
 
-    private void destroyBody(Body body) {
+    public void destroyBody(Body body) {
         if (body != null){
             world.destroyBody(body);
         }

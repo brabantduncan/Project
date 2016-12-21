@@ -7,38 +7,23 @@ import com.badlogic.gdx.physics.box2d.Body;
 import java.util.Random;
 
 /**
- * Created by laurens on 8/11/2016.
+ * Created by Duncan on 21/12/2016.
  */
-public class Enemy implements EnemyInterface{
+
+public class FasterEnemy implements EnemyInterface {
 
     private float x;
     private float y;
 
-
-    public Body getBody() {
-        return body;
-    }
-
     private Body body;
 
+    private final int MOVEMENT_SPEED = 50;
 
-    private final int MOVEMENT_SPEED = 4;
+    private Texture texture = new Texture("../assets/Monsters/kakuna.gif");
 
-    private Texture texture = new Texture("../assets/Monsters/weedle.gif");
-
-
-
-    public Enemy(Body body) {
-
+    public FasterEnemy(Body body) {
         //uitlezen uit database
         this.body = body;
-        /**
-        this.name = name;
-        this.type = type;
-        this.health = health;
-        this.movementSpeed = movementspeed;
-        this.spawnTime = spawnTime;
-        **/
 
         x = pointGenerator(250,500); // should be game.WIDTH / 2;
         y = pointGenerator(200, 400);
@@ -46,7 +31,12 @@ public class Enemy implements EnemyInterface{
         setUserData();
     }
 
+    @Override
+    public Body getBody() {
+        return body;
+    }
 
+    @Override
     public float pointGenerator(int min, int max){
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
@@ -56,10 +46,8 @@ public class Enemy implements EnemyInterface{
     }
 
 
-    public void spawn(){
 
-    }
-
+    @Override
     public void updatePosition(Vector2 playerPosition){
 
         int horizontalForce = 0;
@@ -90,24 +78,26 @@ public class Enemy implements EnemyInterface{
 
     }
 
+    @Override
     public float getX(){ return x;}
+
+    @Override
     public float getY(){ return y;}
 
-
+    @Override
     public int randomMovement(int origineel){
         Random rand = new Random();
         return rand.nextInt(origineel+10);
     }
 
-
+    @Override
     public void setUserData(){
         body.setUserData(this);
     }
 
+    @Override
     public Texture getTexture(){
         return texture;
     }
 
 }
-
-

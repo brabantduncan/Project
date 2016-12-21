@@ -27,6 +27,7 @@ public class projectDB {
             getInstance().getHighScores();
             //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
             getInstance().loginCheck("duncan","dicks");
+            getInstance().getDescription("FrontWatcher");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,7 +75,7 @@ public class projectDB {
         return instance;
     }
 
-    private void addPlayer(String playername, String password) throws SQLException {
+    public void addPlayer(String playername, String password) throws SQLException {
         try
         {
             String sql = "insert into player(pName, password, highestScore) values(?,?,?)";
@@ -116,6 +117,30 @@ public class projectDB {
             prep.close();
             System.out.println(enemy);
             return enemy;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("enemy not found", ex);
+        }
+    }
+
+    public String getDescription(String followername) throws SQLException {
+        try
+        {
+            String description = "";
+            String sql = "select description from support where sName = '"+followername+"'";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            rs.next();
+            description += rs.getString(1);
+
+            rs.close();
+            prep.close();
+            System.out.println(description);
+            return description;
         }
         catch (SQLException ex)
         {

@@ -3,7 +3,6 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 //import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.RotatorTest;
 import com.mygdx.game.testGDX;
 
 public class DesktopLauncher {
@@ -19,8 +18,11 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 
 
+
+
 		//new LwjglApplication(new RotatorTest(), config);
 		new LwjglApplication(new testGDX(), config);
 		//new LwjglApplication(new MyGdxGame(), config);
+		//new LwjglApplication(new ControllerTest(), config);
 	}
 }

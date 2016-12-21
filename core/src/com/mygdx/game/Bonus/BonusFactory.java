@@ -1,6 +1,9 @@
 package com.mygdx.game.Bonus;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bonus.bonusses.FollowerBonus;
+import com.mygdx.game.Bonus.bonusses.Multiplier;
+import com.mygdx.game.Bonus.bonusses.Overshield;
 
 import java.util.Random;
 

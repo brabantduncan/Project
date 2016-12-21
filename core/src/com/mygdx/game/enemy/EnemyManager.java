@@ -5,106 +5,50 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.player.Player;
 import constants.Constants;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Shan on 11/28/2016.
+ * Edited by Duncan on 21/12/2016.
  */
 public class EnemyManager {
 
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Enemy> disposeEnemies;
-
+    private ArrayList<EnemyInterface> enemies;
+    private ArrayList<EnemyInterface> disposeEnemies;
 
     public int makeSpawnPointsX() {
         Random x = new Random();
-    int Low = -100;
-    int High = Gdx.graphics.getWidth()+1;
-    int ResultX = x.nextInt(High - Low) + Low;
-    return ResultX;
-};
+        int Low = 0;
+        int High = Gdx.graphics.getWidth();
+        int ResultX = x.nextInt(High - Low) + Low;
+        return ResultX;
+    };
 
     public int makeSpawnPointsY(){
         Random y = new Random();
-        int Low = -100;
-        int High = Gdx.graphics.getHeight()+1;
+        int Low = 0;
+        int High = Gdx.graphics.getHeight();
         int ResultY = y.nextInt(High - Low) + Low;
         return ResultY;
-    };
-
-
-    public Vector2 makeRandomVector() {
-        int x = makeSpawnPointsX();
-        int y = makeSpawnPointsY();
-
-        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
-            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
-                Random r = new Random();
-                int randomInt = r.nextInt(100);
-
-                if((randomInt%2)==0){
-                    return new Vector2(x, -randomInt);
-                }else{
-                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
-                }
-
-            } else {
-                return new Vector2(x, y);
-            }
-        } else {
-
-            return new Vector2(x, y);
-
-        }
-
-
     }
 
-
-
-
-
-
-   /* private void setSpawnPoints(){
-
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-
-    };*/
-
+    public Vector2 makeRandomVector(){
+        return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
+    }
 
     public EnemyManager(){
-        //spawnPoints = new ArrayList<Vector2>();
-        enemies = new ArrayList<Enemy>();
-        disposeEnemies = new ArrayList<Enemy>();
-        //setSpawnPoints();
-
-
+        enemies = new ArrayList<EnemyInterface>();
+        disposeEnemies = new ArrayList<EnemyInterface>();
 
     }
 
-    public Enemy spawnEnemy(){
-        return new Enemy(BodyBuilder.getInstance().createEnemy(makeRandomVector() ,false));
-
+    public EnemyInterface spawnEnemy(){
+        return new EnemyFactory().generateEnemy(BodyBuilder.getInstance().createEnemy(makeRandomVector(), false));
     }
 
-    /*public Vector2 choseSpawnPoint(){
-
-        Random r = new Random();
-
-        int result = r.nextInt(spawnPoints.size()-0) + 0;
-        return spawnPoints.get(result);
-    }*/
 
     public void createEnemies(int amount){
         for (int i = 0; i < amount; i++) {
@@ -112,13 +56,13 @@ public class EnemyManager {
         }
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<EnemyInterface> getEnemies() {
         return enemies;
     }
 
     public  void removeEnemy(Body b) {
 
-        for (Enemy e : enemies) {
+        for (EnemyInterface e : enemies) {
 
             if (e.getBody().equals(b)) {
                 disposeEnemies.add(e);
@@ -130,26 +74,37 @@ public class EnemyManager {
 
 
     public void removeEnemies(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface) {
             removeEnemy(b1);
-
         } else {
             removeEnemy(b2);
         }
+
     }
 
-    public void  updateEnemyMovement(Vector2 playerPosition) {
-        for (Enemy e : enemies) {
-            e.updatePosition(playerPosition);
+
+    public void updateEnemyMovement(ArrayList<Player> players) {
+        for (EnemyInterface e : enemies) {
+            Body closest = calcClosest(players, e.getBody().getPosition());
+            e.updatePosition(closest.getPosition());
         }
 
     }
 
+    private Body calcClosest(ArrayList<Player> players, Vector2 enemyPosition ) {
+        Body closest = players.get(0).getPlayerBody();
+        for(Player p: players){
+            if (p.getPlayerBody().getPosition().dst(enemyPosition) <closest.getPosition().dst(enemyPosition)){
+                closest = p.getPlayerBody();
+            }
+        }
+        return closest;
+    }
 
     public void destroyEnemies() {
         if (disposeEnemies.size() > 0) {
 
-            for (Enemy e : disposeEnemies) {
+            for (EnemyInterface e : disposeEnemies) {
                 BodyBuilder.getInstance().addToDestroy(e.getBody());
             }
             disposeEnemies.clear();
@@ -157,17 +112,18 @@ public class EnemyManager {
     }
 
     public void destroyAllPeasants(){
-        ArrayList<Enemy> enemyCopy = clone(enemies);
-        for (Enemy e: enemyCopy){
+        ArrayList<EnemyInterface> enemyCopy = clone(enemies);
+        for (EnemyInterface e: enemyCopy){
             removeEnemy(e.getBody());
         }
     }
 
-    public ArrayList clone(ArrayList<Enemy> host){
+    public ArrayList clone(ArrayList<EnemyInterface> host){
         ArrayList clone = new ArrayList<Enemy>();
-        for (Enemy e:host){
+        for (EnemyInterface e:host){
             clone.add(e);
         }
         return clone;
     }
+
 }
