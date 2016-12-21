@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import database.projectDB;
+
+import java.sql.SQLException;
 
 
 /**
@@ -26,6 +29,7 @@ public class Login extends State {
 
 
 
+
     public Login(GameStateManager gsm){
         super(gsm);
         batch = new SpriteBatch();
@@ -35,9 +39,8 @@ public class Login extends State {
         batch = new SpriteBatch();
         stage = new Stage();
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
+        skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
-
-        skin = new Skin();
 
         Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.GREEN);
@@ -83,31 +86,64 @@ public class Login extends State {
             public void changed (ChangeEvent event, Actor actor) {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
-                if( false /* user klopt in combinatie met passwoord*/){
-                    gms.set(new PlayState(gms)); // get login
-                }
-                else{
+                try {
+                    if(projectDB.getInstance().loginCheck(username, password)){
+                        gms.set(new PlayState(gms)); // get login
+                    }
+                    else{
 
-                    skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
+                    }
+                } catch (SQLException e) {
+
                     final Dialog loginErrorDlg = new Dialog("Error", skin);
                     loginErrorDlg.setSize(400, 80);
                     loginErrorDlg.setPosition(stage.getWidth() / 2 -(loginErrorDlg.getWidth() / 2), stage.getHeight() / 2);
+                    loginErrorDlg.setMovable(false);
                     TextButton okButton = new TextButton("Ok", skin);
                     okButton.addListener(new ChangeListener() {
                         public void changed (ChangeEvent event, Actor actor) {
-                        loginErrorDlg.remove();}});
+                            loginErrorDlg.remove();}});
                     Label errorLabel = new Label("Unable to retrieve username/password \n please check if typed correctly", skin);
                     loginErrorDlg.add(errorLabel);
                     loginErrorDlg.add(okButton);
                     stage.addActor(loginErrorDlg);
                 }
-
             }});
         stage.addActor(loginButton);
 
 
         TextButton createAccountButton = new TextButton("create new account", tbs);
         createAccountButton.setPosition(stage.getWidth() / 2 - (createAccountButton.getWidth() / 2), 400);
+        createAccountButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                final Dialog createAccountdlg = new Dialog("Create account", skin);
+                createAccountdlg.setSize(505, 80);
+                createAccountdlg.setPosition(stage.getWidth() / 2 -(createAccountdlg.getWidth() / 2), stage.getHeight() / 2);
+                createAccountdlg.setMovable(false);
+
+                Label usernameLabel = new Label("Username", skin);
+                createAccountdlg.add(usernameLabel);
+
+                final TextField usernameInput = new TextField("", skin);
+                usernameInput.setMessageText("<Username>");
+                usernameInput.setColor(Color.WHITE);
+                createAccountdlg.add(usernameInput);
+
+                Label passwordLabel = new Label("Password", skin);
+                createAccountdlg.add(passwordLabel);
+
+                final TextField passwordInput = new TextField("", skin);
+                passwordInput.setMessageText("<Password>");
+                passwordInput.setColor(Color.WHITE);
+                createAccountdlg.add(passwordInput);
+
+                TextButton okButton = new TextButton("Ok", skin);
+                //okButton.addListener();
+                createAccountdlg.add(okButton);
+                stage.addActor(createAccountdlg);
+            }
+        });
         stage.addActor(createAccountButton);
 
        // stage.setKeyboardFocus(usernameInput);
