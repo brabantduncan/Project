@@ -45,10 +45,7 @@ public class FasterEnemy implements EnemyInterface {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    @Override
-    public void spawn(){
 
-    }
 
     @Override
     public void updatePosition(Vector2 playerPosition){
