@@ -20,7 +20,7 @@ public class projectDB {
 
     public static void main (String[] arg) {
         try {
-            /*getInstance().addPlayer("duncan", "duncan", 987654321);*/
+            //getInstance().addPlayer("laurensSuckie", "laurens");
             getInstance().getAllPlayerInfo();
             getInstance().getEnemyByName("Brecht");
             //getInstance().addScore("Duncan", 2);
@@ -74,7 +74,7 @@ public class projectDB {
         return instance;
     }
 
-    private void addPlayer(String playername, String password, Integer highestScore) throws SQLException {
+    public void addPlayer(String playername, String password) throws SQLException {
         try
         {
             String sql = "insert into player(pName, password, highestScore) values(?,?,?)";
@@ -82,13 +82,13 @@ public class projectDB {
             PreparedStatement prep = this.connection.prepareStatement(sql);
             prep.setString(1, playername);
             prep.setString(2, password);
-            prep.setInt(3, highestScore);
+            prep.setInt(3, 0);
 
             prep.executeUpdate();
 
             prep.close();
 
-            connection.close();
+            //connection.close();
         }
         catch (SQLException ex)
         {
@@ -96,7 +96,7 @@ public class projectDB {
         }
     }
 
-    public ArrayList<String> getEnemyByName( String enemyname) throws SQLException {
+    public ArrayList<String> getEnemyByName(String enemyname) throws SQLException {
         try
         {
             ArrayList<String> enemy = new ArrayList<String>();
@@ -193,7 +193,7 @@ public class projectDB {
 
             prep.close();
 
-            connection.close();
+           // connection.close();
         }
         catch (SQLException ex)
         {

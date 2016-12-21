@@ -188,7 +188,6 @@ public class BodyBuilder {
         if (body != null){
             world.destroyBody(body);
         }
-
     }
 
     public void addToDestroy(Body b) {
