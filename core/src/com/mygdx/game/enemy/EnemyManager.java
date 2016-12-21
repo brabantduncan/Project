@@ -18,25 +18,55 @@ public class EnemyManager {
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> disposeEnemies;
 
+
     public int makeSpawnPointsX() {
         Random x = new Random();
-        int Low = 0;
-        int High = Gdx.graphics.getWidth();
-        int ResultX = x.nextInt(High - Low) + Low;
-        return ResultX;
-    };
+    int Low = -100;
+    int High = Gdx.graphics.getWidth()+1;
+    int ResultX = x.nextInt(High - Low) + Low;
+    return ResultX;
+};
 
     public int makeSpawnPointsY(){
         Random y = new Random();
-        int Low = 0;
-        int High = Gdx.graphics.getHeight();
+        int Low = -100;
+        int High = Gdx.graphics.getHeight()+1;
         int ResultY = y.nextInt(High - Low) + Low;
         return ResultY;
+    };
+
+
+    public Vector2 makeRandomVector() {
+        int x = makeSpawnPointsX();
+        int y = makeSpawnPointsY();
+
+        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
+            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
+                Random r = new Random();
+                int randomInt = r.nextInt(100);
+
+                if((randomInt%2)==0){
+                    return new Vector2(x, -randomInt);
+                }else{
+                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
+                }
+
+            } else {
+                return new Vector2(x, y);
+            }
+        } else {
+
+            return new Vector2(x, y);
+
+        }
+
+
     }
 
-    public Vector2 makeRandomVector(){
-        return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
-    }
+
+
+
+
 
    /* private void setSpawnPoints(){
 

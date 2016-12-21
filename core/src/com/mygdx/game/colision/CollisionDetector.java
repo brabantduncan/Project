@@ -82,9 +82,9 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
                 //music on collision with enemy
 
-                /*bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
-                bulletMusic.setVolume(0.02f);
-                bulletMusic.play();*/
+                //bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
+                //bulletMusic.setVolume(0.02f);
+                //bulletMusic.play();
 
                 p.removeEnemies(b1, b2);
                 if (b1.getUserData() instanceof Enemy) {

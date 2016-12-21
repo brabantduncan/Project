@@ -52,6 +52,7 @@ public class nukeFollower implements FollowerInterface {
     @Override
     public void update(Vector2 playerPosition) {
         aiControllerHandler.moveToPlayer(playerPosition,body);
+
     }
 
     @Override
