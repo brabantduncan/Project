@@ -105,8 +105,17 @@ public class PlayState extends State implements GameInterface {
 
         BodyBuilder.getInstance().setWorld(world);
         PlayerFactory playerFactoy = new PlayerFactory();
+<<<<<<< HEAD
+
+        players = playerFactoy.getPlayers(2);
+//        controllerHandler.giveControles(players);
+
         players = playerFactoy.getPlayers(1);
+=======
+        players = playerFactoy.getPlayers(2);
+>>>>>>> 5b44f9342b06591bf95450f945cdbcc8a8d82f5b
         controllerHandler.giveControles(players);
+
 
         //Nog hun hud tekenen
 

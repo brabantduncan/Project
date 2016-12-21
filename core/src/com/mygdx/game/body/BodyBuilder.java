@@ -184,7 +184,7 @@ public class BodyBuilder {
 
     }
 
-    private void destroyBody(Body body) {
+    public void destroyBody(Body body) {
         if (body != null){
             world.destroyBody(body);
         }

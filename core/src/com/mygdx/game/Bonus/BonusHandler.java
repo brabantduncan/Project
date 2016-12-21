@@ -22,6 +22,7 @@ public class BonusHandler {
     //alle items in interface doen
     ArrayList<Vector2> bonusSpawnCoord;
     HashMap<Body, BonusInterface> bonusToRemove;
+    ArrayList<BonusInterface> destroyBodies;
     ArrayList<BonusInterface> bonusToSpawn;
 
     private BonusFactory bonusFactory;
@@ -32,6 +33,7 @@ public class BonusHandler {
         bonusToSpawn = new ArrayList<BonusInterface>();
         bonusToRemove = new HashMap<Body, BonusInterface>();
         bonusFactory = new BonusFactory();
+        destroyBodies = new ArrayList<BonusInterface>();
     }
 
     public BonusInterface spawnBonus(Vector2 spawn) {
@@ -65,6 +67,7 @@ public class BonusHandler {
             if (g.getBody().equals(bonusBody)) {
                 pickedUpBonus.add(g);
                 bonusToRemove.put(playerbody, g);
+
             }
         }
         bonusToSpawn.removeAll(pickedUpBonus);
@@ -79,11 +82,13 @@ public class BonusHandler {
                     if (p.getPlayerBody().equals(b)) {
                         System.out.print("Bonus added to player");
                         bonusToRemove.get(b).addBonus(p);
+                        addDestroyBonus(bonusToRemove.get(b));
                     }
                 }
             }
 
             bonusToRemove.clear();
+            destroyBodies();
         }
 
     }
@@ -94,6 +99,19 @@ public class BonusHandler {
 
     public boolean checkPlayerKey(Player player, Body body) {
         return player.getPlayerBody().equals(body);
+    }
+
+    public void addDestroyBonus(BonusInterface bonusInterface){
+        destroyBodies.add(bonusInterface);
+    }
+
+    public void destroyBodies(){
+        for (BonusInterface b: destroyBodies){
+            BodyBuilder.getInstance().addToDestroy(b.getBody());
+
+        }
+
+        destroyBodies.clear();
     }
 
 }

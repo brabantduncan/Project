@@ -28,7 +28,6 @@ public class testGDX implements ApplicationListener {
         batch = new SpriteBatch();
         gsm = new GameStateManager();
 
-
         Gdx.gl.glClearColor(1,0,0,1);
         //gsm.push(new MenuState(gsm)); // start in menu
         //gsm.push(new PlayState(gsm));
@@ -36,11 +35,18 @@ public class testGDX implements ApplicationListener {
         Gdx.gl.glClearColor(0,0,0,1);
 
         //gsm.push(new MenuState(gsm)); // start in menu
+<<<<<<< HEAD
         //gsm.push(new PlayState(gsm));
         gsm.push(new OptionState(gsm));
         //gsm.push(new MenuState(gsm)); // start in menu
         //gsm.push(new PlayState(gsm));
 
+=======
+        gsm.push(new PlayState(gsm));
+
+        //gsm.push(new MenuState(gsm)); // start in menu
+        gsm.push(new PlayState(gsm));
+>>>>>>> 4f2dd55c0c0b3fe5110aa55e03087e61cf63271a
 
     }
 
