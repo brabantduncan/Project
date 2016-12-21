@@ -66,7 +66,6 @@ public class OptionState extends State {
     public void loadPet(final Stage stage) {
         petSprite = new Texture("../assets/Monsters/frontwatcher.png");
         try {
-
             description = new TextArea(projectDB.getInstance().getDescription("Frontwatcher"),skin);
             description.setPosition(stage.getWidth() / 2 + 50, 310);
             description.setWidth(400);
@@ -99,7 +98,6 @@ public class OptionState extends State {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
             }
         });
 

@@ -55,8 +55,10 @@ public class Login extends State {
         Label passwordLabel = new Label("Password", skin);
 
         final TextField passwordInput = new TextField("", skin);
+        passwordInput.setPasswordMode(true);
         passwordInput.setMessageText("<Password>");
         passwordInput.setColor(Color.WHITE);
+
 
         TextButton loginButton = new TextButton("login", skin);
         loginButton.setPosition(stage.getWidth() / 2 - (loginButton.getWidth() / 2), 420);
