@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Shan on 11/28/2016.
+ * Edited by Duncan on 21/12/2016.
  */
 public class EnemyManager {
 
@@ -39,43 +39,14 @@ public class EnemyManager {
         return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
     }
 
-   /* private void setSpawnPoints(){
-
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-        spawnPoints.add(makeRandomVector());
-
-    };*/
-
-
     public EnemyManager(){
-        //spawnPoints = new ArrayList<Vector2>();
         enemies = new ArrayList<Enemy>();
         disposeEnemies = new ArrayList<Enemy>();
-        //setSpawnPoints();
-
-
-
     }
 
     public Enemy spawnEnemy(){
         return new Enemy(BodyBuilder.getInstance().createEnemy(makeRandomVector() ,false));
-
     }
-
-    /*public Vector2 choseSpawnPoint(){
-
-        Random r = new Random();
-
-        int result = r.nextInt(spawnPoints.size()-0) + 0;
-        return spawnPoints.get(result);
-    }*/
 
     public void createEnemies(int amount){
         for (int i = 0; i < amount; i++) {

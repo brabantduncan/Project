@@ -23,7 +23,6 @@ import java.sql.SQLException;
 public class Login extends State {
     public SpriteBatch batch;
     private Stage stage;
-    private TextButton button_SinglePlayer, button_MuliPlayer, button_HighScores;
     private Texture background;
     private Skin skin;
 
@@ -183,7 +182,9 @@ public class Login extends State {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        skin.dispose();
+        batch.dispose();
     }
 
     public Dialog getDialog(String msg){
