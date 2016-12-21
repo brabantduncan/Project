@@ -5,8 +5,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.player.Player;
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Shan on 12/5/2016.
@@ -19,7 +21,7 @@ public class BonusHandler {
 
     //alle items in interface doen
     ArrayList<Vector2> bonusSpawnCoord;
-    ArrayList<BonusInterface> bonusToRemove;
+    HashMap<Body, BonusInterface> bonusToRemove;
     ArrayList<BonusInterface> bonusToSpawn;
 
     private BonusFactory bonusFactory;
@@ -28,7 +30,7 @@ public class BonusHandler {
     public BonusHandler() {
         bonusSpawnCoord = new ArrayList<Vector2>();
         bonusToSpawn = new ArrayList<BonusInterface>();
-        bonusToRemove = new ArrayList<BonusInterface>();
+        bonusToRemove = new HashMap<Body, BonusInterface>();
         bonusFactory = new BonusFactory();
     }
 
@@ -54,27 +56,33 @@ public class BonusHandler {
             bonusSpawnCoord.clear();
         }
 
-
     }
 
-    public void setRemoveList(Body bonusBody, Body playerbody) {
+    public void setRemoveList(Body playerbody, Body bonusBody) {
+        ArrayList<BonusInterface> pickedUpBonus = new ArrayList<BonusInterface>();
 
         for (BonusInterface g : bonusToSpawn) {
             if (g.getBody().equals(bonusBody)) {
-                bonusToRemove.add(g);
+                pickedUpBonus.add(g);
+                bonusToRemove.put(playerbody, g);
             }
         }
-        bonusToSpawn.removeAll(bonusToRemove);
+        bonusToSpawn.removeAll(pickedUpBonus);
     }
 
     public void destroyGems(ArrayList<Player> players) {
+
         if (!(bonusToRemove.size() == 0)) {
-            for (BonusInterface g : bonusToRemove) {
+
+            for (Body b : bonusToRemove.keySet()) {
                 for (Player p : players) {
-                    g.addBonus(p);
+                    if (p.getPlayerBody().equals(b)) {
+                        System.out.print("Bonus added to player");
+                        bonusToRemove.get(b).addBonus(p);
+                    }
                 }
-                BodyBuilder.getInstance().addToDestroy(g.getBody());
             }
+
             bonusToRemove.clear();
         }
 
@@ -82,6 +90,10 @@ public class BonusHandler {
 
     public ArrayList<BonusInterface> getBonusToSpawn() {
         return bonusToSpawn;
+    }
+
+    public boolean checkPlayerKey(Player player, Body body) {
+        return player.getPlayerBody().equals(body);
     }
 
 }

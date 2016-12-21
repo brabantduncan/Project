@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.MenuState;
+import com.mygdx.game.states.PlayState;
 
 
 /**
@@ -28,8 +29,8 @@ public class testGDX implements ApplicationListener {
         batch = new SpriteBatch();
         gsm = new GameStateManager();
         Gdx.gl.glClearColor(1,0,0,1);
-        gsm.push(new MenuState(gsm)); // start in menu
-        //gsm.push(new PlayState(gsm));
+        //gsm.push(new MenuState(gsm)); // start in menu
+        gsm.push(new PlayState(gsm));
     }
 
     @Override

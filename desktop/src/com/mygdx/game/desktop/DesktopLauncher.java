@@ -18,6 +18,8 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 
 
+
+
 		//new LwjglApplication(new RotatorTest(), config);
 		new LwjglApplication(new testGDX(), config);
 		//new LwjglApplication(new MyGdxGame(), config);

@@ -1,13 +1,11 @@
 package com.mygdx.game.colision;
 
-<<<<<<< HEAD
-=======
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.utils.random.GaussianDoubleDistribution;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
->>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bullet.Bullet;
@@ -108,13 +106,15 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
         if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
 
             //zorgen dat wanneer de gem met muur collide dat alles weggaat
-            if (b1.getUserData() instanceof BonusInterface) {
-                p.getBonusHandler().setRemoveList(b1,b2);
+            if (b1.getUserData() instanceof BonusInterface && b2.getUserData() instanceof  Player) {
+                System.out.println("Player picked gem");
+                p.getBonusHandler().setRemoveList(b2,b1);
 
 
             }
-            if (b2.getUserData() instanceof BonusInterface) {
-                p.getBonusHandler().setRemoveList(b2,b2);
+            if (b1.getUserData() instanceof Player && b2.getUserData() instanceof  BonusInterface) {
+                System.out.println("Player picked gem");
+                p.getBonusHandler().setRemoveList(b1,b2);
             }
 
 

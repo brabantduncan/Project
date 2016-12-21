@@ -174,6 +174,6 @@ public class BossState extends State implements GameInterface {
 <<<<<<< HEAD
 }
 **/
-=======
-}
->>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
+
+
+
