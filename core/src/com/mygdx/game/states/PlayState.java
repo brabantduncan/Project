@@ -1,8 +1,12 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+<<<<<<< HEAD
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+=======
+import com.badlogic.gdx.audio.Music;
+>>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,6 +59,9 @@ public class PlayState extends State implements GameInterface {
 
     ArrayList<Body> objects;
 
+
+    private Music gameMusic;
+
     @Override
     public EnemyManager getEnemyManager() {
         return enemyManager;
@@ -82,7 +89,15 @@ public class PlayState extends State implements GameInterface {
         super(gms);
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
+<<<<<<< HEAD
         // tmr = new OrthogonalTiledMapRenderer(map);
+=======
+
+       tmr = new OrthogonalTiledMapRenderer(map);
+
+        tmr = new OrthogonalTiledMapRenderer(map);
+
+>>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
 
         camera = new OrthographicCamera();
@@ -118,10 +133,27 @@ public class PlayState extends State implements GameInterface {
         controllerHandler = new ControllerHandler();
 
         followerManager = new FollowerManager();
+<<<<<<< HEAD
 
         // TiledObjectUtil.parseTiledObjectLayer(map, world);
 
         createBorders();
+=======
+
+       TiledObjectUtil.parseTiledObjectLayer(map, world);
+
+        TiledObjectUtil.parseTiledObjectLayer(map, world);
+
+        createBorders();
+        counter = 0;
+
+        //music
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/gameMusic.mp3"));
+        gameMusic.setVolume(.25f);
+        gameMusic.setLooping(true);
+        gameMusic.play();
+
+>>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
     }
 
     @Override
@@ -134,9 +166,33 @@ public class PlayState extends State implements GameInterface {
     @Override
     public void update(float dt) {
         world.step(1 / 60f, 6, 2);
+<<<<<<< HEAD
         if (checkAllPlayersDeath()) {
             endGame();
         } else {
+=======
+
+        if (player.isDead()) {
+
+            //stop de muziek
+            gameMusic.stop();
+
+            try {
+                projectDB.getInstance().addScore(player.getPlayerName(), player.getCurrentScore());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (player.getFollower() != null) {
+                player.destroyFollower();
+            }
+            BodyBuilder.getInstance().clearLists();
+            gms.set(new MenuState(gms));
+
+
+        }
+        else {
+
+>>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
 
             bm.destroyBullets();
             levelHandler.updateLevel();
@@ -148,7 +204,11 @@ public class PlayState extends State implements GameInterface {
             bonusHandler.addBonus(); // spawned alle bonussen;
             bonusHandler.destroyGems(players);
             handleInput();
-//            tmr.setView(camera);
+
+            tmr.setView(camera);
+
+               tmr.setView(camera);
+
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
            // followerManager.moveFollower(players);
@@ -169,10 +229,10 @@ public class PlayState extends State implements GameInterface {
 
 
         batch.begin();
-        batch.draw(background, 0, 0);
+        //batch.draw(background, 0, 0);
         batch.end();
 
-        // tmr.render();
+        tmr.render();
 
         /**
          batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
@@ -251,6 +311,8 @@ public class PlayState extends State implements GameInterface {
 
     public void createBullet(Vector2 mouse, Player player) {
         bm.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+
+
     }
 
     @Override

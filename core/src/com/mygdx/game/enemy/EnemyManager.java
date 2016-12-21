@@ -1,6 +1,7 @@
 package com.mygdx.game.enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.body.BodyBuilder;
@@ -19,12 +20,38 @@ public class EnemyManager {
     private ArrayList<Enemy> enemies;
     private ArrayList<Enemy> disposeEnemies;
 
+    public int makeSpawnPointsX() {
+        Random x = new Random();
+        int Low = -100;
+        int High = Gdx.graphics.getWidth();
+        int ResultX = x.nextInt(High - Low) + Low;
+        return ResultX;
+    };
+
+    public int makeSpawnPointsY(){
+        Random y = new Random();
+        int Low = -300;
+        int High = Gdx.graphics.getHeight();
+        int ResultY = y.nextInt(High - Low) + Low;
+        return ResultY;
+    }
+
     private void setSpawnPoints(){
 
-        spawnPoints.add(new Vector2(0,0));
-        spawnPoints.add(new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()));
-        spawnPoints.add(new Vector2(Gdx.graphics.getWidth()/2,0));
-        spawnPoints.add(new Vector2(0,Gdx.graphics.getHeight()/1));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
+        spawnPoints.add(new Vector2(makeSpawnPointsX(),makeSpawnPointsY()));
     };
 
 

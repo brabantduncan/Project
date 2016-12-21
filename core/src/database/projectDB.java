@@ -26,6 +26,7 @@ public class projectDB {
             //getInstance().addScore("Duncan", 2);
             getInstance().getHighScores();
             //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
+            getInstance().loginCheck("duncan","dicks");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,6 +144,35 @@ public class projectDB {
             prep.close();
             System.out.println(players);
             return players;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("players not found", ex);
+        }
+    }
+
+    public Boolean loginCheck(String playername, String password) throws SQLException {
+        try
+        {
+            String sql = "SELECT password FROM player WHERE pName = '"+playername+"'";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+            rs.next();
+            if(password.equals(rs.getString(1))){
+                //System.out.println(rs.getString(1));
+                rs.close();
+                prep.close();
+                return true;
+            }
+            else {
+                //System.out.println(rs.getString(1));
+                rs.close();
+                prep.close();
+                return false;
+            }
+
         }
         catch (SQLException ex)
         {

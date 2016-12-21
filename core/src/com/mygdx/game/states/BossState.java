@@ -2,13 +2,18 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.Bonus.BonusHandler;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
@@ -33,7 +38,6 @@ public class BossState extends State implements GameInterface {
     float h = Gdx.graphics.getHeight();
 
 
-
     private Box2DDebugRenderer b2dr;  // wegdoen om alleen maar sprites te tonen
     private OrthographicCamera camera;
 
@@ -52,7 +56,7 @@ public class BossState extends State implements GameInterface {
     private LevelHandler levelHandler;
     private RenderHandler renderHandler;
 
-    public BossState(GameStateManager gms,Player player) {
+    public BossState(GameStateManager gms, Player player) {
         super(gms);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w / Constants.SCALE, h / Constants.SCALE);
@@ -63,9 +67,9 @@ public class BossState extends State implements GameInterface {
         this.player = player;
         player.updateHud();
         this.world.setContactListener(new CollisionDetector(this));
-        bm = new BulletManager(player,camera);
+        bm = new BulletManager(player, camera);
         enemyManager = new EnemyManager();
-        levelHandler = new LevelHandler(player,enemyManager,gms);
+        levelHandler = new LevelHandler(player, enemyManager, gms);
         bonusHandler = new BonusHandler();
         renderHandler = new RenderHandler();
     }
@@ -167,5 +171,9 @@ public class BossState extends State implements GameInterface {
     }
 
 
+<<<<<<< HEAD
 }
 **/
+=======
+}
+>>>>>>> 4d9d6fdc2048fb58477ae3dbaf0ed400f63a0838
