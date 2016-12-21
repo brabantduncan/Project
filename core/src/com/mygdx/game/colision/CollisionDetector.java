@@ -105,10 +105,19 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
             }
-            if (b1.getUserData() instanceof Player && b2.getUserData() instanceof  BonusInterface) {
+            else if (b1.getUserData() instanceof Player && b2.getUserData() instanceof  BonusInterface) {
                 System.out.println("Player picked gem");
                 p.getBonusHandler().setRemoveList(b1,b2);
             }
+            else {
+                if(b1.getUserData() instanceof BonusInterface){
+
+                }
+                else {
+
+                }
+            }
+
 
 
         }
