@@ -24,37 +24,16 @@ public class OptionState extends State {
     private Texture background;
     private Skin skin;
     public Texture petSprite;
-    private TextField description;
+    private TextArea description;
 
     public OptionState(GameStateManager gsm){
         super(gsm);
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-        batch = new SpriteBatch();
-        stage = new Stage();
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
         skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
-
-        Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
-
-
-
-        TextField.TextFieldStyle tfs = new TextField.TextFieldStyle();
-        tfs.fontColor = Color.RED;
-        tfs.font = new BitmapFont();
-
-        TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-        tbs.fontColor = Color.RED;
-        tbs.font = new BitmapFont();
-
-        final Label.LabelStyle ls = new Label.LabelStyle();
-        ls.fontColor = Color.RED;
-        ls.font = new BitmapFont();
 
         loadDifficulty(stage);
         loadPet(stage);
@@ -84,8 +63,19 @@ public class OptionState extends State {
         stage.addActor(table);
     }
 
-    public void loadPet(Stage stage){
+    public void loadPet(final Stage stage) {
         petSprite = new Texture("../assets/Monsters/frontwatcher.png");
+        try {
+
+            description = new TextArea(projectDB.getInstance().getDescription("Frontwatcher"),skin);
+            description.setPosition(stage.getWidth() / 2 + 50, 310);
+            description.setWidth(400);
+            description.setDisabled(true);
+            stage.addActor(description);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Label petLabel = new Label("Select pet", skin);
         String[] pets = {"Frontwatcher", "Shielder"};
 
@@ -98,7 +88,14 @@ public class OptionState extends State {
                 System.out.println(pet.getSelected().toLowerCase());
                 petSprite = new Texture("../assets/Monsters/"+ pet.getSelected().toLowerCase()+".png");
                 try {
-                    description = new TextField(projectDB.getInstance().getDescription(pet.getSelected()),skin);
+                    description.remove();
+                    description = new TextArea(projectDB.getInstance().getDescription(pet.getSelected()),skin);
+                    description.setPosition(stage.getWidth() / 2 + 50, 310);
+                    description.setWidth(400);
+                    description.setDisabled(true);
+
+                    stage.addActor(description);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -109,9 +106,6 @@ public class OptionState extends State {
         Table table = new Table();
         table.add(petLabel).padRight(50);
         table.add(pet);
-
-
-
         table.setPosition(stage.getWidth()/2 - (table.getWidth() /2),stage.getHeight()/2);
 
 
@@ -152,7 +146,7 @@ public class OptionState extends State {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         batch.begin();
-        batch.draw(petSprite, stage.getWidth() / 2, 300, 64, 64);
+        batch.draw(petSprite, stage.getWidth() / 2 - 50, 300, 64, 64);
         batch.end();
         stage.act();
     }
