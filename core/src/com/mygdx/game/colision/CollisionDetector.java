@@ -93,9 +93,6 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 if (b1.getUserData() instanceof Enemy) {
 
                     p.addCoordToBonusHandler(b1.getPosition());
-
-                }
-                if (b1.getUserData() instanceof Enemy) {
                     p.addCoordToBonusHandler(b1.getPosition());
 
 
