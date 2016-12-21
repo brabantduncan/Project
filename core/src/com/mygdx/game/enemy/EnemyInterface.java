@@ -26,4 +26,6 @@ public interface EnemyInterface {
     float getY();
 
     float getX();
+
+
 }
