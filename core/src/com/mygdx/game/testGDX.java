@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.MenuState;
-import com.mygdx.game.states.PlayState;
 
 
 /**
