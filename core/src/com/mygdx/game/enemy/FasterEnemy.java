@@ -17,7 +17,7 @@ public class FasterEnemy implements EnemyInterface {
 
     private final int MOVEMENT_SPEED = 10;
 
-    private Texture texture = new Texture("../assets/Monsters/weedle.gif");
+    private Texture texture = new Texture("../assets/Monsters/");
 
     @Override
     public Body getBody() {
