@@ -78,16 +78,13 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
         if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
             p.removeBullet(b1, b2);
 
-
-
             if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
 
                 //music on collision with enemy
 
-                bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
+                /*bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
                 bulletMusic.setVolume(0.02f);
-                bulletMusic.play();
-
+                bulletMusic.play();*/
 
                 p.removeEnemies(b1, b2);
                 if (b1.getUserData() instanceof Enemy) {
@@ -98,12 +95,8 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 if (b1.getUserData() instanceof Enemy) {
                     p.addCoordToBonusHandler(b1.getPosition());
 
-
                 }
-
             }
-
-
         }
 
         if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
