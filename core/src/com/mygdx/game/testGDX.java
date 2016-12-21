@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.states.Login;
 import com.mygdx.game.states.OptionState;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.PlayState;
@@ -36,8 +37,17 @@ public class testGDX implements ApplicationListener {
         Gdx.gl.glClearColor(0,0,0,1);
 
         //gsm.push(new MenuState(gsm)); // start in menu
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        gsm.push(new Login(gsm));
+
+=======
+<<<<<<< HEAD
+>>>>>>> ca89691d1b97226aa39d08fa6e4720030c157cbc
 
         gsm.push(new OptionState(gsm));
+>>>>>>> ae7536baff1fdf390a78689c641fb972c4d83111
 
         gsm.push(new PlayState(gsm));
 
