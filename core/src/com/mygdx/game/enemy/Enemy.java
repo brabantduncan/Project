@@ -11,7 +11,6 @@ import java.util.Random;
  */
 public class Enemy {
 
-
     private String name;
 
     public void setHealth(int health) {
