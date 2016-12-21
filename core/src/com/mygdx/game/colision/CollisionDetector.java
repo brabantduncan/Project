@@ -129,7 +129,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     public void checkFollowerEnenmy(Body b1, Body b2) {
 
-        if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
 
 
             if (b1.getUserData() instanceof FrontWatcherFollower || b2.getUserData() instanceof FrontWatcherFollower) {
@@ -154,7 +154,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
     public void sendBody(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface) {
             p.getEnemyManager().removeEnemy(b1);
         } else {
             p.getEnemyManager().removeEnemy(b2);
