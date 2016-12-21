@@ -76,7 +76,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
         if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
             p.removeBullet(b1, b2);
 
-            if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
+            if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
 
                 //music on collision with enemy
 

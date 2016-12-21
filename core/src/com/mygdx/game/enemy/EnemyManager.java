@@ -76,7 +76,6 @@ public class EnemyManager {
     public void removeEnemies(Body b1, Body b2) {
         if (b1.getUserData() instanceof EnemyInterface) {
             removeEnemy(b1);
-
         } else {
             removeEnemy(b2);
         }

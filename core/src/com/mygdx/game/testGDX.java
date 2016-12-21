@@ -34,29 +34,19 @@ public class testGDX implements ApplicationListener {
         Gdx.gl.glClearColor(0,0,0,1);
 
         //gsm.push(new MenuState(gsm)); // start in menu
-<<<<<<< HEAD
+
         gsm.push(new Login(gsm));
 
-
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
         gsm.push(new Login(gsm));
-
-=======
-<<<<<<< HEAD
->>>>>>> ca89691d1b97226aa39d08fa6e4720030c157cbc
 
         gsm.push(new OptionState(gsm));
->>>>>>> ae7536baff1fdf390a78689c641fb972c4d83111
+
 
         gsm.push(new PlayState(gsm));
 
         //gsm.push(new MenuState(gsm)); // start in menu
         gsm.push(new PlayState(gsm));
 
->>>>>>> e68226ea2e4cf305647c389e453f7ea038c9d1a3
 
     }
 
