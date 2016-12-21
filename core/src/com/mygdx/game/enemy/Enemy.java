@@ -45,7 +45,7 @@ public class Enemy {
 
     private final int MOVEMENT_SPEED = 5;
 
-    private Texture texture = new Texture("../assets/Monsters/killerbee.png");
+    private Texture texture = new Texture("../assets/Monsters/weedle.gif");
 
 
 
@@ -61,7 +61,7 @@ public class Enemy {
         this.spawnTime = spawnTime;
         **/
 
-        x = pointGenerator(250,500); // should be game.WITH / 2;
+        x = pointGenerator(250,500); // should be game.WIDTH / 2;
         y = pointGenerator(200, 400);
 
         setUserData();
