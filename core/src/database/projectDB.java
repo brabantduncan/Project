@@ -74,7 +74,7 @@ public class projectDB {
         return instance;
     }
 
-    private void addPlayer(String playername, String password) throws SQLException {
+    public void addPlayer(String playername, String password) throws SQLException {
         try
         {
             String sql = "insert into player(pName, password, highestScore) values(?,?,?)";

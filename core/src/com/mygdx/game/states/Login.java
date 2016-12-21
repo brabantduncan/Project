@@ -87,26 +87,9 @@ public class Login extends State {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
                 try {
-                    if(projectDB.getInstance().loginCheck(username, password)){
-                        gms.set(new PlayState(gms)); // get login
-                    }
-                    else{
-
-                    }
+                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new PlayState(gms)); // get login
                 } catch (SQLException e) {
-
-                    final Dialog loginErrorDlg = new Dialog("Error", skin);
-                    loginErrorDlg.setSize(400, 80);
-                    loginErrorDlg.setPosition(stage.getWidth() / 2 -(loginErrorDlg.getWidth() / 2), stage.getHeight() / 2);
-                    loginErrorDlg.setMovable(false);
-                    TextButton okButton = new TextButton("Ok", skin);
-                    okButton.addListener(new ChangeListener() {
-                        public void changed (ChangeEvent event, Actor actor) {
-                            loginErrorDlg.remove();}});
-                    Label errorLabel = new Label("Unable to retrieve username/password \n please check if typed correctly", skin);
-                    loginErrorDlg.add(errorLabel);
-                    loginErrorDlg.add(okButton);
-                    stage.addActor(loginErrorDlg);
+                    stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                 }
             }});
         stage.addActor(loginButton);
@@ -139,7 +122,19 @@ public class Login extends State {
                 createAccountdlg.add(passwordInput);
 
                 TextButton okButton = new TextButton("Ok", skin);
-                //okButton.addListener();
+                okButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        String username = usernameInput.getText();
+                        String password = passwordInput.getText();
+                        try {
+                            projectDB.getInstance().addPlayer(username, password);
+                        } catch (SQLException e) {
+                            stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
+                        }
+                        gms.set(new PlayState(gms));
+                    }
+                });
                 createAccountdlg.add(okButton);
                 stage.addActor(createAccountdlg);
             }
@@ -189,6 +184,22 @@ public class Login extends State {
     @Override
     public void dispose() {
 
+    }
+
+    public Dialog getDialog(String msg){
+        final Dialog dlg = new Dialog("Error", skin);
+        dlg.setSize(400, 80);
+        dlg.setPosition(stage.getWidth() / 2 -(dlg.getWidth() / 2), stage.getHeight() / 2);
+        dlg.setMovable(false);
+        TextButton okButton = new TextButton("Ok", skin);
+        okButton.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                dlg.remove();}});
+        Label errorLabel = new Label("Unable to retrieve username/password \n please check if typed correctly", skin);
+        dlg.add(errorLabel);
+        dlg.add(okButton);
+
+        return dlg;
     }
 
 
