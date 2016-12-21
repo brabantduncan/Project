@@ -143,8 +143,8 @@ public class EnemyManager {
         }
         if (disposeFasterenemies.size() > 0) {
 
-            for (FasterEnemy e : disposeFasterenemies) {
-                BodyBuilder.getInstance().addToDestroy(e.getBody());
+            for (FasterEnemy f : disposeFasterenemies) {
+                BodyBuilder.getInstance().addToDestroy(f.getBody());
             }
             disposeFasterenemies.clear();
         }
