@@ -22,14 +22,12 @@ public class BulletManager {
 
 
     ArrayList<Bullet> disposeBullets;
-    Player p;
     Camera camera;
 
-    public BulletManager(Player p, Camera camera) {
+    public BulletManager(Camera camera) {
 
         bullets = new ArrayList<Bullet>();
         disposeBullets = new ArrayList<Bullet>();
-        this.p = p;
         this.camera = camera;
     }
 

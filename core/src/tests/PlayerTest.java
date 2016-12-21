@@ -11,6 +11,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Shan on 11/7/2016.
  */
+
+/**
 public class PlayerTest {
 
     Player testPlayer;
@@ -116,4 +118,4 @@ public class PlayerTest {
         System.out.println(testPlayer2.toString());
     }
 
-}
+}**/

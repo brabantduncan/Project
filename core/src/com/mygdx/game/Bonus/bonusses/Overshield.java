@@ -1,13 +1,14 @@
-package com.mygdx.game.Bonus;
+package com.mygdx.game.Bonus.bonusses;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.player.Player;
 
 /**
  * Created by Shan on 12/12/2016.
  */
-public class Overshield implements BonusInterface  {
+public class Overshield implements BonusInterface {
 
     private Body body;
     private Texture texture = new Texture("../assets/MinecraftIngots/overshield.png");
