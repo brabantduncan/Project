@@ -64,7 +64,7 @@ public class FrontWatcherFollower implements FollowerInterface {
     @Override
     public void action(Vector2 mouseCoord, BulletManager bulletManager) {
 
-        aiControllerHandler.aiShoot(bulletManager,mouseCoord,body);
+        aiControllerHandler.aiShoot(bulletManager,mouseCoord,body,100);
 
     }
 

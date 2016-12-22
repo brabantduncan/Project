@@ -82,7 +82,7 @@ public class ControllerHandler {
 
         if (Gdx.input.isTouched()) {
 
-            bulletManager.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+            bulletManager.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()),100);
 
         }
 

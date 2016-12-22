@@ -31,17 +31,17 @@ public class BulletManager {
         this.camera = camera;
     }
 
-    public void addBullet(Vector2 mouseLocationAim, Body b) {
+    public void addBullet(Vector2 mouseLocationAim, Body b, int SetBulletspeed) {
         Bullet bullet = new Bullet(b);
         bullets.add(bullet);
-        handleBulletMovement(bullet, mouseLocationAim);
+        handleBulletMovement(bullet, mouseLocationAim, SetBulletspeed);
 
     }
 
 
-    public void handleBulletMovement(Bullet b, Vector2 mouseCoords) {
+    public void handleBulletMovement(Bullet b, Vector2 mouseCoords, int SetBulletspeed) {
 
-        int bulletSpeed = Constants.BULLET_SPEED;
+        int bulletSpeed = SetBulletspeed;
         Vector3 sp3 = camera.unproject(new Vector3(mouseCoords.x, mouseCoords.y, 0));
         Vector2 sp2 = new Vector2(sp3.x, sp3.y);
 

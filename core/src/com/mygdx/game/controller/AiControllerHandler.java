@@ -40,9 +40,9 @@ public class AiControllerHandler {
 
     }
 
-    public void aiShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body){
+    public void aiShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed){
         if (Gdx.input.isTouched()){
-            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()));
+            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()),BulletSpeed);
         }
     }
 

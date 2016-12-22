@@ -57,7 +57,7 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public void action(Vector2 mouseCoord, BulletManager bulletManager) {
-
+        aiControllerHandler.aiShoot(bulletManager,mouseCoord,body,0);
     }
 
     @Override
