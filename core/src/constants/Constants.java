@@ -20,7 +20,7 @@ public class Constants {
 
     //define speed
     public static final int BULLET_SPEED =100;
-
+    public static final int CROSSHAIRSSPEED = 5;
 
 
 

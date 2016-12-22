@@ -1,4 +1,4 @@
-package com.mygdx.game.player;
+package com.mygdx.game.player.hud;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,12 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.mygdx.game.player.Player;
+
+import java.util.ArrayList;
 
 
 /**
  * Created by Shan on 12/3/2016.
  */
-public class Hud {
+public class Hud implements HudInterFace {
     public Stage stage;
 
 
@@ -89,7 +92,26 @@ public class Hud {
 
     }
 
-    public void update(Player p){
+
+
+
+    public java.lang.String translateBomb(){
+        if (bomb == true){
+            java.lang.String translate = "Ready";
+            return translate;
+        }
+        else {
+            return "nope";
+        }
+
+
+    }
+
+    @Override
+    public void update(ArrayList<Player> players,int level) {
+
+        Player p = players.get(0);
+
         score = p.getCurrentScore();
         exp = p.getCurrentEXP();
         health= p.getHealth();
@@ -102,28 +124,12 @@ public class Hud {
         healthLabel.setText(Integer.toString(health));
         bombLabel.setText(translateBomb());
 
-    }
-
-    public void updateLevel(int level){
-
         levelLabel.setText(Integer.toString(level));
-
     }
 
-    public void render(Batch batch){
-
-    }
-
-    public java.lang.String translateBomb(){
-        if (bomb == true){
-            java.lang.String translate = "Ready";
-            return translate;
-        }
-        else {
-            return "nope";
-        }
-
-
+    @Override
+    public void draw() {
+        stage.draw();
     }
 
     //public void setStage()

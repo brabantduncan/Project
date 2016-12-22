@@ -19,7 +19,10 @@ public class LevelHandler {
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
-        enemyManager.createEnemies(100);
+
+        enemyManager.createEnemies(20);
+
+        enemyManager.createEnemies(1);
 
     }
 
@@ -45,8 +48,9 @@ public class LevelHandler {
     }
 
     public int spawnCount() {
-        return 100; //random waarden
+        return level*20; //random waarden
 
     }
+
 
 }

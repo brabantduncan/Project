@@ -8,8 +8,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
+import com.mygdx.game.controller.ControllerSet;
 import com.mygdx.game.follower.FollowerInterface;
 import com.mygdx.game.follower.ShieldFollower;
+import com.mygdx.game.player.hud.Hud;
+import com.mygdx.game.player.hud.HudInterFace;
 
 /**
  * Created by Shan on 11/7/2016.
@@ -17,6 +20,7 @@ import com.mygdx.game.follower.ShieldFollower;
 public class Player {
 
     private Body playerBody;
+
 
     private String playerName;
 
@@ -42,7 +46,7 @@ public class Player {
 
     private FollowerInterface follower;
 
-    private Hud hud;
+    private HudInterFace hud;
 
     private boolean invincible;
     private boolean dead;
@@ -58,7 +62,7 @@ public class Player {
     private boolean hasBomb;
 
     private Texture tex = new Texture("../assets/MinecraftIngots/alteroit.png");
-    private Controller controller;
+    private ControllerSet controller;
 
 
 
@@ -258,9 +262,6 @@ public class Player {
         return tex;
     }
 
-    public void updateHud(){
-        hud.update(this);
-    }
 
     @Override
     public String toString() {
@@ -269,12 +270,12 @@ public class Player {
                 + neededExpCalc() + ", zijn highscore is " + highScore;
     }
 
-    public Hud getHud(){
+    public HudInterFace getHud(){
         return hud;
     }
 
-    public void createHud(Batch batch){
-        hud = new Hud(batch);
+    public void createHud(Batch batch, HudInterFace hud){
+        this.hud = hud;
     }
 
     public void spawnFollower(){
@@ -298,11 +299,11 @@ public class Player {
     }
 
 
-    public Controller getController() {
+    public ControllerSet getController() {
         return controller;
     }
 
-    public void setController(Controller controller){
+    public void setController(ControllerSet controller){
         this.controller = controller;
     }
 }

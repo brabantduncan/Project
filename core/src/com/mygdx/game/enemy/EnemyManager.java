@@ -21,22 +21,61 @@ public class EnemyManager {
 
     public int makeSpawnPointsX() {
         Random x = new Random();
-        int Low = 0;
+        int Low = -300;
         int High = Gdx.graphics.getWidth();
         int ResultX = x.nextInt(High - Low) + Low;
+        while(ResultX>0 && ResultX<720){
+            Random nx = new Random();
+            int nLow = -300;
+            int nHigh = Gdx.graphics.getWidth();
+            int nResultX = nx.nextInt(nHigh - nLow) + nLow;
+            ResultX = nResultX;
+        }
         return ResultX;
     };
 
     public int makeSpawnPointsY(){
         Random y = new Random();
-        int Low = 0;
-        int High = Gdx.graphics.getHeight();
+        int Low = -500;
+        int High = 980;
         int ResultY = y.nextInt(High - Low) + Low;
+        while(ResultY>0 && ResultY<480){
+            Random ny = new Random();
+            int nLow = -500;
+            int nHigh = Gdx.graphics.getHeight();
+            int nResultY = ny.nextInt(nHigh - nLow) + nLow;
+            ResultY = nResultY;
+        }
         return ResultY;
     }
 
-    public Vector2 makeRandomVector(){
-        return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
+    public Vector2 makeRandomVector() {
+        int x = makeSpawnPointsX();
+        int y = makeSpawnPointsY();
+        return new Vector2(x, y);
+/*
+        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
+            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
+                Random r = new Random();
+                int randomInt = r.nextInt(100);
+
+                if((randomInt%2)==0){
+                    return new Vector2(x, -randomInt);
+                }else{
+                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
+                }
+
+            } else {
+                return new Vector2(x, y);
+            }
+        } else {
+
+            return new Vector2(x, y);
+
+        }
+
+*/
+
     }
 
     public EnemyManager(){
@@ -76,7 +115,6 @@ public class EnemyManager {
     public void removeEnemies(Body b1, Body b2) {
         if (b1.getUserData() instanceof EnemyInterface) {
             removeEnemy(b1);
-
         } else {
             removeEnemy(b2);
         }
@@ -113,8 +151,10 @@ public class EnemyManager {
     }
 
     public void destroyAllPeasants(){
+
         ArrayList<EnemyInterface> enemyCopy = clone(enemies);
         for (EnemyInterface e: enemyCopy){
+
             removeEnemy(e.getBody());
         }
     }
