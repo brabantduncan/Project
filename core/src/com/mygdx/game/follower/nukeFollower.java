@@ -33,12 +33,10 @@ public class nukeFollower implements FollowerInterface {
     }
 
 
-<<<<<<< HEAD
-=======
     @Override
-    public void setData(){
+    public void setData() {
         body.setUserData(this);
-        System.out.print((this instanceof FollowerInterface)+"\n");
+        System.out.print((this instanceof FollowerInterface) + "\n");
     }
 
     @Override
@@ -46,20 +44,21 @@ public class nukeFollower implements FollowerInterface {
 
     }
 
-
+    @Override
+    public int getTimeExist() {
+        return timeCanExist;
+    }
 
     @Override
-    public void update(Vector2 playerPosition){
-
-        aiControllerHandler.moveToPlayer(playerPosition,body);
+    public int getBorn() {
+        return born;
     }
 
 
->>>>>>> 21043c9476c14d564bebe3c34fd935207a2bcca3
     @Override
     public void action(Vector2 mouseCoord, BulletManager bulletManager) {
 
-        aiControllerHandler.aiShoot(bulletManager,mouseCoord,body);
+        aiControllerHandler.aiShoot(bulletManager, mouseCoord, body);
 
     }
 
@@ -75,36 +74,9 @@ public class nukeFollower implements FollowerInterface {
         return arrayList;
     }
 
-<<<<<<< HEAD
     @Override
     public void update(Vector2 playerPosition) {
         aiControllerHandler.moveToPlayer(playerPosition, body);
-=======
->>>>>>> 21043c9476c14d564bebe3c34fd935207a2bcca3
-
-
-<<<<<<< HEAD
-    @Override
-    public void setData() {
-        body.setUserData(this);
-        System.out.print((this instanceof FollowerInterface) + "\n");
-    }
-
-    @Override
-    public void spawnExtra(Body playerPostion) {
-
-    }
-=======
->>>>>>> 21043c9476c14d564bebe3c34fd935207a2bcca3
-
-    @Override
-    public int getTimeExist() {
-        return timeCanExist;
-    }
-
-    @Override
-    public int getBorn() {
-        return born ;
     }
 
     @Override
@@ -114,11 +86,11 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public int updateDrone() {
-        if(levelhandler.getLevel()<6){
+        if (levelhandler.getLevel() < 6) {
             return 1000;
-        }
-        else {
+        } else {
             return 2000;
         }
     }
 }
+
