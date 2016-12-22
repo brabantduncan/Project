@@ -32,11 +32,11 @@ public class BonusFactory {
 
                  //bonus = new Gem(b);
                 //bonus = new Bomb(b);
-                bonus = new FollowerBonus(b);
-
-                 bonus = new Gem(b);
-                //bonus = new Bomb(b);
                 //bonus = new FollowerBonus(b);
+
+                 //bonus = new Gem(b);
+                //bonus = new Bomb(b);
+                bonus = new FollowerBonus(b);
 
 
             }
