@@ -66,7 +66,7 @@ public class Login extends State {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
                 try {
-                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new PlayState(gms)); // get login
+                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new OptionState(gms, username)); // get login
                 } catch (SQLException e) {
                     stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                 }
@@ -113,7 +113,7 @@ public class Login extends State {
                         } catch (SQLException e) {
                             stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                         }
-                        gms.set(new PlayState(gms));
+                        gms.set(new OptionState(gms, username));
                     }
                 });
                 createAccountdlg.add(okButton);
@@ -132,6 +132,8 @@ public class Login extends State {
         });
 
         stage.addActor(backButton);
+
+
 
 
         Table table = new Table();
