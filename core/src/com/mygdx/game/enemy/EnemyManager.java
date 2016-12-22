@@ -50,32 +50,7 @@ public class EnemyManager {
     }
 
     public Vector2 makeRandomVector() {
-        int x = makeSpawnPointsX();
-        int y = makeSpawnPointsY();
-        return new Vector2(x, y);
-/*
-        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
-            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
-                Random r = new Random();
-                int randomInt = r.nextInt(100);
-
-                if((randomInt%2)==0){
-                    return new Vector2(x, -randomInt);
-                }else{
-                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
-                }
-
-            } else {
-                return new Vector2(x, y);
-            }
-        } else {
-
-            return new Vector2(x, y);
-
-        }
-
-*/
-
+        return new Vector2(makeSpawnPointsX(), makeSpawnPointsY());
     }
 
     public EnemyManager(){
@@ -150,26 +125,11 @@ public class EnemyManager {
         }
     }
 
-<<<<<<< HEAD
-    public void destroyAllPeasants() {
-
-        System.out.println("destroying all");
-        ArrayList<Enemy> enemyCopy = clone(enemies);
-        System.out.println("CLone made");
-        for (Enemy e : enemyCopy) {
-            if(!(e.getBody().getUserData() instanceof FasterEnemy)){
-                System.out.println(e.getBody().getUserData()+" is not a fasterEnemy");
-                removeEnemy(e.getBody());
-            }
-
-
-=======
     public void destroyAllPeasants(){
 
         ArrayList<EnemyInterface> enemyCopy = clone(enemies);
         for (EnemyInterface e: enemyCopy){
             removeEnemy(e.getBody());
->>>>>>> 0326e7bc2352e8c073e36a1c022dbaa4d074ff97
         }
         enemies.removeAll(enemies);
 

@@ -86,17 +86,6 @@ public class PlayState extends State implements GameInterface {
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
-<<<<<<< HEAD
-        // tmr = new OrthogonalTiledMapRenderer(map);
-
-
-
-        tmr = new OrthogonalTiledMapRenderer(map);
-
-=======
->>>>>>> 0326e7bc2352e8c073e36a1c022dbaa4d074ff97
-       tmr = new OrthogonalTiledMapRenderer(map);
-
         tmr = new OrthogonalTiledMapRenderer(map);
 
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
@@ -117,9 +106,8 @@ public class PlayState extends State implements GameInterface {
 
 
         players = playerFactoy.getPlayers(2);
-//        controllerHandler.giveControles(players);
 
-        controllerHandler.giveControles(players);
+//        controllerHandler.giveControles(players);
 
 
         //Nog hun hud tekenen
@@ -145,13 +133,6 @@ public class PlayState extends State implements GameInterface {
 
 
         // TiledObjectUtil.parseTiledObjectLayer(map, world);
-
-        createBorders();
-
-
-        //TiledObjectUtil.parseTiledObjectLayer(map, world);
-
-        //TiledObjectUtil.parseTiledObjectLayer(map, world);
 
         createBorders();
 

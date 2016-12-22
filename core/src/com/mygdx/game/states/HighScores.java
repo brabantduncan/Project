@@ -63,7 +63,7 @@ public class HighScores extends State {
 
     public ArrayList<HashMap<String, String>> getHighScores(){
         try {
-            highscores = new ArrayList<>(projectDB.getInstance().getHighScores());
+            highscores = new ArrayList<HashMap<String, String>>(projectDB.getInstance().getHighScores());
 
         } catch (SQLException e) {
             e.printStackTrace();
