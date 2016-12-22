@@ -34,6 +34,12 @@ public class testGDX implements ApplicationListener {
         Gdx.gl.glClearColor(0,0,0,1);
 
         //gsm.push(new MenuState(gsm)); // start in menu
+<<<<<<< HEAD
+
+        gsm.push(new HighScores(gsm));
+
+
+=======
 
         gsm.push(new Login(gsm));
 
@@ -43,9 +49,10 @@ public class testGDX implements ApplicationListener {
 
 
         gsm.push(new PlayState(gsm));
+>>>>>>> 4ee538dd9ab199f06c28ce476464a5ffc6d5b629
 
         //gsm.push(new MenuState(gsm)); // start in menu
-        gsm.push(new PlayState(gsm));
+        //gsm.push(new PlayState(gsm));
 
 
     }
