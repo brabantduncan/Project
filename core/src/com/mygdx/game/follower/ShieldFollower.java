@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bullet.BulletManager;
+import com.mygdx.game.LevelHandler;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.controller.AiControllerHandler;
 import com.mygdx.game.enemy.Enemy;
@@ -21,6 +22,7 @@ public class ShieldFollower implements FollowerInterface {
     private Body body;
     private Body jointBox;
     private ArrayList<Body> bodies;
+    LevelHandler levelhandler;
 
     private Texture texture = new Texture("../assets/MinecraftIngots/shield.png");;
     private AiControllerHandler aiControllerHandler;
@@ -36,7 +38,7 @@ public class ShieldFollower implements FollowerInterface {
         setData();
         System.out.print("\nFollower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist =2000;
+        timeCanExist = updateDrone();
         born =0;
         bodies = new ArrayList<Body>();
 
@@ -104,6 +106,16 @@ public class ShieldFollower implements FollowerInterface {
     @Override
     public void increaseBorn() {
         born+=1;
+    }
+
+    @Override
+    public int updateDrone() {
+        if(levelhandler.getLevel()<6){
+            return 1000;
+        }
+        else {
+            return 2000;
+        }
     }
 
 

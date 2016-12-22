@@ -17,23 +17,25 @@ import java.util.ArrayList;
  */
 public interface FollowerInterface {
 
-    public void action(Vector2 mouseCoord, BulletManager bulletManager);
+    void action(Vector2 mouseCoord, BulletManager bulletManager);
 
-    public Texture getTexture();
+    Texture getTexture();
 
-    public ArrayList<Body> getBody();
+    ArrayList<Body> getBody();
 
-    public void update(Vector2 position);
+    void update(Vector2 position);
 
-    public void setData();
+    void setData();
 
-    public void spawnExtra(Body playerPostion);
+    void spawnExtra(Body playerPostion);
 
-    public int getTimeExist();
+    int getTimeExist();
 
-    public int getBorn();
+    int getBorn();
 
-    public void increaseBorn();
+    void increaseBorn();
+
+    int updateDrone();
 }
 
 
