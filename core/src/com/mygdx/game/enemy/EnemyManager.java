@@ -134,17 +134,21 @@ public class EnemyManager {
         }
     }
 
-    public void destroyAllPeasants(){
-<<<<<<< HEAD
+    public void destroyAllPeasants() {
+
         System.out.println("destroying all");
         ArrayList<Enemy> enemyCopy = clone(enemies);
-        for (Enemy e: enemyCopy){
-=======
-        ArrayList<EnemyInterface> enemyCopy = clone(enemies);
-        for (EnemyInterface e: enemyCopy){
->>>>>>> d1f4feda5cb597c65b301fbf7721f987e24565a9
-            removeEnemy(e.getBody());
+        System.out.println("CLone made");
+        for (Enemy e : enemyCopy) {
+            if(!(e.getBody().getUserData() instanceof FasterEnemy)){
+                System.out.println(e.getBody().getUserData()+" is not a fasterEnemy");
+                removeEnemy(e.getBody());
+            }
+
+
         }
+        enemies.removeAll(enemies);
+
     }
 
     public ArrayList clone(ArrayList<EnemyInterface> host){

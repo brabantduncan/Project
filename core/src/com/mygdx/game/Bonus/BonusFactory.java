@@ -29,8 +29,8 @@ public class BonusFactory {
             if (40 < i && i < 45) {
                 bonus = new Multiplier(b);
             } else {
-                 //bonus = new Gem(b);
-                bonus = new Bomb(b);
+                 bonus = new Gem(b);
+                //bonus = new Bomb(b);
                 //bonus = new FollowerBonus(b);
 
             }

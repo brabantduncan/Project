@@ -13,6 +13,11 @@ public class Crosshair {
 
     private float x;
     private float y;
+
+    public Body getBody() {
+        return body;
+    }
+
     private Body body;
     Texture texture;
 
@@ -44,4 +49,6 @@ public class Crosshair {
         body.setLinearVelocity(verticalForce* 5, horizontalForce* 5);
         setPosition(body.getPosition());
     }
+
+
 }

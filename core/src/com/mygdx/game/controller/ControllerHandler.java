@@ -103,6 +103,8 @@ public class ControllerHandler {
         int horizontalForceCrosshair = getHorizontalForceCrosshair(controller);
         int verticalForceCrosshair = getVerticalForceCrosshair(controller);
         player.getController().getCrosshair().update(horizontalForceCrosshair,verticalForceCrosshair);
+        System.out.println("De player is nu op punt: "+player.getPlayerBody().getPosition());
+        System.out.println("De crosshair is nu op punt: "+player.getController().getCrosshair().getPosition());
 
         if (controller.getAxis(XboxPad.BUTTON_B) ==1){
             if(player.isHasBomb()){
@@ -112,12 +114,18 @@ public class ControllerHandler {
             }
         }
 
-        if (controller.getAxis(XboxPad.AXIS_RIGHT_TRIGGER) != 0) {
-            Vector2 direction = player.getController().getCrosshair().getPosition();
+        if (controller.getAxis(XboxPad.AXIS_RIGHT_TRIGGER) < 0) {
+            System.out.println(controller.getAxis(XboxPad.AXIS_RIGHT_TRIGGER) );
+            Vector2 direction = player.getController().getCrosshair().getBody().getWorldCenter();
             System.out.println(direction);
-            bulletManager.addBulletController(player.getPlayerBody().getPosition(),
-                    direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+
+           // bulletManager.addBulletController(player.getPlayerBody().getWorldCenter(),
+            //        direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
             //bulletManager.addBullet(direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+
+            bulletManager.addBulletController(player.getPlayerBody().getPosition(),
+                            direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+
         }
 
 

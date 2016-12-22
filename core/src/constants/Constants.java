@@ -14,6 +14,7 @@ public class Constants {
     public static final short FOLOWER = 0x0008;
     public static final short ACHOR = 0x0016;
     public static final short ROTOR = 0x0032;
+    public static final short CROSSHAIR = 0x0064;
 
     //define values
     public static final short GEM = 0x0064;

@@ -21,6 +21,7 @@ public class PlayerFactory {
 
     public Player createPlayer(){
         return new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), "John");
+
     }
 
     public ArrayList<Player> getPlayers(int amount){
