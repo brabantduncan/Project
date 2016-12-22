@@ -28,7 +28,7 @@ public class nukeFollower implements FollowerInterface {
         setData();
         System.out.print("Follower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist = 2000;
+        timeCanExist = 2200;
         born = 0;
     }
 
@@ -58,8 +58,6 @@ public class nukeFollower implements FollowerInterface {
     @Override
     public void action(Vector2 mouseCoord, BulletManager bulletManager) {
 
-        aiControllerHandler.aiShoot(bulletManager, mouseCoord, body);
-
     }
 
     @Override
@@ -76,7 +74,9 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public void update(Vector2 playerPosition) {
+
         aiControllerHandler.moveToPlayer(playerPosition, body);
+
     }
 
     @Override

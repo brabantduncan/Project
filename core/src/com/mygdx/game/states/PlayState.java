@@ -183,7 +183,7 @@ public class PlayState extends State implements GameInterface {
 
             //cameraUpdate(dt);
             batch.setProjectionMatrix(camera.combined);
-            // followerManager.moveFollower(players);
+            followerManager.moveFollower(players.get(0));
             followerManager.doAction(players.get(0), bm);
             hudManager.updateHandler(players, levelHandler.getLevel());
 
