@@ -46,13 +46,13 @@ public class HighScores extends State {
         final Label usernames = new Label("Usernames", skin);
         usernames.setAlignment(Align.center);
         usernames.setWrap(false);
-
+/*
         try {
             highscores = new ArrayList<String>();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+*/
 
         final Label text = new Label(" ", skin);
         text.setAlignment(Align.center);

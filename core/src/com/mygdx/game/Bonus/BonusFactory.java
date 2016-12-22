@@ -30,8 +30,8 @@ public class BonusFactory {
                 bonus = new Multiplier(b);
             } else {
                  //bonus = new Gem(b);
-                bonus = new Bomb(b);
-                //bonus = new FollowerBonus(b);
+                //bonus = new Bomb(b);
+                bonus = new FollowerBonus(b);
 
             }
         }

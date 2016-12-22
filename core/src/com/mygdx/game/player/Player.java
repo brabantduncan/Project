@@ -11,6 +11,7 @@ import com.mygdx.game.characterClass.CharacterHandler;
 import com.mygdx.game.controller.ControllerSet;
 import com.mygdx.game.follower.FollowerInterface;
 import com.mygdx.game.follower.ShieldFollower;
+import com.mygdx.game.follower.nukeFollower;
 import com.mygdx.game.player.hud.Hud;
 import com.mygdx.game.player.hud.HudInterFace;
 
@@ -279,7 +280,7 @@ public class Player {
     }
 
     public void spawnFollower(){
-        follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+        follower = new nukeFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
         follower.spawnExtra(playerBody);
     }
 
@@ -291,7 +292,7 @@ public class Player {
         }
         follower =null;
 
-        if(follower instanceof ShieldFollower){
+        if(follower instanceof nukeFollower){
             BodyBuilder.getInstance().destroyJoint();
         }
 
