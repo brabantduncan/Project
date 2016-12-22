@@ -28,7 +28,7 @@ public class nukeFollower implements FollowerInterface {
         setData();
         System.out.print("Follower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist = 2200;
+        timeCanExist = 1500;
         born = 0;
     }
 
