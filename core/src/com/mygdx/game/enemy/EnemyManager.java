@@ -16,8 +16,8 @@ import java.util.Random;
  */
 public class EnemyManager {
 
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Enemy> disposeEnemies;
+    private ArrayList<EnemyInterface> enemies;
+    private ArrayList<EnemyInterface> disposeEnemies;
 
     public int makeSpawnPointsX() {
         Random x = new Random();
@@ -35,18 +35,43 @@ public class EnemyManager {
         return ResultY;
     }
 
-    public Vector2 makeRandomVector(){
-        return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
+    public Vector2 makeRandomVector() {
+        int x = makeSpawnPointsX();
+        int y = makeSpawnPointsY();
+
+        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
+            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
+                Random r = new Random();
+                int randomInt = r.nextInt(100);
+
+                if((randomInt%2)==0){
+                    return new Vector2(x, -randomInt);
+                }else{
+                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
+                }
+
+            } else {
+                return new Vector2(x, y);
+            }
+        } else {
+
+            return new Vector2(x, y);
+
+        }
+
+
     }
 
     public EnemyManager(){
-        enemies = new ArrayList<Enemy>();
-        disposeEnemies = new ArrayList<Enemy>();
+        enemies = new ArrayList<EnemyInterface>();
+        disposeEnemies = new ArrayList<EnemyInterface>();
+
     }
 
-    public Enemy spawnEnemy(){
-        return new Enemy(BodyBuilder.getInstance().createEnemy(makeRandomVector() ,false));
+    public EnemyInterface spawnEnemy(){
+        return new EnemyFactory().generateEnemy(BodyBuilder.getInstance().createEnemy(makeRandomVector(), false));
     }
+
 
     public void createEnemies(int amount){
         for (int i = 0; i < amount; i++) {
@@ -54,13 +79,13 @@ public class EnemyManager {
         }
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<EnemyInterface> getEnemies() {
         return enemies;
     }
 
     public  void removeEnemy(Body b) {
 
-        for (Enemy e : enemies) {
+        for (EnemyInterface e : enemies) {
 
             if (e.getBody().equals(b)) {
                 disposeEnemies.add(e);
@@ -72,16 +97,17 @@ public class EnemyManager {
 
 
     public void removeEnemies(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface) {
             removeEnemy(b1);
-
         } else {
             removeEnemy(b2);
         }
+
     }
 
+
     public void updateEnemyMovement(ArrayList<Player> players) {
-        for (Enemy e : enemies) {
+        for (EnemyInterface e : enemies) {
             Body closest = calcClosest(players, e.getBody().getPosition());
             e.updatePosition(closest.getPosition());
         }
@@ -98,13 +124,10 @@ public class EnemyManager {
         return closest;
     }
 
-
-
-
     public void destroyEnemies() {
         if (disposeEnemies.size() > 0) {
 
-            for (Enemy e : disposeEnemies) {
+            for (EnemyInterface e : disposeEnemies) {
                 BodyBuilder.getInstance().addToDestroy(e.getBody());
             }
             disposeEnemies.clear();
@@ -112,18 +135,24 @@ public class EnemyManager {
     }
 
     public void destroyAllPeasants(){
+<<<<<<< HEAD
         System.out.println("destroying all");
         ArrayList<Enemy> enemyCopy = clone(enemies);
         for (Enemy e: enemyCopy){
+=======
+        ArrayList<EnemyInterface> enemyCopy = clone(enemies);
+        for (EnemyInterface e: enemyCopy){
+>>>>>>> d1f4feda5cb597c65b301fbf7721f987e24565a9
             removeEnemy(e.getBody());
         }
     }
 
-    public ArrayList clone(ArrayList<Enemy> host){
+    public ArrayList clone(ArrayList<EnemyInterface> host){
         ArrayList clone = new ArrayList<Enemy>();
-        for (Enemy e:host){
+        for (EnemyInterface e:host){
             clone.add(e);
         }
         return clone;
     }
+
 }

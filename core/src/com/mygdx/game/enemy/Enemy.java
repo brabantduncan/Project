@@ -9,27 +9,7 @@ import java.util.Random;
 /**
  * Created by laurens on 8/11/2016.
  */
-public class Enemy {
-
-    private String name;
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setAttackSpeed(int attackSpeed) {
-        this.attackSpeed = attackSpeed;
-    }
-
-    public void setMovementSpeed(int movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
-    private String type;
-    private int health;
-    private int attackSpeed;
-    private int movementSpeed;
-    private int spawnTime;
+public class Enemy implements EnemyInterface{
 
     private float x;
     private float y;
@@ -42,7 +22,7 @@ public class Enemy {
     private Body body;
 
 
-    private final int MOVEMENT_SPEED = 5;
+    private final int MOVEMENT_SPEED = 4;
 
     private Texture texture = new Texture("../assets/Monsters/weedle.gif");
 

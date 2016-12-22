@@ -55,6 +55,7 @@ public class PlayState extends State implements GameInterface {
     private ControllerHandler controllerHandler;
 
     ArrayList<Body> objects;
+    Body b;
 
 
     private Music gameMusic;
@@ -89,8 +90,12 @@ public class PlayState extends State implements GameInterface {
 
         // tmr = new OrthogonalTiledMapRenderer(map);
 
+<<<<<<< HEAD
 
         tmr = new OrthogonalTiledMapRenderer(map);
+=======
+       tmr = new OrthogonalTiledMapRenderer(map);
+>>>>>>> d1f4feda5cb597c65b301fbf7721f987e24565a9
         tmr = new OrthogonalTiledMapRenderer(map);
 
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
@@ -108,8 +113,17 @@ public class PlayState extends State implements GameInterface {
 
         BodyBuilder.getInstance().setWorld(world);
         PlayerFactory playerFactoy = new PlayerFactory();
+
+
         players = playerFactoy.getPlayers(2);
-        controllerHandler.giveControles(players);
+//        controllerHandler.giveControles(players);
+
+        players = playerFactoy.getPlayers(1);
+
+        players = playerFactoy.getPlayers(2);
+
+        //controllerHandler.giveControles(players);
+
 
         //Nog hun hud tekenen
         hudManager = new HudManager();

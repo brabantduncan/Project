@@ -34,52 +34,33 @@ public class Login extends State {
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-        batch = new SpriteBatch();
-        stage = new Stage();
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
         skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
 
-        Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
 
-
-
-        TextField.TextFieldStyle tfs = new TextField.TextFieldStyle();
-        tfs.fontColor = Color.RED;
-        tfs.font = new BitmapFont();
-
-        TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-        tbs.fontColor = Color.RED;
-        tbs.font = new BitmapFont();
-
-        final Label.LabelStyle ls = new Label.LabelStyle();
-        ls.fontColor = Color.RED;
-        ls.font = new BitmapFont();
-
-
-        Label login = new Label("Login", ls);
+        Label login = new Label("Login", skin);
         login.setPosition(stage.getWidth() /2, 600);
         stage.addActor(login);
 
-        Label usernameLabel = new Label("Username", ls);
+        Label usernameLabel = new Label("Username", skin);
 
-        final TextField usernameInput = new TextField("", tfs);
+        final TextField usernameInput = new TextField("", skin);
         usernameInput.setPosition(stage.getWidth() / 2, 550);
 
         usernameInput.setMessageText("<Username>");
 
         usernameInput.setColor(Color.WHITE);
 
-        Label passwordLabel = new Label("Password", ls);
+        Label passwordLabel = new Label("Password", skin);
 
-        final TextField passwordInput = new TextField("", tfs);
+        final TextField passwordInput = new TextField("", skin);
+        passwordInput.setPasswordMode(true);
         passwordInput.setMessageText("<Password>");
         passwordInput.setColor(Color.WHITE);
 
-        TextButton loginButton = new TextButton("login", tbs);
+
+        TextButton loginButton = new TextButton("login", skin);
         loginButton.setPosition(stage.getWidth() / 2 - (loginButton.getWidth() / 2), 420);
         loginButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
@@ -94,7 +75,7 @@ public class Login extends State {
         stage.addActor(loginButton);
 
 
-        TextButton createAccountButton = new TextButton("create new account", tbs);
+        TextButton createAccountButton = new TextButton("create new account", skin);
         createAccountButton.setPosition(stage.getWidth() / 2 - (createAccountButton.getWidth() / 2), 400);
         createAccountButton.addListener(new ChangeListener() {
             @Override
@@ -115,7 +96,7 @@ public class Login extends State {
                 Label passwordLabel = new Label("Password", skin);
                 createAccountdlg.add(passwordLabel);
 
-                final TextField passwordInput = new TextField("", skin);
+                final TextField passwordInput = new TextField("", skin, "password");
                 passwordInput.setMessageText("<Password>");
                 passwordInput.setColor(Color.WHITE);
                 createAccountdlg.add(passwordInput);

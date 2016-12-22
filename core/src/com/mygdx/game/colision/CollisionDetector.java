@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.enemy.Enemy;
+import com.mygdx.game.enemy.EnemyInterface;
 import com.mygdx.game.follower.FrontWatcherFollower;
 import com.mygdx.game.follower.ShieldFollower;
 import com.mygdx.game.player.Player;
@@ -75,7 +76,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
         if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
             p.removeBullet(b1, b2);
 
-            if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
+            if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
 
                 //music on collision with enemy
 
@@ -84,12 +85,12 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 bulletMusic.play();*/
 
                 p.removeEnemies(b1, b2);
-                if (b1.getUserData() instanceof Enemy) {
+                if (b1.getUserData() instanceof EnemyInterface) {
 
                     p.addCoordToBonusHandler(b1.getPosition());
 
                 }
-                if (b1.getUserData() instanceof Enemy) {
+                if (b1.getUserData() instanceof EnemyInterface) {
                     p.addCoordToBonusHandler(b1.getPosition());
 
                 }
@@ -128,7 +129,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     public void checkFollowerEnenmy(Body b1, Body b2) {
 
-        if (b1.getUserData() instanceof Enemy || b2.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
 
 
             if (b1.getUserData() instanceof FrontWatcherFollower || b2.getUserData() instanceof FrontWatcherFollower) {
@@ -153,7 +154,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
     public void sendBody(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Enemy) {
+        if (b1.getUserData() instanceof EnemyInterface) {
             p.getEnemyManager().removeEnemy(b1);
         } else {
             p.getEnemyManager().removeEnemy(b2);

@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.states.GameStateManager;
 
