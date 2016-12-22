@@ -113,10 +113,10 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
             }
             else {
                 if(b1.getUserData() instanceof BonusInterface){
-
+                    p.getBonusHandler().setRemoveList(b2,b1);
                 }
                 else {
-
+                    p.getBonusHandler().setRemoveList(b1,b2);
                 }
             }
 

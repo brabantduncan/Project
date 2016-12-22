@@ -86,6 +86,15 @@ public class PlayState extends State implements GameInterface {
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
+<<<<<<< HEAD
+        // tmr = new OrthogonalTiledMapRenderer(map);
+
+
+
+        tmr = new OrthogonalTiledMapRenderer(map);
+
+=======
+>>>>>>> 0326e7bc2352e8c073e36a1c022dbaa4d074ff97
        tmr = new OrthogonalTiledMapRenderer(map);
 
         tmr = new OrthogonalTiledMapRenderer(map);
@@ -110,11 +119,7 @@ public class PlayState extends State implements GameInterface {
         players = playerFactoy.getPlayers(2);
 //        controllerHandler.giveControles(players);
 
-        players = playerFactoy.getPlayers(1);
-
-        players = playerFactoy.getPlayers(2);
-
-        //controllerHandler.giveControles(players);
+        controllerHandler.giveControles(players);
 
 
         //Nog hun hud tekenen
@@ -212,7 +217,7 @@ public class PlayState extends State implements GameInterface {
 
 
         batch.begin();
-        //batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0);
         batch.end();
 
         //tmr.render();
@@ -227,12 +232,12 @@ public class PlayState extends State implements GameInterface {
         batch.begin();
         // batch.draw(background, 0, 0);
 /**
- renderHandler.renderPlayer(batch, players.get(0).getTexture(), players.get(0));
+ renderHandler.renderPlayer(batch, players.get(0).getTexture(), players);
  renderHandler.renderEnemies(batch, enemyManager.getEnemies());
  renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
  renderHandler.renderBullets(batch, bm.getBullets());
+**/
 
- **/
         batch.end();
         /**
 
