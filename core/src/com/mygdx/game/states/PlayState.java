@@ -77,12 +77,13 @@ public class PlayState extends State implements GameInterface {
     public BonusHandler getBonusHandler() {
         return bonusHandler;
     }
+    public String[] usernames;
 
 
-
-    public PlayState(GameStateManager gms) {
+    public PlayState(GameStateManager gms, String[] usernames) {
 
         super(gms);
+        this.usernames = usernames;
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
@@ -104,15 +105,22 @@ public class PlayState extends State implements GameInterface {
 
 
         BodyBuilder.getInstance().setWorld(world);
-        PlayerFactory playerFactoy = new PlayerFactory();
+        PlayerFactory playerFactory = new PlayerFactory();
+        players = new ArrayList<>();
+
+        for (int i =0; i<usernames.length ;i++){
+            players.add(playerFactory.createPlayer(usernames[i]));
+        }
 
 
-        players = playerFactoy.getPlayers(2);
-//        controllerHandler.giveControles(players);
 
-        players = playerFactoy.getPlayers(1);
-
-        players = playerFactoy.getPlayers(2);
+//
+//        players = playerFactoy.getPlayers(2);
+////        controllerHandler.giveControles(players);
+//
+//        players = playerFactoy.getPlayers(1);
+//
+//        players = playerFactoy.getPlayers(2);
 
         //controllerHandler.giveControles(players);
 

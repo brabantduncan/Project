@@ -27,9 +27,9 @@ public class MenuState extends State {
 
 
 
-    public MenuState(final GameStateManager gms) {
-        super(gms);
-        gsm = gms;
+    public MenuState(final GameStateManager gsm) {
+        super(gsm);
+        this.gsm = gsm;
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
         batch = new SpriteBatch();
         stage = new Stage();
@@ -42,7 +42,7 @@ public class MenuState extends State {
         singleplayerButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 singleplayerButton.setText("Starting new game");
-                gms.set(new Login(gms));
+                gsm.set(new Login(gsm));
             }
         });
 
@@ -50,8 +50,7 @@ public class MenuState extends State {
         multiplayerButton = new TextButton("MULTIPLAYER", skin);
         multiplayerButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                singleplayerButton.setText("Starting new game");
-                System.out.println(actor.getName());
+                gsm.set(new LoginMultiPlayer1(gsm));
             }
         });
 
@@ -60,7 +59,7 @@ public class MenuState extends State {
             public void changed (ChangeEvent event, Actor actor) {
 
                 singleplayerButton.setText("Starting new game");
-                gms.set(new HighScores(gms));
+                gsm.set(new HighScores(gsm));
             }
         });
 

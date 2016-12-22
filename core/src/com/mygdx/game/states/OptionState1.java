@@ -15,7 +15,7 @@ import java.sql.SQLException;
 /**
  * Created by Laurens Druwel on 21/12/2016.
  */
-public class OptionState extends State {
+public class OptionState1 extends State {
     public SpriteBatch batch;
     private Stage stage;
     private Texture background;
@@ -25,10 +25,10 @@ public class OptionState extends State {
     private GameStateManager gsm;
     private String username;
 
-    public OptionState(final GameStateManager gsm, final String username){
+    public OptionState1(final GameStateManager gsm, final String username1){
         super(gsm);
         this.gsm = gsm;
-        this.username = username;
+        this.username = username1;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -51,17 +51,17 @@ public class OptionState extends State {
         });
         stage.addActor(backButton);
 
-        TextButton playGameButton = new TextButton("Play game", skin);
-        playGameButton.setPosition(1200, 100);
-        playGameButton.addListener(new ChangeListener() {
+        TextButton nextPlayerButton = new TextButton("Login next player", skin);
+        nextPlayerButton.setPosition(1200, 100);
+        nextPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String[] users = {username};
-                gsm.push(new PlayState(gsm, users));
+                gsm.push(new LoginMultiPlayer2(gsm, username1));
             }
         });
 
-        stage.addActor(playGameButton);
+
+        stage.addActor(nextPlayerButton);
 
     }
 

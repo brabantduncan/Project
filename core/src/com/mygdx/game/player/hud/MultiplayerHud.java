@@ -68,7 +68,7 @@ public class MultiplayerHud implements HudInterFace {
 
         for(int i =0; i< players.size(); i++){
             Label label2 = new Label(Integer.toString(players.get(i).getCurrentScore()),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-            String name = "Score player "+Integer.toString(i+1);
+            String name = "Score " + players.get(i).getPlayerName();
             Label label = new Label(name,new Label.LabelStyle(new BitmapFont(), Color.WHITE));
             scorePerPlayer.put(label,label2);
         }
