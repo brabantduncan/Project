@@ -77,6 +77,7 @@ public class PlayState extends State implements GameInterface {
     public BonusHandler getBonusHandler() {
         return bonusHandler;
     }
+
     public String[] usernames;
 
 
@@ -99,18 +100,18 @@ public class PlayState extends State implements GameInterface {
         batch = new SpriteBatch();
         bm = new BulletManager(camera);
         enemyManager = new EnemyManager();
-        controllerHandler = new ControllerHandler(camera,bm,enemyManager);
+        controllerHandler = new ControllerHandler(camera, bm, enemyManager);
 
 
         BodyBuilder.getInstance().setWorld(world);
         PlayerFactory playerFactory = new PlayerFactory();
         players = new ArrayList<Player>();
 
-        for (int i =0; i<usernames.length ;i++){
+        for (int i = 0; i < usernames.length; i++) {
             players.add(playerFactory.createPlayer(usernames[i]));
         }
 
-        PlayerFactory playerFactoy=new PlayerFactory();
+        PlayerFactory playerFactoy = new PlayerFactory();
         //players = playerFactoy.getPlayers(2);
 
         controllerHandler.giveControles(players);
@@ -118,13 +119,10 @@ public class PlayState extends State implements GameInterface {
 
         //Nog hun hud tekenen
         hudManager = new HudManager();
-        hudManager.setHud(players,batch);
+        hudManager.setHud(players, batch);
         //player.spawnFollower();
 
         this.world.setContactListener(new CollisionDetector(this));
-
-
-
 
 
         levelHandler = new LevelHandler(enemyManager, gms);
@@ -132,7 +130,6 @@ public class PlayState extends State implements GameInterface {
         bonusHandler = new BonusHandler();
         renderHandler = new RenderHandler();
         objects = new ArrayList<Body>();
-
 
 
         followerManager = new FollowerManager();
@@ -145,11 +142,11 @@ public class PlayState extends State implements GameInterface {
 
         //music
         /**
-        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/gameMusic.mp3"));
-        gameMusic.setVolume(.25f);
-        gameMusic.setLooping(true);
-        gameMusic.play();
-        */
+         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/gameMusic.mp3"));
+         gameMusic.setVolume(.25f);
+         gameMusic.setLooping(true);
+         gameMusic.play();
+         */
     }
 
     @Override
@@ -165,9 +162,7 @@ public class PlayState extends State implements GameInterface {
 
         if (checkAllPlayersDeath()) {
             endGame();
-        }
-
-        else {
+        } else {
 
             bm.destroyBullets();
             levelHandler.updateLevel();
@@ -186,7 +181,7 @@ public class PlayState extends State implements GameInterface {
 
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
-           // followerManager.moveFollower(players);
+            // followerManager.moveFollower(players);
             followerManager.doAction(players.get(0), bm);
             hudManager.updateHandler(players, levelHandler.getLevel());
 
@@ -219,10 +214,10 @@ public class PlayState extends State implements GameInterface {
         batch.begin();
         // batch.draw(background, 0, 0);
 
- renderHandler.renderPlayer(batch, players.get(0).getTexture(), players);
- renderHandler.renderEnemies(batch, enemyManager.getEnemies());
- renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
- renderHandler.renderBullets(batch, bm.getBullets());
+        renderHandler.renderPlayer(batch, players);
+        renderHandler.renderEnemies(batch, enemyManager.getEnemies());
+        renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
+        renderHandler.renderBullets(batch, bm.getBullets());
 
 
         batch.end();
@@ -239,9 +234,6 @@ public class PlayState extends State implements GameInterface {
      * camera.update();
      * }
      **/
-
-
-
 
 
     public void createBorders() {
@@ -269,7 +261,6 @@ public class PlayState extends State implements GameInterface {
     }
 
 
-
     @Override
     public void removeEnemies(Body b1, Body b2) {
         enemyManager.removeEnemies(b1, b2);
@@ -293,9 +284,7 @@ public class PlayState extends State implements GameInterface {
     }
 
 
-
-
-    public void endGame(){
+    public void endGame() {
         /**
          for(Players p: players){
 
@@ -315,10 +304,10 @@ public class PlayState extends State implements GameInterface {
 
     }
 
-    public boolean checkAllPlayersDeath(){
+    public boolean checkAllPlayersDeath() {
         boolean allDead = true;
-        for (Player p:players){
-            if(!p.isDead()){
+        for (Player p : players) {
+            if (!p.isDead()) {
                 allDead = false;
             }
         }

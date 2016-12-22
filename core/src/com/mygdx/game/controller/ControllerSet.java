@@ -26,9 +26,7 @@ public class ControllerSet {
         this.crosshair = new Crosshair(playerBody);
     }
 
-    public void setCrosshairCoords(Vector2 newPosition) {
-        crosshair.setPosition(newPosition);
-    }
+
 
 
 

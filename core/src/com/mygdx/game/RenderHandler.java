@@ -26,13 +26,15 @@ public class RenderHandler {
     }
 
 
-    public void renderPlayer(SpriteBatch batch, Texture texture, ArrayList<Player> players) {
+    public void renderPlayer(SpriteBatch batch, ArrayList<Player> players) {
 
         for (Player player : players) {
-            batch.draw(texture, player.getPlayerBody().getPosition().x - (texture.getWidth() / 2), player.getPlayerBody().getPosition().y - (texture.getHeight() / 2));
+
+            batch.draw(player.getTexture(), player.getPlayerBody().getPosition().x - (player.getTexture()
+                    .getWidth() / 2), player.getPlayerBody().getPosition().y - (player.getTexture().getHeight() / 2));
 
 
-            // batch.draw(texture,player.getPlayerBody().getPosition().x* Constants.SCALE -(texture.getWidth()/2),player.getPlayerBody().getPosition().y*Constants.SCALE-(texture.getHeight()/2));
+
             if (player.getFollower() != null) {
                 renderFollower(batch, player.getFollower());
             }

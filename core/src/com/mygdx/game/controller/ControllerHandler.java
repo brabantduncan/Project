@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Bullet.BulletManager;
@@ -135,10 +136,16 @@ public class ControllerHandler {
 
     public void giveControles(ArrayList<Player> players) {
         System.out.print("\nThere are " + players.size());
+
+
         for (int i = 0; i < players.size(); i++) {
+            String spriteLocation ="../assets/MinecraftIngots/alteroit"+(i+1)+".png";
+            players.get(i).setTex(spriteLocation);
             if (i != 0) {
                 players.get(i).setController(new ControllerSet(players.get(i).getPlayerBody(),Controllers.getControllers().get(i-1)));
+                players.get(i).getController().getCrosshair().setTex("../assets/MinecraftIngots/crosshair-"+i+".png");
             }
+
 
         }
     }

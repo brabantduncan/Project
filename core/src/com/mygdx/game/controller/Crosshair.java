@@ -24,11 +24,9 @@ public class Crosshair {
         return tex;
     }
 
-    public void setTex(Texture tex) {
-        this.tex = tex;
-    }
 
-    private Texture tex = new Texture("../assets/MinecraftIngots/crosshair-1.png");
+
+    private Texture tex;
 
 
     public Crosshair(Body playerBody){
@@ -36,6 +34,10 @@ public class Crosshair {
         setXY(playerBody.getPosition());
         this.body = BodyBuilder.getInstance().createCrossHairBody(new Vector2(x,y));
 
+    }
+
+    public void setTex(String location){
+        tex = new Texture(location);
     }
 
     private void setXY(Vector2 position){

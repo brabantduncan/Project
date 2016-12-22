@@ -126,7 +126,7 @@ public class BonusHandler {
             copyList.add(b);
         }
         return copyList;
-        
+
 
     }
 }

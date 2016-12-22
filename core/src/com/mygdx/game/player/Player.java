@@ -62,7 +62,11 @@ public class Player {
 
     private boolean hasBomb;
 
-    private Texture tex = new Texture("../assets/MinecraftIngots/alteroit.png");
+    public void setTex(String tex) {
+        this.tex = new Texture(tex);
+    }
+
+    private Texture tex;
     private ControllerSet controller;
 
 
