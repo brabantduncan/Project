@@ -29,7 +29,7 @@ public class Login extends State {
 
 
 
-    public Login(GameStateManager gsm){
+    public Login(final GameStateManager gsm){
         super(gsm);
         batch = new SpriteBatch();
         stage = new Stage();
@@ -39,9 +39,9 @@ public class Login extends State {
         Gdx.input.setInputProcessor(stage);
 
 
-        Label login = new Label("Login", skin);
-        login.setPosition(stage.getWidth() /2, 600);
-        stage.addActor(login);
+        Label loginLabel = new Label("Login", skin);
+        loginLabel.setPosition(stage.getWidth() /2 - (loginLabel.getWidth() /2 ), 800);
+        stage.addActor(loginLabel);
 
         Label usernameLabel = new Label("Username", skin);
 
@@ -61,7 +61,6 @@ public class Login extends State {
 
 
         TextButton loginButton = new TextButton("login", skin);
-        loginButton.setPosition(stage.getWidth() / 2 - (loginButton.getWidth() / 2), 420);
         loginButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 String username = usernameInput.getText();
@@ -76,7 +75,6 @@ public class Login extends State {
 
 
         TextButton createAccountButton = new TextButton("create new account", skin);
-        createAccountButton.setPosition(stage.getWidth() / 2 - (createAccountButton.getWidth() / 2), 400);
         createAccountButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -96,10 +94,13 @@ public class Login extends State {
                 Label passwordLabel = new Label("Password", skin);
                 createAccountdlg.add(passwordLabel);
 
-                final TextField passwordInput = new TextField("", skin, "password");
+                final TextField passwordInput = new TextField("", skin);
                 passwordInput.setMessageText("<Password>");
                 passwordInput.setColor(Color.WHITE);
                 createAccountdlg.add(passwordInput);
+
+
+
 
                 TextButton okButton = new TextButton("Ok", skin);
                 okButton.addListener(new ChangeListener() {
@@ -121,16 +122,29 @@ public class Login extends State {
         });
         stage.addActor(createAccountButton);
 
-       // stage.setKeyboardFocus(usernameInput);
+        TextButton backButton = new TextButton("Back", skin);
+        backButton.setPosition(1200, 100);
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gsm.push(new MenuState(gsm));
+            }
+        });
+
+        stage.addActor(backButton);
+
 
         Table table = new Table();
-        table.add(usernameLabel);
-        table.add(usernameInput).width(100);
-        table.defaults().spaceRight(30f);
+        table.add(usernameLabel).width(100).pad(20);
+        table.add(usernameInput);
         table.row();
-        table.add(passwordLabel);
-        table.add(passwordInput).width(100);
-        table.setPosition(stage.getWidth()/2,stage.getHeight()/2);
+        table.add(passwordLabel).width(100).pad(20);
+        table.add(passwordInput);
+        table.row();
+        table.add(loginButton);
+       //table.row();
+        table.add(createAccountButton);
+        table.setPosition(stage.getWidth()/2 - (table.getWidth() /2 ),stage.getHeight()/2);
         stage.addActor(table);
 
 
@@ -153,7 +167,7 @@ public class Login extends State {
 
 
         batch.begin();
-        //batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0);
 
         batch.end();
 
