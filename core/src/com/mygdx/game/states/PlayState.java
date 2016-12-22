@@ -86,14 +86,8 @@ public class PlayState extends State implements GameInterface {
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
-        // tmr = new OrthogonalTiledMapRenderer(map);
-
-<<<<<<< HEAD
-
-        tmr = new OrthogonalTiledMapRenderer(map);
-=======
        tmr = new OrthogonalTiledMapRenderer(map);
->>>>>>> d1f4feda5cb597c65b301fbf7721f987e24565a9
+
         tmr = new OrthogonalTiledMapRenderer(map);
 
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());

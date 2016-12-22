@@ -149,14 +149,10 @@ public class EnemyManager {
     }
 
     public void destroyAllPeasants(){
-<<<<<<< HEAD
-        System.out.println("destroying all");
-        ArrayList<Enemy> enemyCopy = clone(enemies);
-        for (Enemy e: enemyCopy){
-=======
+        
         ArrayList<EnemyInterface> enemyCopy = clone(enemies);
         for (EnemyInterface e: enemyCopy){
->>>>>>> d1f4feda5cb597c65b301fbf7721f987e24565a9
+
             removeEnemy(e.getBody());
         }
     }

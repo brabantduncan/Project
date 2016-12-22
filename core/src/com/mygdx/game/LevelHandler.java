@@ -19,11 +19,10 @@ public class LevelHandler {
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
-<<<<<<< HEAD
+
         enemyManager.createEnemies(20);
-=======
+
         enemyManager.createEnemies(1);
->>>>>>> 354a26353a7b7e9555fad4a4174029c8143d5607
 
     }
 
