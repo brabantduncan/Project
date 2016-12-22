@@ -15,8 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import database.projectDB;
 
 import javax.xml.soap.Text;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Laurens Druwel on 20/12/2016.
@@ -27,6 +30,7 @@ public class HighScores extends State {
     private TextButton button_SinglePlayer, button_MuliPlayer, button_HighScores;
     private Texture background;
     private Skin skin;
+    private List<String> highscores;
 
     public HighScores(final GameStateManager gms){
         super(gms);
@@ -43,20 +47,20 @@ public class HighScores extends State {
         usernames.setAlignment(Align.center);
         usernames.setWrap(false);
 
+        try {
+            highscores = new ArrayList<String>();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        final Label text = new Label(" private static final String reallyLongString = \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\";\n", skin);
+
+        final Label text = new Label(" ", skin);
         text.setAlignment(Align.center);
         text.setWrap(false);
-        final Label text2 = new Label(" private static final String reallyLongString = \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\";\n", skin);
+        final Label text2 = new Label(" ", skin);
         text2.setAlignment(Align.center);
         text2.setWrap(false);
-        final Label text3 = new Label(" private static final String reallyLongString = \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\"\n" +
-                "        + \"This\\nIs\\nA\\nReally\\nLong\\nString\\nThat\\nHas\\nLots\\nOf\\nLines\\nAnd\\nRepeats.\\n\";\n", skin);
+        final Label text3 = new Label(" ", skin);
         text3.setAlignment(Align.center);
         text3.setWrap(false);
 
@@ -75,8 +79,10 @@ public class HighScores extends State {
         //table.setFillParent(true);
         table.add(scroller).fill().expand();
 
-        scroller.setPosition(stage.getWidth() / 2, stage.getHeight() / 2);
+        scroller.setPosition(stage.getWidth() / 2 - (table.getWidth() / 2), stage.getHeight() / 2);
         scroller.setSize(300,300);
+
+        scroller.setColor(Color.RED);
 
         stage.addActor(scroller );
 
