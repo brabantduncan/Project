@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.states.GameStateManager;
+import com.mygdx.game.states.PlayState;
 
 /**
  * Created by Shan on 12/17/2016.
@@ -33,6 +34,11 @@ public class LevelHandler {
 
     public void NextLevel() {
         level += 1;
+
+        System.out.println("new level");
+        System.out.println("new level");
+        PlayState.changeMap();
+        System.out.println("new level");
         enemyManager.createEnemies(spawnCount());
     }
 

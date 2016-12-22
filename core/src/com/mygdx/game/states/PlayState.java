@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bonus.BonusHandler;
 import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
  */
 public class PlayState extends State implements GameInterface {
 
+
     public SpriteBatch batch;
 
     float w = Gdx.graphics.getWidth();
@@ -46,11 +48,11 @@ public class PlayState extends State implements GameInterface {
 
     private Box2DDebugRenderer b2dr;  // wegdoen om alleen maar sprites te tonen
     private OrthographicCamera camera;
-    private OrthogonalTiledMapRenderer tmr;
-    private TiledMap map;
+    private static OrthogonalTiledMapRenderer tmr;
+    private static TiledMap map;
 
 
-    private World world;
+    private static World world;
     private ArrayList<Player> players;
 
     private ControllerHandler controllerHandler;
@@ -58,6 +60,7 @@ public class PlayState extends State implements GameInterface {
     ArrayList<Body> objects;
 
     private Music gameMusic;
+    private static Array<Body> mapObjects;
 
     @Override
     public EnemyManager getEnemyManager() {
@@ -136,7 +139,8 @@ public class PlayState extends State implements GameInterface {
         followerManager = new FollowerManager();
 
 
-        TiledObjectUtil.parseTiledObjectLayer(map, world);
+        mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
+
 
         createBorders();
         System.out.println("pet:" + pets[0]);
@@ -203,6 +207,8 @@ public class PlayState extends State implements GameInterface {
         batch.begin();
         //batch.draw(background, 0, 0);
         batch.end();
+
+
 
         tmr.render();
 
@@ -314,5 +320,17 @@ public class PlayState extends State implements GameInterface {
             }
         }
         return allDead;
+    }
+    public static void changeMap() {
+        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
+            map = new TmxMapLoader().load("../assets/Maps/level1.tmx"); //load the new map
+            tmr.getMap().dispose(); //dispose the old map
+            tmr.setMap(map); //set the map in your renderer
+            for(Body b : mapObjects){
+                world.destroyBody(b);
+            }
+            TiledObjectUtil.parseTiledObjectLayer(map, world);
+
+        });
     }
 }
