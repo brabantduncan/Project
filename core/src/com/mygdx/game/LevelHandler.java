@@ -47,7 +47,7 @@ public class LevelHandler {
     }
 
     public int spawnCount() {
-        return level*20; //monsters per level
+        return level*15; //monsters per level
     }
 
 

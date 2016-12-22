@@ -24,7 +24,7 @@ public class Enemy implements EnemyInterface{
 
     private final int MOVEMENT_SPEED = 4;
 
-    private Texture texture = new Texture("../assets/Monsters/weedle.gif");
+    private Texture texture = new Texture("../assets/Monsters/bewitchin.png");
 
 
 

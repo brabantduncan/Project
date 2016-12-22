@@ -16,17 +16,17 @@ public class EnemyFactory {
 
     public EnemyInterface generateEnemy(Body b) {
         Random r = new Random();
-        return getRandomEnemy(b, r.nextInt(60));
+        return getRandomEnemy(b, r.nextInt(200));
     }
 
     private EnemyInterface getRandomEnemy(Body b, int i) {
 
         EnemyInterface enemy;
 
-        if ( i < 30) {
+        if ( i < 120) {
             enemy = new Enemy(b);
         } else {
-            if (i>30 && i<50) {
+            if (i>119 && i<199) {
                 enemy = new FasterEnemy(b);
             }
             else{

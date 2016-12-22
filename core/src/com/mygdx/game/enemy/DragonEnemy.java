@@ -18,7 +18,7 @@ public class DragonEnemy implements EnemyInterface {
 
     private final int MOVEMENT_SPEED = 1;
 
-    private Texture texture = new Texture("../assets/Monsters/charizard.gif");
+    private Texture texture = new Texture("../assets/Monsters/darkdragon.png");
 
     public DragonEnemy(Body body){
         this.body = body;

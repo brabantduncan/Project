@@ -19,7 +19,7 @@ public class FasterEnemy implements EnemyInterface {
 
     private final int MOVEMENT_SPEED = 10;
 
-    private Texture texture = new Texture("../assets/Monsters/kakuna.gif");
+    private Texture texture = new Texture("../assets/Monsters/silentbee.png");
 
     public FasterEnemy(Body body) {
         //uitlezen uit database
