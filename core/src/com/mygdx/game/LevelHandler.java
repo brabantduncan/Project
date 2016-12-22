@@ -20,7 +20,7 @@ public class LevelHandler {
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
 
-        enemyManager.createEnemies(20);
+        enemyManager.createEnemies(20); // begin monsters
 
         enemyManager.createEnemies(1);
 
@@ -43,13 +43,11 @@ public class LevelHandler {
     public void handleLevel() {
         if (enemyManager.getEnemies().isEmpty()) {
             NextLevel();
-
         }
     }
 
     public int spawnCount() {
-        return level*20; //random waarden
-
+        return level*20; //monsters per level
     }
 
 

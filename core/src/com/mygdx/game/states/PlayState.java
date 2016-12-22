@@ -87,8 +87,6 @@ public class PlayState extends State implements GameInterface {
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
-       tmr = new OrthogonalTiledMapRenderer(map);
-
         tmr = new OrthogonalTiledMapRenderer(map);
 
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
@@ -112,6 +110,7 @@ public class PlayState extends State implements GameInterface {
             players.add(playerFactory.createPlayer(usernames[i]));
         }
 
+<<<<<<< HEAD
 
 
 //
@@ -121,8 +120,11 @@ public class PlayState extends State implements GameInterface {
 //        players = playerFactoy.getPlayers(1);
 //
 //        players = playerFactoy.getPlayers(2);
+=======
+        players = playerFactoy.getPlayers(2);
+>>>>>>> 392449fa3718f0b54f0cef2fea6baff49662c7fa
 
-        //controllerHandler.giveControles(players);
+//        controllerHandler.giveControles(players);
 
 
         //Nog hun hud tekenen
@@ -148,13 +150,6 @@ public class PlayState extends State implements GameInterface {
 
 
         // TiledObjectUtil.parseTiledObjectLayer(map, world);
-
-        createBorders();
-
-
-        //TiledObjectUtil.parseTiledObjectLayer(map, world);
-
-        //TiledObjectUtil.parseTiledObjectLayer(map, world);
 
         createBorders();
 
@@ -220,7 +215,7 @@ public class PlayState extends State implements GameInterface {
 
 
         batch.begin();
-        //batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0);
         batch.end();
 
         //tmr.render();
@@ -235,12 +230,12 @@ public class PlayState extends State implements GameInterface {
         batch.begin();
         // batch.draw(background, 0, 0);
 /**
- renderHandler.renderPlayer(batch, players.get(0).getTexture(), players.get(0));
+ renderHandler.renderPlayer(batch, players.get(0).getTexture(), players);
  renderHandler.renderEnemies(batch, enemyManager.getEnemies());
  renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
  renderHandler.renderBullets(batch, bm.getBullets());
+**/
 
- **/
         batch.end();
         /**
 

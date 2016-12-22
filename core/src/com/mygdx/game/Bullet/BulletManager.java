@@ -71,9 +71,48 @@ public class BulletManager {
         bullet.getB().setLinearVelocity(vel);*/
 
 
+        /***
+        Vector2 sp2 = new Vector2((locationAim.x -origin.x) *360, (locationAim.y -origin.y)*360);
+
+        Vector2 a = bullet.getB().getPosition();
+        Vector2 d = sp2.sub(a);
+
+        bullet.getB().applyLinearImpulse(d.x * bulletSpeed, d.y * bulletSpeed, bullet.getB().getPosition().x, bullet.getB().getPosition().y, true);
+        */
+
+        /**
+
+
+        float angle = (float) (Math.atan2(locationAim.y,locationAim.x) - Math.atan2(origin.y, origin.x));
+        Double dx = Math.cos(angle);
+        Double dy = Math.sin(angle);
+
+        float newX = (float) (body.getPosition().x+dx)*bulletSpeed;
+        float newY = (float) (body.getPosition().y+dy)*bulletSpeed;
+
+        **/
+
+        /**
+        System.out.println("Begin positie "+origin);
+        System.out.println("Eind positie "+locationAim);
+
+
+        float pointVectorY = (locationAim.y - origin.y)*bulletSpeed;
+        float pointVectorX = (locationAim.x - origin.y) *bulletSpeed;
+
+        float angle = (float) Math.atan2(pointVectorY, pointVectorX);
+
+
+        System.out.println("De vector hiervan is "+new Vector2(pointVectorX,pointVectorY));
+
+
+        body.applyForceToCenter(new Vector2(pointVectorX,pointVectorY),true);
+        //body.applyLinearImpulse(new Vector2(pointVectorX,pointVectorY), body.getWorldCenter(),true);
+        // body.setLinearVelocity(finalVelx,finalVely);
+        **/
 
         float velx = locationAim.x - origin.x;
-        float vely = locationAim.y- origin.y;
+        float vely = locationAim.y - origin.y;
         float length = (float) Math.sqrt(velx * velx + vely * vely);
         if (length != 0) {
             velx = velx / length;
@@ -83,13 +122,7 @@ public class BulletManager {
         float finalVely = vely * bulletSpeed;
 
         body.setLinearVelocity(finalVelx,finalVely);
-
     }
-
-
-
-
-
 
     public void removeBullet(Body b) {
 

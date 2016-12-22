@@ -107,5 +107,8 @@ public class BonusHandler {
         destroyBodies.clear();
     }
 
+    public ArrayList<BonusInterface> getBonusToSpawn() {
+        return bonusToSpawn;
+    }
 }
 

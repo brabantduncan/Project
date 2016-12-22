@@ -7,22 +7,20 @@ import com.badlogic.gdx.physics.box2d.Body;
 import java.util.Random;
 
 /**
- * Created by Duncan on 21/12/2016.
+ * Created by Duncan on 22/12/2016.
  */
-
-public class FasterEnemy implements EnemyInterface {
+public class DragonEnemy implements EnemyInterface {
 
     private float x;
     private float y;
 
     private Body body;
 
-    private final int MOVEMENT_SPEED = 10;
+    private final int MOVEMENT_SPEED = 1;
 
-    private Texture texture = new Texture("../assets/Monsters/kakuna.gif");
+    private Texture texture = new Texture("../assets/Monsters/charizard.gif");
 
-    public FasterEnemy(Body body) {
-        //uitlezen uit database
+    public DragonEnemy(Body body){
         this.body = body;
 
         x = pointGenerator(250,500); // should be game.WIDTH / 2;
@@ -37,7 +35,7 @@ public class FasterEnemy implements EnemyInterface {
     }
 
     @Override
-    public float pointGenerator(int min, int max){
+    public float pointGenerator(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
@@ -45,10 +43,8 @@ public class FasterEnemy implements EnemyInterface {
         return r.nextInt((max - min) + 1) + min;
     }
 
-
-
     @Override
-    public void updatePosition(Vector2 playerPosition){
+    public void updatePosition(Vector2 playerPosition) {
 
         int horizontalForce = 0;
         int verticalForce = 0;
@@ -79,25 +75,28 @@ public class FasterEnemy implements EnemyInterface {
     }
 
     @Override
-    public float getX(){ return x;}
-
-    @Override
-    public float getY(){ return y;}
-
-    @Override
-    public int randomMovement(int origineel){
+    public int randomMovement(int origineel) {
         Random rand = new Random();
         return rand.nextInt(origineel+10);
     }
 
     @Override
-    public void setUserData(){
+    public void setUserData() {
         body.setUserData(this);
     }
 
     @Override
-    public Texture getTexture(){
+    public Texture getTexture() {
         return texture;
     }
 
+    @Override
+    public float getY() {
+        return x;
+    }
+
+    @Override
+    public float getX() {
+        return y;
+    }
 }

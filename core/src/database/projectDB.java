@@ -231,7 +231,7 @@ public class projectDB {
         try
         {
 
-            ArrayList<HashMap<String, String>> highscores = new ArrayList<>();
+            ArrayList<HashMap<String, String>> highscores = new ArrayList<HashMap<String, String>>();
 
             String sql = "SELECT * " +
                     "FROM score " +
@@ -244,7 +244,7 @@ public class projectDB {
 
             while (rs.next())
             {
-                HashMap<String, String> user= new HashMap<>();
+                HashMap<String, String> user= new HashMap<String, String>();
                 user.put("username", rs.getString("pname"));
                 user.put("score", rs.getString("score"));
                 highscores.add(user);
