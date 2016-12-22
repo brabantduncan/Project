@@ -25,7 +25,7 @@ public class FrontWatcherFollower implements FollowerInterface {
 
 
     private Body body;
-    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    private Texture tex = new Texture("../assets/Monsters/acrophis.png");
     private AiControllerHandler aiControllerHandler;
     private LevelHandler levelhandler;
 

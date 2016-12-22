@@ -20,6 +20,7 @@ import com.mygdx.game.Bullet.Bullet;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
+import com.mygdx.game.TiledObjectUtil;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.colision.CollisionDetector;
 import com.mygdx.game.controller.ControllerHandler;
@@ -81,7 +82,7 @@ public class PlayState extends State implements GameInterface {
     public String[] usernames;
 
 
-    public PlayState(GameStateManager gms, String[] usernames) {
+    public PlayState(GameStateManager gms, String[] usernames, String[] pets) {
 
         super(gms);
         this.usernames = usernames;
@@ -108,7 +109,7 @@ public class PlayState extends State implements GameInterface {
         players = new ArrayList<Player>();
 
         for (int i = 0; i < usernames.length; i++) {
-            players.add(playerFactory.createPlayer(usernames[i]));
+            players.add(playerFactory.createPlayer(usernames[i], pets[i]));
         }
 
         PlayerFactory playerFactoy = new PlayerFactory();
@@ -135,7 +136,7 @@ public class PlayState extends State implements GameInterface {
         followerManager = new FollowerManager();
 
 
-        // TiledObjectUtil.parseTiledObjectLayer(map, world);
+        TiledObjectUtil.parseTiledObjectLayer(map, world);
 
         createBorders();
 
@@ -147,6 +148,7 @@ public class PlayState extends State implements GameInterface {
          gameMusic.setLooping(true);
          gameMusic.play();
          */
+
     }
 
     @Override
@@ -180,7 +182,7 @@ public class PlayState extends State implements GameInterface {
             tmr.setView(camera);
 
             //cameraUpdate(dt);
-            //batch.setProjectionMatrix(camera.combined);
+            batch.setProjectionMatrix(camera.combined);
             // followerManager.moveFollower(players);
             followerManager.doAction(players.get(0), bm);
             hudManager.updateHandler(players, levelHandler.getLevel());
@@ -199,10 +201,10 @@ public class PlayState extends State implements GameInterface {
 
 
         batch.begin();
-        batch.draw(background, 0, 0);
+        //batch.draw(background, 0, 0);
         batch.end();
 
-        //tmr.render();
+        tmr.render();
 
         /**
          batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);

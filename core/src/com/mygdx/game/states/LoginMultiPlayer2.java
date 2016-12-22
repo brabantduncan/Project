@@ -24,11 +24,12 @@ public class LoginMultiPlayer2 extends State {
     private Stage stage;
     private Texture background;
     private Skin skin;
+    private String username1;
+    private String userpet1;
 
 
 
-
-    public LoginMultiPlayer2(final GameStateManager gsm, final String username1){
+    public LoginMultiPlayer2(final GameStateManager gsm, final String username1, final String userpet1){
         super(gsm);
         batch = new SpriteBatch();
         stage = new Stage();
@@ -65,7 +66,7 @@ public class LoginMultiPlayer2 extends State {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
                 try {
-                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new OptionState2(gms, username1, username)); // get login
+                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new OptionState2(gms, username1, username, userpet1)); // get login
                 } catch (SQLException e) {
                     stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                 }
@@ -112,7 +113,7 @@ public class LoginMultiPlayer2 extends State {
                         } catch (SQLException e) {
                             stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                         }
-                        gms.set(new OptionState2(gms, username, username1));
+                        gms.set(new OptionState2(gms, username1, username, userpet1));
                     }
                 });
                 createAccountdlg.add(okButton);

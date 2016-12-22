@@ -26,12 +26,15 @@ public class OptionState2 extends State {
     private GameStateManager gsm;
     private String username1;
     private String username2;
+    private String userpet1;
+    private String userpet2;
 
-    public OptionState2(final GameStateManager gsm, final String username1, final String username2){
+    public OptionState2(final GameStateManager gsm, final String username1, final String username2, final String userpet1){
         super(gsm);
         this.gsm = gsm;
         this.username1 = username1;
         this.username2 = username2;
+        this.userpet1 = userpet1;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -60,8 +63,9 @@ public class OptionState2 extends State {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 String[] users = {username1, username2};
+                String[] pets = {userpet1, userpet2};
                 System.out.println(users.length);
-                gsm.set(new PlayState(gsm, users));
+                gsm.set(new PlayState(gsm, users, pets));
             }
         });
 
@@ -110,6 +114,7 @@ public class OptionState2 extends State {
         final SelectBox<String> pet = new SelectBox<String>(skin);
         pet.setItems(pets);
         pet.setSelected("FrontWatcher");
+        userpet2 = pet.getSelected();
         pet.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -121,7 +126,7 @@ public class OptionState2 extends State {
                     description.setPosition(stage.getWidth() / 2 + 50, 310);
                     description.setWidth(400);
                     description.setDisabled(true);
-
+                    userpet2 = pet.getSelected();
                     stage.addActor(description);
 
                 } catch (SQLException e) {

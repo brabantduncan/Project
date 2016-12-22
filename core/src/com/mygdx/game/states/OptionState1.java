@@ -24,6 +24,7 @@ public class OptionState1 extends State {
     private TextArea description;
     private GameStateManager gsm;
     private String username;
+    private String userpet;
 
     public OptionState1(final GameStateManager gsm, final String username1){
         super(gsm);
@@ -56,7 +57,7 @@ public class OptionState1 extends State {
         nextPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                gsm.push(new LoginMultiPlayer2(gsm, username1));
+                gsm.push(new LoginMultiPlayer2(gsm, username1, userpet));
             }
         });
 
@@ -106,6 +107,7 @@ public class OptionState1 extends State {
         final SelectBox<String> pet = new SelectBox<String>(skin);
         pet.setItems(pets);
         pet.setSelected("FrontWatcher");
+        userpet = pet.getSelected();
         pet.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -117,7 +119,7 @@ public class OptionState1 extends State {
                     description.setPosition(stage.getWidth() / 2 + 50, 310);
                     description.setWidth(400);
                     description.setDisabled(true);
-
+                    userpet = pet.getSelected();
                     stage.addActor(description);
 
                 } catch (SQLException e) {

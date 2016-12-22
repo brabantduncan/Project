@@ -10,6 +10,7 @@ import com.mygdx.game.characterClass.AdventurerHandler;
 import com.mygdx.game.characterClass.CharacterHandler;
 import com.mygdx.game.controller.ControllerSet;
 import com.mygdx.game.follower.FollowerInterface;
+import com.mygdx.game.follower.FrontWatcherFollower;
 import com.mygdx.game.follower.ShieldFollower;
 import com.mygdx.game.follower.nukeFollower;
 import com.mygdx.game.player.hud.Hud;
@@ -68,10 +69,11 @@ public class Player {
 
     private Texture tex;
     private ControllerSet controller;
+    private String pet;
 
 
 
-    public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore) {
+    public Player(Body playerBody, String playerName, int currentLevel, int currentEXP, String characterClass, int currentScore, int highScore, String pet) {
 
         //Voor uit database halen
 
@@ -89,7 +91,7 @@ public class Player {
         follower = null;
     }
 
-    public Player(Body playerBody, String playerName) {
+    public Player(Body playerBody, String playerName, String pet) {
 
         //Default Player
 
@@ -113,6 +115,7 @@ public class Player {
 
         dead = false;
         follower = null;
+        this.pet = pet;
         this.controller = controller;
 
     }
@@ -284,7 +287,12 @@ public class Player {
     }
 
     public void spawnFollower(){
-        follower = new nukeFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false));
+
+        if(pet.equals("Shielder")) { follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("SHIELD");}
+        if(pet.equals("Frontwatcher")) {follower = new FrontWatcherFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("WATCHER");}
+        if(pet.equals("NukeFollower")) {follower = new nukeFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("NUKE");}
+
+       
         follower.spawnExtra(playerBody);
     }
 

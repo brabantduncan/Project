@@ -19,18 +19,18 @@ public class PlayerFactory {
     }
 
 
-    public Player createPlayer(String username){
-        return new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), username);
+    public Player createPlayer(String username, String follower){
+        return new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), username, follower);
     }
 
-    public ArrayList<Player> getPlayers(int amount){
-        ArrayList<Player> players = new ArrayList<Player>();
-        System.out.println("You asked for "+amount+ "players");
-        for (int i =0; i<amount ;i++){
-            players.add(createPlayer("john" + i));
-            System.out.println("Player created");
-        }
-        return players;
-    }
+//    public ArrayList<Player> getPlayers(int amount){
+//        ArrayList<Player> players = new ArrayList<Player>();
+//        System.out.println("You asked for "+amount+ "players");
+//        for (int i =0; i<amount ;i++){
+//            players.add(createPlayer("john" + i));
+//            System.out.println("Player created");
+//        }
+//        return players;
+//    }
 
 }
