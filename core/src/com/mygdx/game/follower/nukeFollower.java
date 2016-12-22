@@ -16,7 +16,7 @@ public class nukeFollower implements FollowerInterface {
 
 
     private Body body;
-    private Texture tex = new Texture("../assets/Monsters/antolyon.png");
+    private Texture tex = new Texture("../assets/Monsters/nukedo.png");
     private AiControllerHandler aiControllerHandler;
     private LevelHandler levelhandler;
 

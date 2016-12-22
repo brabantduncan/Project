@@ -102,7 +102,7 @@ public class OptionState1 extends State {
         }
 
         Label petLabel = new Label("Select pet", skin);
-        String[] pets = {"Frontwatcher", "Shielder"};
+        String[] pets = {"Frontwatcher", "Shielder", "Nukedo"};
 
         final SelectBox<String> pet = new SelectBox<String>(skin);
         pet.setItems(pets);

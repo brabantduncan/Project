@@ -139,7 +139,7 @@ public class PlayState extends State implements GameInterface {
         TiledObjectUtil.parseTiledObjectLayer(map, world);
 
         createBorders();
-
+        System.out.println("pet:" + pets[0]);
 
         //music
         /**

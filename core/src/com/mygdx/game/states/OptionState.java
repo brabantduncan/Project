@@ -103,7 +103,7 @@ public class OptionState extends State {
         }
 
         Label petLabel = new Label("Select pet", skin);
-        String[] pets = {"Frontwatcher", "Shielder"};
+        String[] pets = {"Frontwatcher", "Shielder", "Nukedo"};
 
         final SelectBox<String> pet = new SelectBox<String>(skin);
         pet.setItems(pets);
@@ -120,6 +120,7 @@ public class OptionState extends State {
                     description.setPosition(stage.getWidth() / 2 + 50, 310);
                     description.setWidth(400);
                     description.setDisabled(true);
+                    System.out.println("pet is "+pet.getSelected());
 
                     stage.addActor(description);
                     userpet = pet.getSelected();
