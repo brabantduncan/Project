@@ -36,12 +36,12 @@ public class EnemyManager {
 
     public int makeSpawnPointsY(){
         Random y = new Random();
-        int Low = -400;
-        int High = 880;
+        int Low = -500;
+        int High = 980;
         int ResultY = y.nextInt(High - Low) + Low;
         while(ResultY>0 && ResultY<480){
             Random ny = new Random();
-            int nLow = -400;
+            int nLow = -500;
             int nHigh = Gdx.graphics.getHeight();
             int nResultY = ny.nextInt(nHigh - nLow) + nLow;
             ResultY = nResultY;
@@ -50,7 +50,31 @@ public class EnemyManager {
     }
 
     public Vector2 makeRandomVector() {
-        return new Vector2(makeSpawnPointsX(),makeSpawnPointsY());
+        int x = makeSpawnPointsX();
+        int y = makeSpawnPointsY();
+        return new Vector2(x, y);
+/*
+        if (!(x < 0 || x > Gdx.graphics.getWidth())) {
+            if (!(y < 0 || y > Gdx.graphics.getHeight())) {
+                Random r = new Random();
+                int randomInt = r.nextInt(100);
+
+                if((randomInt%2)==0){
+                    return new Vector2(x, -randomInt);
+                }else{
+                    return new Vector2(x,Gdx.graphics.getHeight()+randomInt);
+                }
+
+            } else {
+                return new Vector2(x, y);
+            }
+        } else {
+
+            return new Vector2(x, y);
+
+        }
+
+*/
 
     }
 
