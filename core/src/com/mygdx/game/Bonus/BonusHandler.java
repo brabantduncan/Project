@@ -2,10 +2,8 @@ package com.mygdx.game.Bonus;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.player.Player;
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,6 +107,27 @@ public class BonusHandler {
 
     public ArrayList<BonusInterface> getBonusToSpawn() {
         return bonusToSpawn;
+    }
+
+    public void removeFromField(Body body){
+        ArrayList<BonusInterface> copy =cloneList(bonusToSpawn);
+        for (BonusInterface b: copy){
+            if (b.getBody().equals(body)){
+                bonusToSpawn.remove(b);
+                addDestroyBonus(b);
+            }
+        }
+        copy.clear();
+    }
+
+    public ArrayList<BonusInterface> cloneList(ArrayList<BonusInterface> host){
+        ArrayList<BonusInterface> copyList = new ArrayList<BonusInterface>();
+        for (BonusInterface b:host){
+            copyList.add(b);
+        }
+        return copyList;
+        
+
     }
 }
 

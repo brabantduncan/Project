@@ -51,8 +51,6 @@ public class testGDX implements ApplicationListener {
         gsm.push(new MenuState(gsm));
 
 
-
-        //gsm.push(new MenuState(gsm)); // start in menu
         //gsm.push(new PlayState(gsm));
 
 

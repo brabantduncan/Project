@@ -94,7 +94,7 @@ public class ControllerHandler {
 
     public void moveWithController(Controller controller, Player player) {
 
-        updateCrosshairOrientation(player.getController().getCrosshair().getPosition(), player);
+        //updateCrosshairOrientation(player.getController().getCrosshair().getPosition(), player);
 
         int horizontalForcePlayer = getHorizontalForce(controller);
         int verticalForcePlayer = getVerticalForce(controller);
@@ -103,8 +103,7 @@ public class ControllerHandler {
         int horizontalForceCrosshair = getHorizontalForceCrosshair(controller);
         int verticalForceCrosshair = getVerticalForceCrosshair(controller);
         player.getController().getCrosshair().update(horizontalForceCrosshair,verticalForceCrosshair);
-        System.out.println("De player is nu op punt: "+player.getPlayerBody().getPosition());
-        System.out.println("De crosshair is nu op punt: "+player.getController().getCrosshair().getPosition());
+
 
         if (controller.getAxis(XboxPad.BUTTON_B) ==1){
             if(player.isHasBomb()){
@@ -174,20 +173,6 @@ public class ControllerHandler {
         player.getPlayerBody().setTransform(player.getPlayerBody().getPosition(), d.angleRad());
         //System.out.println(player.getPlayerBody().getPosition());
     }
-
-    public void updateCrosshairOrientation(Vector2 pointer, Player player){
-
-
-
-
-
-
-       // player.getPlayerBody().setTransform(player.getPlayerBody().getPosition(), (float) angleToTurn);
-
-    }
-
-
-
 
 
     public int getHorizontalForce(Controller controller){
@@ -263,18 +248,17 @@ public class ControllerHandler {
     }
 
 
+    public void destroyCrosshairBodys(ArrayList<Player> players){
+        for (Player p: players){
 
-    /**
-     *
-     Vector2 angleVector = new Vector2(0, 0);//angleV;
+            if(p.getController() != null){
+                p.getController().getCrosshair().destroyBody();
+                p.setController(null);
+            }
 
-     if (controller.getAxis(XboxPad.AXIS_RIGHT_X) > 0.1 || controller.getAxis(XboxPad.AXIS_RIGHT_X) < -0.1) {
-     angleVector = new Vector2(controller.getAxis(XboxPad.AXIS_RIGHT_X), angleVector.y);
-     }
-     if (controller.getAxis(XboxPad.AXIS_RIGHT_Y) < -0.1 || controller.getAxis(XboxPad.AXIS_RIGHT_Y) > 0.1) {
-     angleVector = new Vector2(angleVector.x, -controller.getAxis(XboxPad.AXIS_RIGHT_Y));
-     }
-     */
+        }
+    }
+
 
 
 }

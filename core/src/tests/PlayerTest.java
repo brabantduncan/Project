@@ -1,12 +1,6 @@
 package tests;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.player.Player;
-import com.mygdx.game.characterClass.CharacterHandler;
-import com.mygdx.game.characterClass.WarriorHandler;
 
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Shan on 11/7/2016.

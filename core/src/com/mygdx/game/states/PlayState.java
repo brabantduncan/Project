@@ -218,17 +218,15 @@ public class PlayState extends State implements GameInterface {
 
         batch.begin();
         // batch.draw(background, 0, 0);
-/**
+
  renderHandler.renderPlayer(batch, players.get(0).getTexture(), players);
  renderHandler.renderEnemies(batch, enemyManager.getEnemies());
  renderHandler.renderBonus(batch, bonusHandler.getBonusToSpawn());
  renderHandler.renderBullets(batch, bm.getBullets());
-**/
+
 
         batch.end();
-        /**
 
-**/
         hudManager.drawHud(players);
     }
 
@@ -309,6 +307,7 @@ public class PlayState extends State implements GameInterface {
 
          }
          **/
+        controllerHandler.destroyCrosshairBodys(players);
         gameMusic.stop();
         followerManager.destroyMultipleFollowers(players);
         BodyBuilder.getInstance().clearLists();

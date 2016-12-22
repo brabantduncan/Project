@@ -19,7 +19,16 @@ public class Crosshair {
     }
 
     private Body body;
-    Texture texture;
+
+    public Texture getTex() {
+        return tex;
+    }
+
+    public void setTex(Texture tex) {
+        this.tex = tex;
+    }
+
+    private Texture tex = new Texture("../assets/MinecraftIngots/crosshair-1.png");
 
 
     public Crosshair(Body playerBody){
@@ -49,6 +58,12 @@ public class Crosshair {
         body.setLinearVelocity(verticalForce* 5, horizontalForce* 5);
         setPosition(body.getPosition());
     }
+
+    public void destroyBody(){
+        BodyBuilder.getInstance().addToDestroy(body);
+    }
+
+
 
 
 }
