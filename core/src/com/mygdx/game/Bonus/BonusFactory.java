@@ -29,15 +29,15 @@ public class BonusFactory {
             if (40 < i && i < 45) {
                 bonus = new Multiplier(b);
             } else {
-<<<<<<< HEAD
+
                  //bonus = new Gem(b);
                 //bonus = new Bomb(b);
                 bonus = new FollowerBonus(b);
-=======
+
                  bonus = new Gem(b);
                 //bonus = new Bomb(b);
                 //bonus = new FollowerBonus(b);
->>>>>>> fc87713be456d7dc87007ff75af39aa77c1e1626
+
 
             }
         }

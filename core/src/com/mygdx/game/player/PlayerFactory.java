@@ -19,14 +19,8 @@ public class PlayerFactory {
     }
 
 
-<<<<<<< HEAD
     public Player createPlayer(String username){
         return new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), username);
-=======
-    public Player createPlayer(){
-        return new Player(BodyBuilder.getInstance().createPlayer(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, 45 / 4, 48 / 4, false), "John");
-
->>>>>>> 392449fa3718f0b54f0cef2fea6baff49662c7fa
     }
 
     public ArrayList<Player> getPlayers(int amount){

@@ -60,15 +60,11 @@ public class HighScores extends State {
     }
 
 
-<<<<<<< HEAD
         final Label usernames = new Label("Usernames", skin);
-        usernames.setAlignment(Align.center);
-        usernames.setWrap(false);
-/*
-=======
+
 
     public ArrayList<HashMap<String, String>> getHighScores(){
->>>>>>> fc87713be456d7dc87007ff75af39aa77c1e1626
+
         try {
             highscores = new ArrayList<HashMap<String, String>>(projectDB.getInstance().getHighScores());
 
@@ -77,10 +73,6 @@ public class HighScores extends State {
             System.out.println("error loading highscores");
 
         }
-<<<<<<< HEAD
-*/
-=======
-
         return highscores;
     }
 
@@ -89,7 +81,7 @@ public class HighScores extends State {
         final Label username = new Label("Usernames", skin);
         username.setAlignment(Align.center);
         username.setWrap(false);
->>>>>>> fc87713be456d7dc87007ff75af39aa77c1e1626
+
 
         final Label score = new Label("Score", skin);
         username.setAlignment(Align.center);
