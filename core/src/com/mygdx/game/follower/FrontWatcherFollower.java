@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bullet.BulletManager;
+import com.mygdx.game.LevelHandler;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.controller.AiControllerHandler;
 import com.mygdx.game.states.PlayState;
@@ -26,6 +27,7 @@ public class FrontWatcherFollower implements FollowerInterface {
     private Body body;
     private Texture tex = new Texture("../assets/Monsters/alteroit.png");
     private AiControllerHandler aiControllerHandler;
+    private LevelHandler levelhandler;
 
     private int timeCanExist;
     private int born;
@@ -35,7 +37,7 @@ public class FrontWatcherFollower implements FollowerInterface {
         setData();
         System.out.print("Follower is born");
         aiControllerHandler = new AiControllerHandler();
-        timeCanExist = 2000;
+        timeCanExist = updateDrone();
         born = 0;
     }
 
@@ -94,6 +96,16 @@ public class FrontWatcherFollower implements FollowerInterface {
     @Override
     public void increaseBorn() {
         born +=1;
+    }
+
+    @Override
+    public int updateDrone() {
+        if(levelhandler.getLevel()<6){
+            return 1000;
+        }
+        else {
+            return 2000;
+        }
     }
 
 
