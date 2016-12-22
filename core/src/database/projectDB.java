@@ -4,6 +4,7 @@ package database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Duncan on 9/11/2016.
@@ -226,10 +227,12 @@ public class projectDB {
         }
     }
 
-    public ArrayList<String> getHighScores() throws SQLException {
+    public ArrayList<HashMap<String, String>> getHighScores() throws SQLException {
         try
         {
-            ArrayList<String> highscores = new ArrayList<String>();
+
+            ArrayList<HashMap<String, String>> highscores = new ArrayList<HashMap<String, String>>();
+
             String sql = "SELECT * " +
                     "FROM score " +
                     "ORDER BY score DESC " +
@@ -241,8 +244,10 @@ public class projectDB {
 
             while (rs.next())
             {
-                highscores.add(rs.getString("pname"));
-                highscores.add(rs.getString("score"));
+                HashMap<String, String> user= new HashMap<String, String>();
+                user.put("username", rs.getString("pname"));
+                user.put("score", rs.getString("score"));
+                highscores.add(user);
             }
 
             rs.close();

@@ -10,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import database.projectDB;
 
+import java.sql.Array;
 import java.sql.SQLException;
 
 /**
  * Created by Laurens Druwel on 21/12/2016.
  */
-public class OptionState extends State {
+public class OptionState2 extends State {
     public SpriteBatch batch;
     private Stage stage;
     private Texture background;
@@ -23,12 +24,14 @@ public class OptionState extends State {
     public Texture petSprite;
     private TextArea description;
     private GameStateManager gsm;
-    private String username;
+    private String username1;
+    private String username2;
 
-    public OptionState(final GameStateManager gsm, final String username){
+    public OptionState2(final GameStateManager gsm, final String username1, final String username2){
         super(gsm);
         this.gsm = gsm;
-        this.username = username;
+        this.username1 = username1;
+        this.username2 = username2;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -36,7 +39,7 @@ public class OptionState extends State {
         skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
 
-        loadDifficulty(stage);
+        //loadDifficulty(stage);
         loadPet(stage);
 
 
@@ -56,8 +59,9 @@ public class OptionState extends State {
         playGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String[] users = {username};
-                gsm.push(new PlayState(gsm, users));
+                String[] users = {username1, username2};
+                System.out.println(users.length);
+                gsm.set(new PlayState(gsm, users));
             }
         });
 
@@ -68,7 +72,7 @@ public class OptionState extends State {
 
 
     public void loadDifficulty(Stage stage){
-        Label playerLabel = new Label("Player: " +username, skin);
+        Label playerLabel = new Label("Player: " +username2, skin);
         playerLabel.setPosition(stage.getWidth()/2 - (playerLabel.getWidth() /2),800);
         stage.addActor(playerLabel);
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import java.util.Random;
 
 /**
- * Created by laurens on 8/11/2016.
+ * Created by Duncan on 8/11/2016.
  */
 public class Enemy implements EnemyInterface{
 
@@ -22,7 +22,7 @@ public class Enemy implements EnemyInterface{
     private Body body;
 
 
-    private final int MOVEMENT_SPEED = 2;
+    private final int MOVEMENT_SPEED = 4;
 
     private Texture texture = new Texture("../assets/Monsters/weedle.gif");
 

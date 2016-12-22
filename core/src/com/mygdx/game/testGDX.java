@@ -36,6 +36,7 @@ public class testGDX implements ApplicationListener {
         //gsm.push(new MenuState(gsm)); // start in menu
 
 
+<<<<<<< HEAD
         //gsm.push(new HighScores(gsm));
 
 
@@ -50,6 +51,11 @@ public class testGDX implements ApplicationListener {
 
         gsm.push(new PlayState(gsm));
 
+=======
+        gsm.push(new MenuState(gsm));
+
+
+>>>>>>> fc87713be456d7dc87007ff75af39aa77c1e1626
 
         //gsm.push(new MenuState(gsm)); // start in menu
         //gsm.push(new PlayState(gsm));

@@ -1,14 +1,11 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -16,11 +13,13 @@ import database.projectDB;
 
 import java.sql.SQLException;
 
+;
+
 
 /**
  * Created by Laurens Druwel on 20/12/2016.
  */
-public class Login extends State {
+public class LoginMultiPlayer1 extends State {
     public SpriteBatch batch;
     private Stage stage;
     private Texture background;
@@ -29,7 +28,7 @@ public class Login extends State {
 
 
 
-    public Login(final GameStateManager gsm){
+    public LoginMultiPlayer1(final GameStateManager gsm){
         super(gsm);
         batch = new SpriteBatch();
         stage = new Stage();
@@ -66,7 +65,7 @@ public class Login extends State {
                 String username = usernameInput.getText();
                 String password = passwordInput.getText();
                 try {
-                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new OptionState(gms, username)); // get login
+                    if(projectDB.getInstance().loginCheck(username, password)) gms.set(new OptionState1(gms, username)); // get login
                 } catch (SQLException e) {
                     stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                 }
@@ -113,7 +112,7 @@ public class Login extends State {
                         } catch (SQLException e) {
                             stage.addActor(getDialog("Unable to retrieve username/password \n please check if typed correctly"));
                         }
-                        gms.set(new OptionState(gms, username));
+                        gms.set(new OptionState1(gms, username));
                     }
                 });
                 createAccountdlg.add(okButton);
