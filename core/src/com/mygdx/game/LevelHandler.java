@@ -18,7 +18,7 @@ public class LevelHandler {
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
-        enemyManager.createEnemies(100);
+        enemyManager.createEnemies(1);
 
     }
 
@@ -47,5 +47,6 @@ public class LevelHandler {
         return 100; //random waarden
 
     }
+
 
 }

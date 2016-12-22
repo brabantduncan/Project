@@ -184,6 +184,28 @@ public class BodyBuilder {
 
     }
 
+    public Body createCrossHairBody(Vector2 spawn){
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.fixedRotation = true;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(spawn.x, spawn.y);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(2, 2);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape = shape;
+        fdef.density = 1.0f;
+        fdef.isSensor = true;
+
+
+        return world.createBody(bodyDef).createFixture(fdef).getBody();
+
+
+    }
+
+
     public void destroyBody(Body body) {
         if (body != null){
             world.destroyBody(body);

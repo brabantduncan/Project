@@ -1,9 +1,8 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-
-import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +27,7 @@ import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerFactory;
+import com.mygdx.game.player.hud.HudManager;
 import constants.Constants;
 
 import java.util.ArrayList;
@@ -73,6 +73,7 @@ public class PlayState extends State implements GameInterface {
 
     private FollowerManager followerManager;
 
+    private HudManager hudManager;
 
     public BonusHandler getBonusHandler() {
         return bonusHandler;
@@ -89,7 +90,7 @@ public class PlayState extends State implements GameInterface {
         // tmr = new OrthogonalTiledMapRenderer(map);
 
 
-       tmr = new OrthogonalTiledMapRenderer(map);
+        tmr = new OrthogonalTiledMapRenderer(map);
         tmr = new OrthogonalTiledMapRenderer(map);
 
         System.out.println(map.getLayers().get("collison-layer").getObjects().getClass());
@@ -100,7 +101,9 @@ public class PlayState extends State implements GameInterface {
         b2dr = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
-        controllerHandler = new ControllerHandler();
+        bm = new BulletManager(camera);
+        enemyManager = new EnemyManager();
+        controllerHandler = new ControllerHandler(camera,bm,enemyManager);
 
 
         BodyBuilder.getInstance().setWorld(world);
@@ -109,13 +112,14 @@ public class PlayState extends State implements GameInterface {
         controllerHandler.giveControles(players);
 
         //Nog hun hud tekenen
-
+        hudManager = new HudManager();
+        hudManager.setHud(players,batch);
         //player.spawnFollower();
 
         this.world.setContactListener(new CollisionDetector(this));
 
-        bm = new BulletManager(camera);
-        enemyManager = new EnemyManager();
+
+
 
 
         levelHandler = new LevelHandler(enemyManager, gms);
@@ -124,7 +128,7 @@ public class PlayState extends State implements GameInterface {
         renderHandler = new RenderHandler();
         objects = new ArrayList<Body>();
 
-        controllerHandler = new ControllerHandler();
+
 
         followerManager = new FollowerManager();
 
@@ -152,7 +156,7 @@ public class PlayState extends State implements GameInterface {
 
     @Override
     public void handleInput() {
-        controllerHandler.handleInput(players, this);
+        controllerHandler.handleInput(players);
         enemyManager.updateEnemyMovement(players);
     }
 
@@ -185,9 +189,9 @@ public class PlayState extends State implements GameInterface {
             //cameraUpdate(dt);
             //batch.setProjectionMatrix(camera.combined);
            // followerManager.moveFollower(players);
-            followerManager.doAction(players.get(0), getMouseCoords(), bm);
+            followerManager.doAction(players.get(0), bm);
+            hudManager.updateHandler(players, levelHandler.getLevel());
 
-            updatePlayerRotation(getMouseCoords(), players.get(0));
 
             BodyBuilder.getInstance().destroyBodies();
         }
@@ -225,8 +229,9 @@ public class PlayState extends State implements GameInterface {
  **/
         batch.end();
         /**
-         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
-         player.getHud().stage.draw();**/
+
+**/
+        hudManager.drawHud(players);
     }
 
     /**
@@ -239,24 +244,9 @@ public class PlayState extends State implements GameInterface {
      * }
      **/
 
-    public Vector2 getMouseCoords() {
-        int xmouse = Gdx.input.getX();
-        int ymouse = Gdx.input.getY();
 
-        return new Vector2(xmouse, ymouse);
-    }
 
-    public void updatePlayerRotation(Vector2 mouseCoords, Player player) {
 
-        Vector3 sp3 = camera.unproject(new Vector3(mouseCoords.x, mouseCoords.y, 0));
-        Vector2 sp2 = new Vector2(sp3.x, sp3.y);
-
-        Vector2 a = player.getPlayerBody().getPosition();
-        Vector2 d = sp2.sub(a);
-
-        player.getPlayerBody().setTransform(player.getPlayerBody().getPosition(), d.angleRad());
-        //System.out.println(player.getPlayerBody().getPosition());
-    }
 
     public void createBorders() {
         objects.add(BodyBuilder.getInstance().setLevelWall(0, 0, (int) (Gdx.graphics.getWidth() / Constants.SCALE), 1, true));
@@ -282,11 +272,7 @@ public class PlayState extends State implements GameInterface {
         }
     }
 
-    public void createBullet(Vector2 mouse, Player player) {
-        bm.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
 
-
-    }
 
     @Override
     public void removeEnemies(Body b1, Body b2) {
@@ -310,10 +296,7 @@ public class PlayState extends State implements GameInterface {
 
     }
 
-    @Override
-    public void destroyAllPeasants() {
-        enemyManager.destroyAllPeasants();
-    }
+
 
 
     public void endGame(){

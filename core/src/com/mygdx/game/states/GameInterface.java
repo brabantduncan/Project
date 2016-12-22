@@ -23,7 +23,6 @@ public interface GameInterface {
 
     public ArrayList<Player> getPlayer();
 
-    public  void destroyAllPeasants();
 
     public EnemyManager getEnemyManager();
 

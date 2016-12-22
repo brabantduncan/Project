@@ -112,6 +112,7 @@ public class EnemyManager {
     }
 
     public void destroyAllPeasants(){
+        System.out.println("destroying all");
         ArrayList<Enemy> enemyCopy = clone(enemies);
         for (Enemy e: enemyCopy){
             removeEnemy(e.getBody());

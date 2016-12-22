@@ -1,9 +1,7 @@
 package com.mygdx.game.Bonus;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.Bonus.bonusses.FollowerBonus;
-import com.mygdx.game.Bonus.bonusses.Multiplier;
-import com.mygdx.game.Bonus.bonusses.Overshield;
+import com.mygdx.game.Bonus.bonusses.*;
 
 import java.util.Random;
 
@@ -31,9 +29,9 @@ public class BonusFactory {
             if (40 < i && i < 45) {
                 bonus = new Multiplier(b);
             } else {
-                //bonus = new Gem(b);
-                //bonus = new Bomb(b);
-                bonus = new FollowerBonus(b);
+                 //bonus = new Gem(b);
+                bonus = new Bomb(b);
+                //bonus = new FollowerBonus(b);
 
             }
         }

@@ -93,13 +93,6 @@ public class BonusHandler {
 
     }
 
-    public ArrayList<BonusInterface> getBonusToSpawn() {
-        return bonusToSpawn;
-    }
-
-    public boolean checkPlayerKey(Player player, Body body) {
-        return player.getPlayerBody().equals(body);
-    }
 
     public void addDestroyBonus(BonusInterface bonusInterface){
         destroyBodies.add(bonusInterface);
