@@ -17,7 +17,7 @@ public class FasterEnemy implements EnemyInterface {
 
     private Body body;
 
-    private final int MOVEMENT_SPEED = 50;
+    private final int MOVEMENT_SPEED = 14;
 
     private Texture texture = new Texture("../assets/Monsters/kakuna.gif");
 

@@ -22,7 +22,7 @@ public class Enemy implements EnemyInterface{
     private Body body;
 
 
-    private final int MOVEMENT_SPEED = 4;
+    private final int MOVEMENT_SPEED = 2;
 
     private Texture texture = new Texture("../assets/Monsters/weedle.gif");
 

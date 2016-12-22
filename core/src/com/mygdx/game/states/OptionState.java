@@ -1,10 +1,7 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -25,9 +22,13 @@ public class OptionState extends State {
     private Skin skin;
     public Texture petSprite;
     private TextArea description;
+    private GameStateManager gsm;
+    private String username;
 
-    public OptionState(GameStateManager gsm){
+    public OptionState(final GameStateManager gsm, String username){
         super(gsm);
+        this.gsm = gsm;
+        this.username = username;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -38,12 +39,35 @@ public class OptionState extends State {
         loadDifficulty(stage);
         loadPet(stage);
 
+
+        TextButton backButton = new TextButton("Back", skin);
+        backButton.setPosition(1100, 100);
+        final GameStateManager finalGsm = gsm;
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gsm.push(new MenuState(gsm));
+            }
+        });
+        stage.addActor(backButton);
+
+        TextButton playGameButton = new TextButton("Play game", skin);
+        playGameButton.setPosition(1200, 100);
+        playGameButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                gsm.push(new PlayState(gsm));
+            }
+        });
+
+        stage.addActor(playGameButton);
+
     }
 
 
 
     public void loadDifficulty(Stage stage){
-        Label playerLabel = new Label("<PlayerName>", skin);
+        Label playerLabel = new Label("Player: " +username, skin);
         playerLabel.setPosition(stage.getWidth()/2 - (playerLabel.getWidth() /2),800);
         stage.addActor(playerLabel);
 
@@ -142,11 +166,13 @@ public class OptionState extends State {
     @Override
     public void render() {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
+
         batch.begin();
+        batch.draw(background, 0, 0);
         batch.draw(petSprite, stage.getWidth() / 2 - 50, 300, 64, 64);
         batch.end();
         stage.act();
+        stage.draw();
     }
 
     @Override

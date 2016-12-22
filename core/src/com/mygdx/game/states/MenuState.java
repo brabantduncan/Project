@@ -1,14 +1,14 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
@@ -20,99 +20,69 @@ public class MenuState extends State {
     //private Texture button;
     public SpriteBatch batch;
     private Stage stage;
-    private TextButton button_SinglePlayer, button_MuliPlayer, button_HighScores;
+    private TextButton singleplayerButton, multiplayerButton, highscoreButton;
     private Texture background;
     private Skin skin;
-    private String next;
+    private GameStateManager gsm;
 
 
 
     public MenuState(final GameStateManager gms) {
         super(gms);
-        batch = new SpriteBatch();
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin();
-
-        batch = new SpriteBatch();
-        stage = new Stage();
+        gsm = gms;
         background = new Texture(Gdx.files.internal("../assets/background.jpg"));
+        batch = new SpriteBatch();
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        background = new Texture(Gdx.files.internal("../assets/background.jpg"));
+        skin = new Skin(Gdx.files.internal("../assets/data/uiskin.json"), new TextureAtlas(Gdx.files.internal("../assets/data/uiskin.atlas")));
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin();
-
-        Pixmap pixmap = new Pixmap(200, 55, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
-
-        skin.add("white", new Texture(pixmap));
-
-
-        BitmapFont bfont=new BitmapFont();
-        bfont.getData().scale(1);
-        skin.add("default",bfont);
-
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-
-        textButtonStyle.font = skin.getFont("default");
-
-        skin.add("default", textButtonStyle);
-
-        button_SinglePlayer = new TextButton("SINGLEPLAYER",textButtonStyle);
-        button_SinglePlayer.setPosition(270 *2 + (button_SinglePlayer.getWidth() /2), 300 *2);
-        stage.addActor(button_SinglePlayer);
-
-
-        button_MuliPlayer = new TextButton("MULTIPLAYER", textButtonStyle);
-        button_MuliPlayer.setPosition(270* 2+ (button_MuliPlayer.getWidth() /2), 230 * 2);
-        stage.addActor(button_MuliPlayer);
-
-        button_HighScores = new TextButton("HIGHSCORES", textButtonStyle);
-        button_HighScores.setPosition(270 *2+ (button_HighScores.getWidth() /2), 160 *2);
-        stage.addActor(button_HighScores);
-
-
-
-        button_SinglePlayer.addListener(new ChangeListener() {
+        singleplayerButton = new TextButton("SINGLEPLAYER",skin);
+        singleplayerButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                button_SinglePlayer.setText("Starting new game");
-                next = "Game";
+                singleplayerButton.setText("Starting new game");
                 gms.set(new Login(gms));
             }
         });
 
-        button_MuliPlayer.addListener(new ChangeListener() {
+
+        multiplayerButton = new TextButton("MULTIPLAYER", skin);
+        multiplayerButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                button_SinglePlayer.setText("Starting new game");
-                next = "mult";
+                singleplayerButton.setText("Starting new game");
                 System.out.println(actor.getName());
-
             }
         });
 
-        button_HighScores.addListener(new ChangeListener() {
+        highscoreButton = new TextButton("HIGHSCORES", skin);
+        highscoreButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
 
-                button_SinglePlayer.setText("Starting new game");
-                next = "high";
+                singleplayerButton.setText("Starting new game");
                 gms.set(new HighScores(gms));
-
-
             }
         });
+
+        Label menuLabel = new Label("Menu", skin);
+        menuLabel.setPosition(stage.getWidth() /2 - (menuLabel.getWidth() / 2), 800);
+        stage.addActor(menuLabel);
+
+
+
+        Table table = new Table(skin);
+        table.add(singleplayerButton).padBottom(80);
+        table.row();
+        table.add(multiplayerButton).padBottom(80);
+        table.row();
+        table.add(highscoreButton).padBottom(80);
+        table.setPosition(stage.getWidth() /2 - (table.getWidth() /2), 400);
+        stage.addActor(table);
+
     }
 
     @Override
     public void handleInput() {
-        //       if(Gdx.input.isTouched()){
-        //
-        //            gms.set(new PlayState(gms));
-        //        }
-
 
     }
 
