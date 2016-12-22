@@ -31,33 +31,8 @@ public class nukeFollower implements FollowerInterface {
     }
 
 
-
     @Override
-    public void action(Vector2 mouseCoord, BulletManager bulletManager) {
-
-    }
-
-    @Override
-    public Texture getTexture() {
-        return tex;
-    }
-
-
-    @Override
-    public ArrayList<Body> getBody() {
-        ArrayList arrayList = new ArrayList<Body>();
-        arrayList.add(body);
-        return arrayList;
-    }
-
-    @Override
-    public void update(Vector2 playerPosition) {
-        aiControllerHandler.moveToPlayer(playerPosition,body);
-
-    }
-
-    @Override
-    public void setData() {
+    public void setData(){
         body.setUserData(this);
         System.out.print((this instanceof FollowerInterface)+"\n");
     }
@@ -67,6 +42,37 @@ public class nukeFollower implements FollowerInterface {
 
     }
 
+
+
+    @Override
+    public void update(Vector2 playerPosition){
+
+        aiControllerHandler.moveToPlayer(playerPosition,body);
+    }
+
+
+    @Override
+    public void action(Vector2 mouseCoord, BulletManager bulletManager) {
+
+        aiControllerHandler.aiShoot(bulletManager,mouseCoord,body);
+
+    }
+
+    @Override
+    public Texture getTexture() {
+        return tex;
+    }
+
+    @Override
+    public ArrayList<Body> getBody() {
+        ArrayList arrayList = new ArrayList<Body>();
+        arrayList.add(body);
+        return arrayList;
+    }
+
+
+
+
     @Override
     public int getTimeExist() {
         return timeCanExist;
@@ -74,7 +80,7 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public int getBorn() {
-        return born;
+        return born ;
     }
 
     @Override
