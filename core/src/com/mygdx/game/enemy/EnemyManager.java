@@ -154,7 +154,6 @@ public class EnemyManager {
 
         ArrayList<EnemyInterface> enemyCopy = clone(enemies);
         for (EnemyInterface e: enemyCopy){
-
             removeEnemy(e.getBody());
         }
     }

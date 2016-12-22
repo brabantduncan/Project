@@ -86,11 +86,6 @@ public class BulletManager {
 
     }
 
-
-
-
-
-
     public void removeBullet(Body b) {
 
         for (Bullet bullet : bullets) {

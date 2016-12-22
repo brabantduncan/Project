@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bullet.Bullet;
+import com.mygdx.game.enemy.DragonEnemy;
 import com.mygdx.game.enemy.Enemy;
 import com.mygdx.game.enemy.EnemyInterface;
 import com.mygdx.game.follower.FrontWatcherFollower;
@@ -72,7 +73,6 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
             handlePlayerEnemy();
 
         }
-
         if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
             p.removeBullet(b1, b2);
 
@@ -96,6 +96,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
                 }
             }
         }
+
 
         if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
 
