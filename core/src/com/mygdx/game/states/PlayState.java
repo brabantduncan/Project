@@ -55,8 +55,6 @@ public class PlayState extends State implements GameInterface {
     private ControllerHandler controllerHandler;
 
     ArrayList<Body> objects;
-    Body b;
-
 
     private Music gameMusic;
 
