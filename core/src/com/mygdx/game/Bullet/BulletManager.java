@@ -51,6 +51,46 @@ public class BulletManager {
         b.getB().applyLinearImpulse(d.x * bulletSpeed, d.y * bulletSpeed, b.getB().getPosition().x, b.getB().getPosition().y, true);
     }
 
+    public void addBulletController(Vector2 origin,Vector2 locationAim,Body body ){
+        Bullet bullet = new Bullet(body);
+        bullets.add(bullet);
+
+        int bulletSpeed = Constants.BULLET_SPEED;
+
+        /**
+
+        double angle = Math.atan2(locationAim.y, locationAim.x) - Math.atan2(origin.y, origin.x);
+
+        float magnitude = 800F;
+        float xVel = (float) (Math.cos(angle)*magnitude);
+        float yVel = (float) (Math.sin(angle)*magnitude);
+
+        Vector2 vel = new Vector2(xVel,yVel);
+        System.out.println(vel);
+        //bullet.getB().applyLinearImpulse(vel,bullet.getB().getPosition(),false);
+        bullet.getB().setLinearVelocity(vel);*/
+
+
+
+        float velx = locationAim.x - origin.x;
+        float vely = locationAim.y- origin.y;
+        float length = (float) Math.sqrt(velx * velx + vely * vely);
+        if (length != 0) {
+            velx = velx / length;
+            vely = vely / length;
+        }
+        float finalVelx = velx * bulletSpeed;
+        float finalVely = vely * bulletSpeed;
+
+        body.setLinearVelocity(finalVelx,finalVely);
+
+    }
+
+
+
+
+
+
     public void removeBullet(Body b) {
 
         for (Bullet bullet : bullets) {
