@@ -15,7 +15,7 @@ public class nukeFollower implements FollowerInterface {
 
 
     private Body body;
-    private Texture tex = new Texture("../assets/Monsters/alteroit.png");
+    private Texture tex = new Texture("../assets/Monsters/antolyon.png");
     private AiControllerHandler aiControllerHandler;
 
     private int timeCanExist;
@@ -39,8 +39,9 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public Texture getTexture() {
-        return null;
+        return tex;
     }
+
 
     @Override
     public ArrayList<Body> getBody() {
@@ -57,7 +58,8 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public void setData() {
-
+        body.setUserData(this);
+        System.out.print((this instanceof FollowerInterface)+"\n");
     }
 
     @Override
@@ -77,6 +79,6 @@ public class nukeFollower implements FollowerInterface {
 
     @Override
     public void increaseBorn() {
-
+        born +=1;
     }
 }
