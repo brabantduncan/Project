@@ -109,7 +109,7 @@ public class ControllerHandler {
         player.getController().getCrosshair().update(horizontalForceCrosshair,verticalForceCrosshair);
 
 
-        if (controller.getAxis(XboxPad.BUTTON_B) ==1){
+        if (controller.getAxis(XboxPad.AXIS_LEFT_TRIGGER) <0){
             if(player.isHasBomb()){
                 System.out.println("destroying all");
                 enemyManager.destroyAllPeasants();

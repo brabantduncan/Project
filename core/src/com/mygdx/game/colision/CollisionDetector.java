@@ -21,8 +21,6 @@ import com.mygdx.game.states.GameInterface;
  */
 public class CollisionDetector implements com.badlogic.gdx.physics.box2d.ContactListener {
 
-    private Music bulletMusic;
-
     GameInterface p;
 
     public CollisionDetector(GameInterface p) {
@@ -134,11 +132,6 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
         if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
 
-            //music on collision with enemy
-
-                /*bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
-                bulletMusic.setVolume(0.02f);
-                bulletMusic.play();*/
 
             p.removeEnemies(b1, b2);
             if (b1.getUserData() instanceof EnemyInterface) {

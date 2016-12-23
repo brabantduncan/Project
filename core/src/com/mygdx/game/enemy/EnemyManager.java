@@ -80,10 +80,14 @@ public class EnemyManager {
 
         for (EnemyInterface e : enemies) {
 
-            if (e.getBody().equals(b)) {
-                disposeEnemies.add(e);
-                System.out.print("Dispose set");
+            if (!(e instanceof DragonEnemy)){
+                if (e.getBody().equals(b)) {
+                    disposeEnemies.add(e);
+                    System.out.print("Dispose set");
+                }
+
             }
+
         }
         enemies.removeAll(disposeEnemies);
     }
