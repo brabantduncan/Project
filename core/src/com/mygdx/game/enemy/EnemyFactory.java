@@ -23,6 +23,7 @@ public class EnemyFactory {
 
         EnemyInterface enemy;
 
+
         if (i < 120) {
             enemy = new Enemy(b);
 
@@ -33,10 +34,12 @@ public class EnemyFactory {
                 enemy = new DragonEnemy(b);
             }
 
+        }
+        return  enemy;
+
+
             //}
             //return  new DragonEnemy(b);
-        }
-        return enemy;
 
     }
 }

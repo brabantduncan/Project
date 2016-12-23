@@ -22,14 +22,13 @@ public class projectDB {
     public static void main (String[] arg) {
         try {
             //getInstance().addPlayer("laurensSuckie", "laurens");
-            getInstance().getAllPlayerInfo();
-            getInstance().getEnemyByName("Brecht");
             //getInstance().addScore("Duncan", 2);
             getInstance().getHighScores();
             //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
             getInstance().loginCheck("duncan","dicks");
             getInstance().getDescription("FrontWatcher");
             getInstance().getDifficultyParameter("HARD");
+            getInstance().getEnemyMovementSpeed("Enemy");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,33 +98,6 @@ public class projectDB {
         }
     }
 
-    public ArrayList<String> getEnemyByName(String enemyname) throws SQLException {
-        try
-        {
-            ArrayList<String> enemy = new ArrayList<String>();
-            String sql = "select * from enemy where eName = '"+enemyname+"'";
-
-            PreparedStatement prep = this.connection.prepareStatement(sql);
-
-            ResultSet rs = prep.executeQuery();
-
-            while (rs.next())
-            {
-                enemy.add(rs.getString("eid"));
-                enemy.add(rs.getString("eName"));
-            }
-
-            rs.close();
-            prep.close();
-            System.out.println(enemy);
-            return enemy;
-        }
-        catch (SQLException ex)
-        {
-            throw new SQLException("enemy not found", ex);
-        }
-    }
-
     public String getDescription(String followername) throws SQLException {
         try
         {
@@ -176,31 +148,28 @@ public class projectDB {
         }
     }
 
-    public ArrayList<String> getAllPlayerInfo() throws SQLException {
+    public int getEnemyMovementSpeed(String enemyname) throws SQLException {
         try
         {
-            ArrayList<String> players = new ArrayList<String>();
-            String sql = "select * from player";
+            int movspeed = 0;
+
+            String sql = "SELECT moveSpeed FROM enemy WHERE eName = '"+enemyname+"'";
 
             PreparedStatement prep = this.connection.prepareStatement(sql);
 
             ResultSet rs = prep.executeQuery();
 
-            while (rs.next())
-            {
-                players.add(rs.getString("pName"));
-                players.add(rs.getString("password"));
-                players.add(rs.getString("highestScore"));
-            }
+            rs.next();
+            movspeed += rs.getInt(1);
 
             rs.close();
             prep.close();
-            System.out.println(players);
-            return players;
+            System.out.println(movspeed);
+            return movspeed;
         }
         catch (SQLException ex)
         {
-            throw new SQLException("players not found", ex);
+            throw new SQLException("enemy not found", ex);
         }
     }
 

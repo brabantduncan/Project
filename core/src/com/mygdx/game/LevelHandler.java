@@ -27,9 +27,9 @@ public class LevelHandler {
         this.gameStateManager = gameStateManager;
         this.difficulty = difficulty;
 
-        //enemyManager.createEnemies(20); // begin monsters
+        enemyManager.createEnemies(3); // begin monsters
 
-        enemyManager.createEnemies(1);
+        //enemyManager.createEnemies(1);
 
     }
 
@@ -61,7 +61,7 @@ public class LevelHandler {
     }
 
     public int spawnCount(String difficulty) throws SQLException {
-        return level*15*projectDB.getInstance().getDifficultyParameter(difficulty); //monsters per level
+        return level*5*projectDB.getInstance().getDifficultyParameter(difficulty); //monsters per level
     }
 
 

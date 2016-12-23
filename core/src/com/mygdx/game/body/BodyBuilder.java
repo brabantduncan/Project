@@ -102,7 +102,7 @@ public class BodyBuilder {
         def.fixedRotation = true; //hier kijken voor rotatie
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(5f);
+        shape.setRadius(8f);
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
         fdef.density = 1000f;
