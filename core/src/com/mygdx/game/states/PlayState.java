@@ -321,9 +321,9 @@ public class PlayState extends State implements GameInterface {
         }
         return allDead;
     }
-    public static void changeMap() {
+    public static void changeMap(int level) {
         Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-            map = new TmxMapLoader().load("../assets/Maps/level1.tmx"); //load the new map
+            map = new TmxMapLoader().load("../assets/Maps/level" + level +".tmx"); //load the new map
             tmr.getMap().dispose(); //dispose the old map
             tmr.setMap(map); //set the map in your renderer
             for(Body b : mapObjects){

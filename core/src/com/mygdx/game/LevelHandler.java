@@ -35,9 +35,7 @@ public class LevelHandler {
     public void NextLevel() {
         level += 1;
 
-        System.out.println("new level");
-        System.out.println("new level");
-        PlayState.changeMap();
+        PlayState.changeMap(level);
         System.out.println("new level");
         enemyManager.createEnemies(spawnCount());
     }
