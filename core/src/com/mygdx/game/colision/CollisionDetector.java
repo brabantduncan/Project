@@ -67,7 +67,8 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
     public void checkClause(Body b1, Body b2) {
 
 
-        handlePlayerEnemy(b1, b2);
+        handlePlayerShot(b1,b2);
+        handlePlayerHitEnenmy(b1, b2);
         bulletHit(b1, b2);
         bonusHit(b1, b2);
         checkFollowerEnenmy(b1, b2);
@@ -111,10 +112,13 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     }
 
-    public void handlePlayerEnemy(Body b1, Body b2) {
-        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Enemy) || (b1.getUserData() instanceof Enemy && b2.getUserData() instanceof Player)) {
+    public void handlePlayerHitEnenmy(Body b1, Body b2) {
+        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Enemy) ||
+                (b1.getUserData() instanceof Enemy && b2.getUserData() instanceof Player)) {
 
-            // p.getPlayer().damage(50);
+            p.getPlayer().stream().filter(player -> player.getPlayerBody().equals(b1)
+                    || player.getPlayerBody().equals(b2)).forEach(player -> player.damage(5));
+
         }
 
     }
@@ -169,7 +173,9 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
         }
     }
 
-
+    public void handlePlayerShot(Body b1, Body b2){
+        p.removeBullet(b1, b2);
+    }
 
 }
 

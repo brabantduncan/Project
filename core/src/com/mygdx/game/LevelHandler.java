@@ -24,9 +24,9 @@ public class LevelHandler {
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
 
-        //enemyManager.createEnemies(20); // begin monsters
+        enemyManager.createEnemies(20); // begin monsters
 
-        enemyManager.createEnemies(1);
+        //enemyManager.createEnemies(1);
 
     }
 

@@ -24,7 +24,7 @@ public class Constants {
     public static final int BULLET_SPEED =100;
     public static final int BULLET_SPEED_Pet =0;
     public static final int CROSSHAIRSSPEED = 5;
-    public static final int MOVEMENT_SPEED_DRAGON = 1;
+    public static final int MOVEMENT_SPEED_DRAGON = 5;
     public static final int MOVEMENT_FOLLOWER_SPEED= 50;
 
 

@@ -121,6 +121,9 @@ public class DragonEnemy implements EnemyInterface {
 
     }
 
+//    public void removepoints()
+
+
     public Player getRandomPlayer(ArrayList<Player> players){
         Random rand = new Random();
         int randomPlayer = rand.nextInt(players.size());
