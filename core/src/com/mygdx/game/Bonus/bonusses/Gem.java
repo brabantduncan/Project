@@ -27,7 +27,8 @@ public class Gem implements BonusInterface {
 
     @Override
     public void addBonus(Player player) {
-     player.increaseCurrentScore(score);
+        player.increaseCurrentScore(score);
+        player.setCurrentEXP(10);
     }
 
     @Override
