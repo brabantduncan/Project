@@ -61,9 +61,7 @@ public class RenderHandler {
             batch.draw(t, e.getBody().getPosition().x - (t.getWidth() / 2), e.getBody().getPosition().y
                     - (t.getHeight() / 2));
         }
-
     }
-
 
     public void renderBonus(SpriteBatch batch, ArrayList<BonusInterface> bonus) {
 

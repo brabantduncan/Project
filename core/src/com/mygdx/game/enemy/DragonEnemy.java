@@ -3,6 +3,8 @@ package com.mygdx.game.enemy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bullet.BulletManager;
+import com.mygdx.game.controller.AiControllerHandler;
 
 import java.util.Random;
 
@@ -19,6 +21,8 @@ public class DragonEnemy implements EnemyInterface {
     private final int MOVEMENT_SPEED = 1;
 
     private Texture texture = new Texture("../assets/Monsters/darkdragon.png");
+
+    private AiControllerHandler aiControllerHandler;
 
     public DragonEnemy(Body body){
         this.body = body;
@@ -99,4 +103,9 @@ public class DragonEnemy implements EnemyInterface {
     public float getX() {
         return y;
     }
+
+    public void action(Vector2 playerCoord, BulletManager bulletManager) {
+        aiControllerHandler.EnemyShoot(bulletManager,playerCoord,body,0);
+    }
+
 }
