@@ -193,7 +193,7 @@ public class PlayState extends State implements GameInterface {
             followerManager.moveFollower(players.get(0));
             followerManager.doAction(players.get(0), bm);
             hudManager.updateHandler(players, levelHandler.getLevel());
-            enemyManager.doAction(players,bm,followerManager);
+            enemyManager.doAction(players, bm, followerManager);
 
 
             BodyBuilder.getInstance().destroyBodies();
@@ -211,7 +211,6 @@ public class PlayState extends State implements GameInterface {
         batch.begin();
         //batch.draw(background, 0, 0);
         batch.end();
-
 
 
         tmr.render();
@@ -298,15 +297,15 @@ public class PlayState extends State implements GameInterface {
 
     public void endGame() {
 
-         for(Player p: players){
+        for (Player p : players) {
 
-         try {
-         projectDB.getInstance().addScore(p.getPlayerName(), p.getCurrentScore());
-         } catch (SQLException e) {
-         e.printStackTrace();
-         }
+            try {
+                projectDB.getInstance().addScore(p.getPlayerName(), p.getCurrentScore());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-         }
+        }
 
         controllerHandler.destroyCrosshairBodys(players);
 //        gameMusic.stop();
@@ -325,16 +324,17 @@ public class PlayState extends State implements GameInterface {
         }
         return allDead;
     }
+
     public static void changeMap(int level) {
-        int mapSelect = (level % 10) +1;
+        int mapSelect = (level % 10) + 1;
 
         Gdx.app.postRunnable(() -> {
-            map = new TmxMapLoader().load("../assets/Maps/level" + mapSelect +".tmx"); //load the new map
+            map = new TmxMapLoader().load("../assets/Maps/level" + mapSelect + ".tmx"); //load the new map
             tmr.getMap().dispose(); //dispose the old map
             tmr.setMap(map); //set the map in your renderer
 
 
-            for(Body b : mapObjects){
+            for (Body b : mapObjects) {
                 world.destroyBody(b);
             }
             mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
