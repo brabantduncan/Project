@@ -60,7 +60,8 @@ public class HighScores extends State {
     }
 
 
-        final Label usernames = new Label("Usernames", skin);
+       
+
 
 
     public ArrayList<HashMap<String, String>> getHighScores(){
