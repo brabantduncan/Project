@@ -70,7 +70,7 @@ public class Hud implements HudInterFace {
         healthLabel2=new Label("HEALTH",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         bombLabel=new Label(translateBomb(),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        bombLabel2=new Label("Bomb",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        bombLabel2=new Label("BOMB",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //Layout nog veranderen
 
@@ -101,7 +101,7 @@ public class Hud implements HudInterFace {
             return translate;
         }
         else {
-            return "nope";
+            return "None";
         }
 
 
