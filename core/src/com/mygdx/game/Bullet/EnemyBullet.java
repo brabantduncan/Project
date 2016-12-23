@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Body;
  */
 public class EnemyBullet implements BulletInterface{
 
-
     private Body b;
     private Texture texture = new Texture("../assets/MinecraftIngots/chicken.png");
 
@@ -28,10 +27,8 @@ public class EnemyBullet implements BulletInterface{
         return b;
     }
 
-
     public Texture getTexture() {
         return texture;
     }
-
 
 }

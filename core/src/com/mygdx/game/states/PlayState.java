@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bonus.BonusHandler;
 import com.mygdx.game.Bullet.Bullet;
+import com.mygdx.game.Bullet.BulletInterface;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
@@ -261,7 +262,7 @@ public class PlayState extends State implements GameInterface {
 
     @Override
     public void removeBullet(Body b1, Body b2) {
-        if (b1.getUserData() instanceof Bullet) {
+        if (b1.getUserData() instanceof BulletInterface) {
             bm.removeBullet(b1);
         } else {
             bm.removeBullet(b2);

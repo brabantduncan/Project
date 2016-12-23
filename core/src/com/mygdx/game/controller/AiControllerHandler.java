@@ -46,6 +46,9 @@ public class AiControllerHandler {
         }
     }
 
-
-
+    public void EnemyShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed) {
+        if (true) {
+            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()), BulletSpeed);
+        }
+    }
 }
