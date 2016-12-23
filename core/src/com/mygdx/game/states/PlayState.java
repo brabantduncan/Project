@@ -29,7 +29,9 @@ import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerFactory;
 import com.mygdx.game.player.hud.HudManager;
 import constants.Constants;
+import database.projectDB;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -295,8 +297,8 @@ public class PlayState extends State implements GameInterface {
 
 
     public void endGame() {
-        /**
-         for(Players p: players){
+
+         for(Player p: players){
 
          try {
          projectDB.getInstance().addScore(p.getPlayerName(), p.getCurrentScore());
@@ -305,7 +307,7 @@ public class PlayState extends State implements GameInterface {
          }
 
          }
-         **/
+
         controllerHandler.destroyCrosshairBodys(players);
 //        gameMusic.stop();
         followerManager.destroyMultipleFollowers(players);
