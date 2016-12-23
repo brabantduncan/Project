@@ -79,6 +79,8 @@ public class OptionState1 extends State {
 
         final SelectBox<String> difficulty = new SelectBox<String>(skin);
         difficulty.setItems(difficulties);
+        difficulty.setSelected("EASY");
+        diff = difficulty.getSelected();
         difficulty.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

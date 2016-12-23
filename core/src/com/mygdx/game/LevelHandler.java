@@ -16,13 +16,16 @@ public class LevelHandler {
     int level;
     EnemyManager enemyManager;
     GameStateManager gameStateManager;
+    public String difficulty;
 
 
-    public LevelHandler(EnemyManager enemyManager, GameStateManager gameStateManager) {
+
+    public LevelHandler(EnemyManager enemyManager, GameStateManager gameStateManager, String difficulty) {
         level = 1;
 
         this.enemyManager = enemyManager;
         this.gameStateManager = gameStateManager;
+        this.difficulty = difficulty;
 
         //enemyManager.createEnemies(20); // begin monsters
 
@@ -39,9 +42,9 @@ public class LevelHandler {
         level += 1;
 
         //PlayState.changeMap(level);
-        System.out.println("new level");
+        System.out.println(difficulty);
         try {
-            enemyManager.createEnemies(spawnCount("HARD"));
+            enemyManager.createEnemies(spawnCount(difficulty));
         } catch (SQLException e) {
             e.printStackTrace();
         }
