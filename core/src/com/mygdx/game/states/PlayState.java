@@ -84,9 +84,10 @@ public class PlayState extends State implements GameInterface {
     }
 
     public String[] usernames;
+    public String difficulty;
 
 
-    public PlayState(GameStateManager gms, String[] usernames, String[] pets) {
+    public PlayState(GameStateManager gms, String[] usernames, String[] pets, String difficulty) {
 
         super(gms);
         this.usernames = usernames;

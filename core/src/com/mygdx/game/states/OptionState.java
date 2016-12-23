@@ -25,8 +25,9 @@ public class OptionState extends State {
     private GameStateManager gsm;
     private String username;
     private String userpet;
+    private String diff;
 
-    public OptionState(final GameStateManager gsm, final String username){
+    public OptionState(final GameStateManager gsm, final String username) {
         super(gsm);
         this.gsm = gsm;
         this.username = username;
@@ -59,7 +60,8 @@ public class OptionState extends State {
             public void changed(ChangeEvent event, Actor actor) {
                 String[] users = {username};
                 String[] pets = {userpet};
-                gsm.push(new PlayState(gsm, users, pets));
+
+                gsm.push(new PlayState(gsm, users, pets, diff));
             }
         });
 
@@ -68,10 +70,9 @@ public class OptionState extends State {
     }
 
 
-
-    public void loadDifficulty(Stage stage){
-        Label playerLabel = new Label("Player: " +username, skin);
-        playerLabel.setPosition(stage.getWidth()/2 - (playerLabel.getWidth() /2),800);
+    public void loadDifficulty(Stage stage) {
+        Label playerLabel = new Label("Player: " + username, skin);
+        playerLabel.setPosition(stage.getWidth() / 2 - (playerLabel.getWidth() / 2), 800);
         stage.addActor(playerLabel);
 
         Label difficultyLabel = new Label("Difficulty", skin);
@@ -79,13 +80,21 @@ public class OptionState extends State {
 
         final SelectBox<String> difficulty = new SelectBox<String>(skin);
         difficulty.setItems(difficulties);
+        difficulty.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("difficulty is " + difficulty.getSelected());
+                stage.addActor(description);
+                diff = difficulty.getSelected();
+            }
+        });
 
 
         Table table = new Table();
         table.add(difficultyLabel).padRight(50);
         table.add(difficulty);
 
-        table.setPosition(stage.getWidth()/2 - (table.getWidth() /2),stage.getHeight()/2 + 100);
+        table.setPosition(stage.getWidth() / 2 - (table.getWidth() / 2), stage.getHeight() / 2 + 100);
 
         stage.addActor(table);
     }
@@ -93,7 +102,7 @@ public class OptionState extends State {
     public void loadPet(final Stage stage) {
         petSprite = new Texture("../assets/Monsters/frontwatcher.png");
         try {
-            description = new TextArea(projectDB.getInstance().getDescription("Frontwatcher"),skin);
+            description = new TextArea(projectDB.getInstance().getDescription("Frontwatcher"), skin);
             description.setPosition(stage.getWidth() / 2 + 50, 310);
             description.setWidth(400);
             description.setDisabled(true);
@@ -113,14 +122,14 @@ public class OptionState extends State {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println(pet.getSelected().toLowerCase());
-                petSprite = new Texture("../assets/Monsters/"+ pet.getSelected().toLowerCase()+".png");
+                petSprite = new Texture("../assets/Monsters/" + pet.getSelected().toLowerCase() + ".png");
                 try {
                     description.remove();
-                    description = new TextArea(projectDB.getInstance().getDescription(pet.getSelected()),skin);
+                    description = new TextArea(projectDB.getInstance().getDescription(pet.getSelected()), skin);
                     description.setPosition(stage.getWidth() / 2 + 50, 310);
                     description.setWidth(400);
                     description.setDisabled(true);
-                    System.out.println("pet is "+pet.getSelected());
+                    System.out.println("pet is " + pet.getSelected());
 
                     stage.addActor(description);
                     userpet = pet.getSelected();
@@ -135,29 +144,13 @@ public class OptionState extends State {
         Table table = new Table();
         table.add(petLabel).padRight(50);
         table.add(pet);
-        table.setPosition(stage.getWidth()/2 - (table.getWidth() /2),stage.getHeight()/2);
+        table.setPosition(stage.getWidth() / 2 - (table.getWidth() / 2), stage.getHeight() / 2);
 
 
         stage.addActor(table);
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override

@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import database.projectDB;
 
-import java.sql.Array;
 import java.sql.SQLException;
 
 /**
@@ -28,13 +27,15 @@ public class OptionState2 extends State {
     private String username2;
     private String userpet1;
     private String userpet2;
+    private String difficulty;
 
-    public OptionState2(final GameStateManager gsm, final String username1, final String username2, final String userpet1){
+    public OptionState2(final GameStateManager gsm, final String username1, final String username2, final String userpet1, String difficulty){
         super(gsm);
         this.gsm = gsm;
         this.username1 = username1;
         this.username2 = username2;
         this.userpet1 = userpet1;
+        this.difficulty = difficulty;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -65,7 +66,7 @@ public class OptionState2 extends State {
                 String[] users = {username1, username2};
                 String[] pets = {userpet1, userpet2};
                 System.out.println(users.length);
-                gsm.set(new PlayState(gsm, users, pets));
+                gsm.set(new PlayState(gsm, users, pets, difficulty));
             }
         });
 

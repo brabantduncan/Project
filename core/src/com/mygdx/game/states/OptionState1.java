@@ -25,6 +25,7 @@ public class OptionState1 extends State {
     private GameStateManager gsm;
     private String username;
     private String userpet;
+    private String diff;
 
     public OptionState1(final GameStateManager gsm, final String username1){
         super(gsm);
@@ -57,7 +58,7 @@ public class OptionState1 extends State {
         nextPlayerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                gsm.push(new LoginMultiPlayer2(gsm, username1, userpet));
+                gsm.push(new LoginMultiPlayer2(gsm, username1, userpet, diff));
             }
         });
 
@@ -78,6 +79,16 @@ public class OptionState1 extends State {
 
         final SelectBox<String> difficulty = new SelectBox<String>(skin);
         difficulty.setItems(difficulties);
+        difficulty.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                petSprite = new Texture("../assets/Monsters/"+ difficulty.getSelected().toLowerCase()+".png");
+                    diff = difficulty.getSelected();
+                    stage.addActor(description);
+
+            }
+        });
+
 
 
         Table table = new Table();
