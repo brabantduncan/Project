@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
+import database.projectDB;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,9 +16,9 @@ import java.util.Random;
  */
 public class Enemy implements EnemyInterface{
 
+    private projectDB db;
     private float x;
     private float y;
-
 
     public Body getBody() {
         return body;
@@ -25,8 +26,7 @@ public class Enemy implements EnemyInterface{
 
     private Body body;
 
-
-    private final int MOVEMENT_SPEED = 4;
+    private final int MOVEMENT_SPEED = 4 ;
 
     private Texture texture = new Texture("../assets/Monsters/bewitchin.png");
 

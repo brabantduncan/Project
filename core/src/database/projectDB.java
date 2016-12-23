@@ -30,6 +30,7 @@ public class projectDB {
             getInstance().loginCheck("duncan","dicks");
             getInstance().getDescription("FrontWatcher");
             getInstance().getDifficultyParameter("HARD");
+            getInstance().getEnemyMovementSpeed("Enemy");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,6 +170,31 @@ public class projectDB {
             prep.close();
             System.out.println(difficulty);
             return difficulty;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("enemy not found", ex);
+        }
+    }
+
+    public int getEnemyMovementSpeed(String enemyname) throws SQLException {
+        try
+        {
+            int movspeed = 0;
+
+            String sql = "SELECT moveSpeed FROM enemy WHERE eName = '"+enemyname+"'";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            rs.next();
+            movspeed += rs.getInt(1);
+
+            rs.close();
+            prep.close();
+            System.out.println(movspeed);
+            return movspeed;
         }
         catch (SQLException ex)
         {
