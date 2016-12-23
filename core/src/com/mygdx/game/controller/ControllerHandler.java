@@ -72,7 +72,7 @@ public class ControllerHandler {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.B)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             if(player.isHasBomb()){
                 System.out.println("destroying all");
                 enemyManager.destroyAllPeasants();

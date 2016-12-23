@@ -28,14 +28,15 @@ public class FollowerManager {
     }
 
     public void doAction(Player player, BulletManager bm) {
-        if (player.getFollower() != null) {
+        if (player.getFollower() != null && !player.isDisabled()) {
             player.getFollower().action(getMouseCoords(), bm);
-        }
-        if (player.getCurrentEXP() == 500){
-            if (!player.getFollower().isUpgraded()){
-                player.getFollower().updateDrone();
+            if (player.getCurrentEXP() == 500){
+                if (!player.getFollower().isUpgraded()){
+                    player.getFollower().updateDrone();
+                }
             }
         }
+
 
     }
 

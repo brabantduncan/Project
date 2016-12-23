@@ -149,12 +149,12 @@ public class PlayState extends State implements GameInterface {
         System.out.println("pet:" + pets[0]);
 
         //music
-        /**
+
          gameMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/gameMusic.mp3"));
          gameMusic.setVolume(.25f);
          gameMusic.setLooping(true);
          gameMusic.play();
-         */
+
 
     }
 
@@ -188,7 +188,6 @@ public class PlayState extends State implements GameInterface {
 
             tmr.setView(camera);
 
-            //cameraUpdate(dt);
             batch.setProjectionMatrix(camera.combined);
             followerManager.moveFollower(players.get(0));
             followerManager.doAction(players.get(0), bm);
@@ -215,12 +214,9 @@ public class PlayState extends State implements GameInterface {
 
         tmr.render();
 
-        /**
-         batch.setProjectionMatrix(player.getHud().stage.getCamera().combined);
-         player.getHud().stage.draw();
-         **/
 
-        b2dr.render(world, camera.combined);
+
+        //b2dr.render(world, camera.combined);
 
         batch.begin();
         // batch.draw(background, 0, 0);
@@ -236,15 +232,6 @@ public class PlayState extends State implements GameInterface {
         hudManager.drawHud(players);
     }
 
-    /**
-     * public void cameraUpdate(float delta) {
-     * Vector3 position = camera.position;
-     * position.x = camera.position.x + (player.getPlayerBody().getPosition().x - camera.position.x) * .1f;
-     * position.y = camera.position.y + (player.getPlayerBody().getPosition().y - camera.position.y) * .1f;
-     * camera.position.set(position);
-     * camera.update();
-     * }
-     **/
 
 
     public void createBorders() {
@@ -308,7 +295,7 @@ public class PlayState extends State implements GameInterface {
         }
 
         controllerHandler.destroyCrosshairBodys(players);
-//        gameMusic.stop();
+        gameMusic.stop();
         followerManager.destroyMultipleFollowers(players);
         BodyBuilder.getInstance().clearLists();
         gms.set(new MenuState(gms));
