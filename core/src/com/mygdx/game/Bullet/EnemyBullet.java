@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 
 /**
- * Created by Gebruiker on 23/12/2016.
+ * Created by Duncan on 23/12/2016.
  */
-public class EnemyBullet {
+public class EnemyBullet implements BulletInterface{
 
 
     private Body b;
