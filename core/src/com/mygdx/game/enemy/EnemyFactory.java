@@ -23,16 +23,23 @@ public class EnemyFactory {
 
         EnemyInterface enemy;
 
-        if ( i < 120) {
+
+        if (i < 120) {
             enemy = new Enemy(b);
+
         } else {
-            if (i>119 && i<199) {
+            if (i > 119 && i < 199) {
                 enemy = new FasterEnemy(b);
-            }
-            else{
+            } else {
                 enemy = new DragonEnemy(b);
             }
+
         }
         return  enemy;
+
+
+            //}
+            //return  new DragonEnemy(b);
+        
     }
 }

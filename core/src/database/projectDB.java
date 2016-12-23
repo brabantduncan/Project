@@ -151,9 +151,11 @@ public class projectDB {
     }
 
     public int getDifficultyParameter(String difficultyFromState) throws SQLException {
+        System.out.println(difficultyFromState);
         try
         {
             int difficulty = 0;
+
             String sql = "SELECT moreSpawn FROM difficulty WHERE dName = '"+difficultyFromState+"'";
 
             PreparedStatement prep = this.connection.prepareStatement(sql);

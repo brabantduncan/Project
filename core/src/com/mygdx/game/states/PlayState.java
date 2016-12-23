@@ -88,6 +88,8 @@ public class PlayState extends State implements GameInterface {
 
         super(gms);
         this.usernames = usernames;
+        this.difficulty = difficulty;
+        System.out.println(difficulty);
         background = new Texture("../assets/background.jpg");
         map = new TmxMapLoader().load("../assets/Maps/naamloos.tmx");
 
@@ -128,7 +130,7 @@ public class PlayState extends State implements GameInterface {
         this.world.setContactListener(new CollisionDetector(this));
 
 
-        levelHandler = new LevelHandler(enemyManager, gms);
+        levelHandler = new LevelHandler(enemyManager, gms, difficulty);
 
         bonusHandler = new BonusHandler();
         renderHandler = new RenderHandler();

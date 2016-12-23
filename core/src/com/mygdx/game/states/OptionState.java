@@ -60,7 +60,7 @@ public class OptionState extends State {
             public void changed(ChangeEvent event, Actor actor) {
                 String[] users = {username};
                 String[] pets = {userpet};
-
+                System.out.println(diff);
                 gsm.push(new PlayState(gsm, users, pets, diff));
             }
         });
@@ -78,8 +78,11 @@ public class OptionState extends State {
         Label difficultyLabel = new Label("Difficulty", skin);
         String[] difficulties = {"EASY", "NORMAL", "HARD"};
 
+
         final SelectBox<String> difficulty = new SelectBox<String>(skin);
         difficulty.setItems(difficulties);
+        difficulty.setSelected("EASY");
+        diff = difficulty.getSelected();
         difficulty.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
