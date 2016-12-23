@@ -53,6 +53,8 @@ public class Player {
     private boolean invincible;
     private boolean dead;
 
+    private boolean disabled;
+
     public boolean isHasBomb() {
         return hasBomb;
     }
@@ -89,6 +91,7 @@ public class Player {
         invincible = true;
         hasBomb = false;
         follower = null;
+        disabled = false;
     }
 
     public Player(Body playerBody, String playerName, String pet) {
@@ -116,7 +119,7 @@ public class Player {
         dead = false;
         follower = null;
         this.pet = pet;
-        this.controller = controller;
+        disabled = false;
 
     }
 
@@ -316,6 +319,14 @@ public class Player {
 
     public void setController(ControllerSet controller){
         this.controller = controller;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }
 

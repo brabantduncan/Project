@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
 import constants.Constants;
 
@@ -133,6 +135,12 @@ public class EnemyManager {
         }
         enemies.removeAll(enemies);
 
+    }
+
+    public void doAction(ArrayList<Player> players, BulletManager bulletManager, FollowerManager followerManager){
+        for (EnemyInterface enemyInterface:enemies){
+            enemyInterface.action(players,bulletManager,followerManager);
+        }
     }
 
     public ArrayList clone(ArrayList<EnemyInterface> host){

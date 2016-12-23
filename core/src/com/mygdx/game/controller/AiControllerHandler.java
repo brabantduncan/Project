@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.body.BodyBuilder;
+import com.mygdx.game.enemy.EnemyInterface;
 
 /**
  * Created by Shan on 12/19/2016.
@@ -42,13 +43,15 @@ public class AiControllerHandler {
 
     public void aiShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed){
         if (Gdx.input.isTouched()){
-            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()),BulletSpeed);
+                bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()),BulletSpeed);
+
         }
     }
 
     public void EnemyShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed) {
         if (true) {
-            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()), BulletSpeed);
+            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createEnemyBulletBody(body.getPosition()),BulletSpeed);
+
         }
     }
 }

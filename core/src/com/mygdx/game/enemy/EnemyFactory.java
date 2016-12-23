@@ -22,7 +22,7 @@ public class EnemyFactory {
     private EnemyInterface getRandomEnemy(Body b, int i) {
 
         EnemyInterface enemy;
-
+/**
         if ( i < 120) {
             enemy = new Enemy(b);
         } else {
@@ -31,8 +31,8 @@ public class EnemyFactory {
             }
             else{
                 enemy = new DragonEnemy(b);
-            }
-        }
-        return enemy;
+            }**/
+        //}
+        return  new DragonEnemy(b);
     }
 }

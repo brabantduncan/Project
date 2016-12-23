@@ -305,4 +305,24 @@ public class BodyBuilder {
     }
 
 
+    public Body createEnemyBulletBody(Vector2 spawn) {
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.fixedRotation = true;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(spawn.x, spawn.y);
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(1);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.shape = shape;
+        fdef.density = 1.0f;
+        fdef.friction = 0;
+        fdef.filter.maskBits =Constants.ENEMY_BULLET;
+        fdef.filter.categoryBits = Constants.Wall | Constants.FOLOWER | Constants.Wall;
+
+
+        return world.createBody(bodyDef).createFixture(fdef).getBody();
+    }
 }

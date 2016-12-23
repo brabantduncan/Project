@@ -140,7 +140,7 @@ public class PlayState extends State implements GameInterface {
         followerManager = new FollowerManager();
 
 
-        mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
+        //mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
 
 
         createBorders();
@@ -191,6 +191,7 @@ public class PlayState extends State implements GameInterface {
             followerManager.moveFollower(players.get(0));
             followerManager.doAction(players.get(0), bm);
             hudManager.updateHandler(players, levelHandler.getLevel());
+            enemyManager.doAction(players,bm,followerManager);
 
 
             BodyBuilder.getInstance().destroyBodies();
