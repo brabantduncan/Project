@@ -293,7 +293,7 @@ public class Player {
         System.out.println(pet);
         if(pet.equals("Shielder")) { follower = new ShieldFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("SHIELD");}
         if(pet.equals("Frontwatcher")) {follower = new FrontWatcherFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("WATCHER");}
-        if(pet.equals("Nukedo")) {follower = new nukeFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("NUKE");}
+        if(pet.equals("Minedo")) {follower = new nukeFollower(BodyBuilder.getInstance().createFollowerBody(playerBody.getPosition(),false)); System.out.println("MINE");}
         follower.spawnExtra(playerBody);
     }
 
