@@ -42,7 +42,7 @@ public class LevelHandler {
         level += 1;
 
         //PlayState.changeMap(level);
-        System.out.println(difficulty);
+        System.out.println("new level");
         try {
             enemyManager.createEnemies(spawnCount(difficulty));
         } catch (SQLException e) {
