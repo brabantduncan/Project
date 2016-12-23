@@ -4,6 +4,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.enemy.EnemyManager;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.PlayState;
+import database.projectDB;
+
+import java.sql.SQLException;
 
 /**
  * Created by Shan on 12/17/2016.
@@ -37,7 +40,11 @@ public class LevelHandler {
 
         //PlayState.changeMap(level);
         System.out.println("new level");
-        enemyManager.createEnemies(spawnCount());
+        try {
+            enemyManager.createEnemies(spawnCount("HARD"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLevel() {
@@ -50,8 +57,8 @@ public class LevelHandler {
         }
     }
 
-    public int spawnCount() {
-        return level*15; //monsters per level
+    public int spawnCount(String difficulty) throws SQLException {
+        return level*15*projectDB.getInstance().getDifficultyParameter(difficulty); //monsters per level
     }
 
 

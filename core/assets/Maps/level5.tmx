@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="45" height="30" tilewidth="16" tileheight="16" nextobjectid="35">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="45" height="30" tilewidth="16" tileheight="16" nextobjectid="36">
  <tileset firstgid="1" name="blowharder" tilewidth="16" tileheight="16" tilecount="4408" columns="116">
   <image source="blowharder.png" width="1856" height="608"/>
  </tileset>
@@ -48,7 +48,7 @@
   <object id="27" x="242.333" y="233.333" width="76.3333" height="86.3333" visible="0"/>
   <object id="28" x="174.625" y="344.125" width="35.875" height="55.375" visible="0"/>
   <object id="29" x="576.375" y="0.25" width="143.625" height="145.75" visible="0"/>
-  <object id="32" x="158" y="124" width="34" height="68"/>
+  <object id="35" x="259" y="262" width="43" height="56"/>
  </objectgroup>
  <layer name="Tilelaag 3" width="45" height="30">
   <data encoding="csv">
