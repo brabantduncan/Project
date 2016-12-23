@@ -25,6 +25,7 @@ public class Bomb implements BonusInterface {
     @Override
     public void addBonus(Player p) {
         p.setHasBomb(true);
+        p.setInvincible(false);
     }
 
     @Override

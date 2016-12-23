@@ -82,7 +82,10 @@ public class ControllerHandler {
 
         if (Gdx.input.isTouched()) {
 
-            bulletManager.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()),100);
+            if (!player.isDisabled()){
+                bulletManager.addBullet(getMouseCoords(), BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()),100);
+            }
+
 
         }
 
@@ -122,9 +125,11 @@ public class ControllerHandler {
            // bulletManager.addBulletController(player.getPlayerBody().getWorldCenter(),
             //        direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
             //bulletManager.addBullet(direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+            if (!player.isDisabled()){
+                bulletManager.addBulletController(player.getPlayerBody().getPosition(),
+                        direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
 
-            bulletManager.addBulletController(player.getPlayerBody().getPosition(),
-                            direction,BodyBuilder.getInstance().createBulletBody(player.getPlayerBody().getPosition()));
+            }
 
         }
 

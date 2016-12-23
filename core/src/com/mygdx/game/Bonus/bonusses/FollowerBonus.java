@@ -18,6 +18,7 @@ public class FollowerBonus implements BonusInterface {
 
     public FollowerBonus(Body body) {
 
+
         this.b = body;
         setUserData();
     }
@@ -29,6 +30,7 @@ public class FollowerBonus implements BonusInterface {
             p.spawnFollower();
 
         }
+        p.setInvincible(false);
 
     }
 

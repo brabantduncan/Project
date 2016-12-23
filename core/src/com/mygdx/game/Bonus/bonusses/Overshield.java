@@ -23,6 +23,7 @@ public class Overshield implements BonusInterface {
     @Override
     public void addBonus(Player p) {
         p.setInvincible(true);
+        p.setIsDead(false);
     }
 
     @Override

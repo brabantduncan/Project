@@ -111,9 +111,10 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
     }
 
     public void handlePlayerHitEnenmy(Body b1, Body b2) {
-        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Enemy) ||
-                (b1.getUserData() instanceof Enemy && b2.getUserData() instanceof Player)) {
+        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof EnemyInterface) ||
+                (b1.getUserData() instanceof EnemyInterface&& b2.getUserData() instanceof Player)) {
 
+            System.out.println("Taking damage from enenemy");
             p.getPlayer().stream().filter(player -> player.getPlayerBody().equals(b1)
                     || player.getPlayerBody().equals(b2)).forEach(player -> player.damage(5));
 
@@ -180,7 +181,15 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
     }
 
     public void handlePlayerShot(Body b1, Body b2) {
+
+        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Bullet) ||
+                (b1.getUserData() instanceof Bullet && b2.getUserData() instanceof Player)){
+            p.getPlayer().stream().filter(player -> player.getPlayerBody().equals(b1)
+                    || player.getPlayerBody().equals(b2)).forEach(player -> player.damage(5));
+        }
         p.removeBullet(b1, b2);
+
+
     }
 
 }

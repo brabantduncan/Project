@@ -169,7 +169,7 @@ public class BodyBuilder {
         bodyDef.position.set(spawn.x, spawn.y);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1, 1);
+        shape.setAsBox(10, 10);
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;

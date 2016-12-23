@@ -222,6 +222,12 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
+    public void heal(int health) {
+        if (health< 100){
+            this.health += health;
+        }
+
+    }
 
     public int getAttackSpeed() {
         return attackSpeed;
@@ -328,6 +334,12 @@ public class Player {
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
+
+    public void setIsDead(Boolean dead){
+        this.dead =dead;
+    }
+
+
 }
 
 

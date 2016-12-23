@@ -108,7 +108,9 @@ public class DragonEnemy implements EnemyInterface {
     public void disablePlayer(int random, ArrayList<Player> players){
 
         if (random ==5){
-            getRandomPlayer(players).setDisabled(true);
+            Player player =  getRandomPlayer(players);
+            player.setDisabled(true);
+            player.setInvincible(false);
         }
 
     }
