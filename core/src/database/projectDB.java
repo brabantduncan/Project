@@ -22,8 +22,6 @@ public class projectDB {
     public static void main (String[] arg) {
         try {
             //getInstance().addPlayer("laurensSuckie", "laurens");
-            getInstance().getAllPlayerInfo();
-            getInstance().getEnemyByName("Brecht");
             //getInstance().addScore("Duncan", 2);
             getInstance().getHighScores();
             //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
@@ -100,33 +98,6 @@ public class projectDB {
         }
     }
 
-    public ArrayList<String> getEnemyByName(String enemyname) throws SQLException {
-        try
-        {
-            ArrayList<String> enemy = new ArrayList<String>();
-            String sql = "select * from enemy where eName = '"+enemyname+"'";
-
-            PreparedStatement prep = this.connection.prepareStatement(sql);
-
-            ResultSet rs = prep.executeQuery();
-
-            while (rs.next())
-            {
-                enemy.add(rs.getString("eid"));
-                enemy.add(rs.getString("eName"));
-            }
-
-            rs.close();
-            prep.close();
-            System.out.println(enemy);
-            return enemy;
-        }
-        catch (SQLException ex)
-        {
-            throw new SQLException("enemy not found", ex);
-        }
-    }
-
     public String getDescription(String followername) throws SQLException {
         try
         {
@@ -199,34 +170,6 @@ public class projectDB {
         catch (SQLException ex)
         {
             throw new SQLException("enemy not found", ex);
-        }
-    }
-
-    public ArrayList<String> getAllPlayerInfo() throws SQLException {
-        try
-        {
-            ArrayList<String> players = new ArrayList<String>();
-            String sql = "select * from player";
-
-            PreparedStatement prep = this.connection.prepareStatement(sql);
-
-            ResultSet rs = prep.executeQuery();
-
-            while (rs.next())
-            {
-                players.add(rs.getString("pName"));
-                players.add(rs.getString("password"));
-                players.add(rs.getString("highestScore"));
-            }
-
-            rs.close();
-            prep.close();
-            System.out.println(players);
-            return players;
-        }
-        catch (SQLException ex)
-        {
-            throw new SQLException("players not found", ex);
         }
     }
 
