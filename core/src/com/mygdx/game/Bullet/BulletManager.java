@@ -18,16 +18,16 @@ import java.util.ArrayList;
  */
 public class BulletManager {
 
-    ArrayList<BulletInterface> bullets;
+    ArrayList<Bullet> bullets;
 
 
-    ArrayList<BulletInterface> disposeBullets;
+    ArrayList<Bullet> disposeBullets;
     Camera camera;
 
     public BulletManager(Camera camera) {
 
-        bullets = new ArrayList<BulletInterface>();
-        disposeBullets = new ArrayList<BulletInterface>();
+        bullets = new ArrayList<Bullet>();
+        disposeBullets = new ArrayList<Bullet>();
         this.camera = camera;
     }
 
@@ -126,7 +126,7 @@ public class BulletManager {
 
     public void removeBullet(Body b) {
 
-        for (BulletInterface bullet : bullets) {
+        for (Bullet bullet : bullets) {
 
             if (bullet.getB().equals(b)) {
                 disposeBullets.add(bullet);
@@ -136,7 +136,7 @@ public class BulletManager {
     }
 
 
-    public ArrayList<BulletInterface> getBullets() {
+    public ArrayList<Bullet> getBullets() {
         return bullets;
     }
 
@@ -145,7 +145,7 @@ public class BulletManager {
 
         if (disposeBullets.size() > 0) {
 
-            for (BulletInterface b : disposeBullets) {
+            for (Bullet b : disposeBullets) {
                 BodyBuilder.getInstance().addToDestroy(b.getB());
             }
             disposeBullets.clear();

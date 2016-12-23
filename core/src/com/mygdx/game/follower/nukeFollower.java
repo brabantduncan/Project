@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.controller.AiControllerHandler;
+import constants.Constants;
 
 import java.util.ArrayList;
 
@@ -75,7 +76,7 @@ public class nukeFollower implements FollowerInterface {
     @Override
     public void update(Vector2 playerPosition) {
 
-        aiControllerHandler.moveToPlayer(playerPosition, body);
+        aiControllerHandler.moveToPlayer(playerPosition,body, Constants.MOVEMENT_FOLLOWER_SPEED);
 
     }
 

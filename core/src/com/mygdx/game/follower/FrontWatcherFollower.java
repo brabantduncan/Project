@@ -11,6 +11,8 @@ import com.mygdx.game.LevelHandler;
 import com.mygdx.game.body.BodyBuilder;
 import com.mygdx.game.controller.AiControllerHandler;
 import com.mygdx.game.states.PlayState;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+import constants.Constants;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,7 @@ public class FrontWatcherFollower implements FollowerInterface {
     @Override
     public void update(Vector2 playerPosition){
 
-        aiControllerHandler.moveToPlayer(playerPosition,body);
+        aiControllerHandler.moveToPlayer(playerPosition,body, Constants.MOVEMENT_FOLLOWER_SPEED);
     }
 
 

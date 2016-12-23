@@ -1,18 +1,14 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Bonus.BonusInterface;
 import com.mygdx.game.Bullet.Bullet;
-import com.mygdx.game.Bullet.BulletInterface;
 import com.mygdx.game.controller.ControllerSet;
-import com.mygdx.game.enemy.Enemy;
 import com.mygdx.game.enemy.EnemyInterface;
 import com.mygdx.game.follower.FollowerInterface;
 import com.mygdx.game.player.Player;
-import constants.Constants;
 
 import java.util.ArrayList;
 
@@ -72,9 +68,9 @@ public class RenderHandler {
 
     }
 
-    public void renderBullets(SpriteBatch batch, ArrayList<BulletInterface> bullets) {
+    public void renderBullets(SpriteBatch batch, ArrayList<Bullet> bullets) {
 
-        for (BulletInterface b : bullets) {
+        for (Bullet b : bullets) {
             Texture t = b.getTexture();
             batch.draw(t, b.getB().getPosition().x - (t.getWidth() / 2), b.getB().getPosition().y - (t.getHeight() / 2));
         }

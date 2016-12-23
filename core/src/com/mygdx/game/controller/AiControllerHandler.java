@@ -13,7 +13,7 @@ import com.mygdx.game.enemy.EnemyInterface;
  */
 public class AiControllerHandler {
 
-    public void moveToPlayer(Vector2 playerPosition, Body body) {
+    public void moveToPlayer(Vector2 playerPosition, Body body, int movementspeed) {
 
         int horizontalForce = 0;
         int verticalForce = 0;
@@ -25,33 +25,33 @@ public class AiControllerHandler {
 
         if (folowerX < playerX) {
 
-            horizontalForce += 50;
+            horizontalForce += movementspeed;
         }
         if (folowerX > playerX) {
-            horizontalForce -= 50;
+            horizontalForce -= movementspeed;
         }
         if (folowerY < playerY) {
-            verticalForce += 50;
+            verticalForce += movementspeed;
         }
         if (folowerY > playerY) {
-            verticalForce -= 50;
+            verticalForce -= movementspeed;
         }
 
         body.setLinearVelocity(horizontalForce * 5, verticalForce * 5);
 
     }
 
-    public void aiShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed){
-        if (Gdx.input.isTouched()){
-                bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()),BulletSpeed);
+    public void aiShoot(BulletManager bulletManager, Vector2 coordToShoot, Body body, int BulletSpeed) {
+        if (Gdx.input.isTouched()) {
+            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createBulletBody(body.getPosition()), BulletSpeed);
 
         }
     }
 
-    public void EnemyShoot(BulletManager bulletManager , Vector2 coordToShoot, Body body, int BulletSpeed) {
-        if (true) {
-            bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createEnemyBulletBody(body.getPosition()),BulletSpeed);
+    public void EnemyShoot(BulletManager bulletManager, Vector2 coordToShoot, Body body, int BulletSpeed) {
 
-        }
+        bulletManager.addBullet(coordToShoot, BodyBuilder.getInstance().createEnemyBulletBody(body.getPosition()), BulletSpeed);
+
+
     }
 }
