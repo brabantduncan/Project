@@ -307,7 +307,7 @@ public class PlayState extends State implements GameInterface {
          }
          **/
         controllerHandler.destroyCrosshairBodys(players);
-        gameMusic.stop();
+//        gameMusic.stop();
         followerManager.destroyMultipleFollowers(players);
         BodyBuilder.getInstance().clearLists();
         gms.set(new MenuState(gms));

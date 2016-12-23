@@ -67,13 +67,11 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
     public void checkClause(Body b1, Body b2) {
 
 
-        handlePlayerShot(b1,b2);
+        handlePlayerShot(b1, b2);
         handlePlayerHitEnenmy(b1, b2);
         bulletHit(b1, b2);
         bonusHit(b1, b2);
         checkFollowerEnenmy(b1, b2);
-
-
 
 
     }
@@ -158,22 +156,30 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     public void handleBonusCollision(Body b1, Body b2) {
         if (b1.getUserData() instanceof BonusInterface && b2.getUserData() instanceof Player) {
-            System.out.println("Player picked gem");
+
             p.getBonusHandler().setRemoveList(b2, b1);
 
-        } else if (b1.getUserData() instanceof Player && b2.getUserData() instanceof BonusInterface) {
-            System.out.println("Player picked gem");
-            p.getBonusHandler().setRemoveList(b1, b2);
-        } else {
-            if (b1.getUserData() instanceof BonusInterface) {
-                p.getBonusHandler().removeFromField(b1);
-            } else {
-                p.getBonusHandler().removeFromField(b1);
-            }
         }
+        if (b1.getUserData() instanceof Player && b2.getUserData() instanceof BonusInterface) {
+
+            p.getBonusHandler().setRemoveList(b1, b2);
+        }
+
+        /**
+        if (b1.getUserData() instanceof BonusInterface && !(b2.getUserData() instanceof Bullet) && b2.getUserData() != null) {
+            System.out.println(" b1 is een " + b1.getUserData());
+            System.out.println(" b2 is een " + b2.getUserData());
+            p.getBonusHandler().removeFromField(b1);
+        }
+        if (b2.getUserData() instanceof BonusInterface && !(b1.getUserData() instanceof Bullet) && b1.getUserData() != null) {
+            System.out.println(" b1 is een " + b1.getUserData());
+            System.out.println(" b2 is een " + b2.getUserData());
+            p.getBonusHandler().removeFromField(b2);
+        }**/
+
     }
 
-    public void handlePlayerShot(Body b1, Body b2){
+    public void handlePlayerShot(Body b1, Body b2) {
         p.removeBullet(b1, b2);
     }
 

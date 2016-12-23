@@ -88,7 +88,7 @@ public class Player {
         this.highScore = highScore;
         setUserData();
         dead = false;
-        invincible = true;
+        invincible = false;
         hasBomb = false;
         follower = null;
         disabled = false;
@@ -113,7 +113,7 @@ public class Player {
         setUserData();
 
 
-        invincible = true;
+        invincible = false;
         hasBomb = false;
 
         dead = false;
