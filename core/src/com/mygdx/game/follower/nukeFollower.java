@@ -23,6 +23,7 @@ public class nukeFollower implements FollowerInterface {
 
     private int timeCanExist;
     private int born;
+    private boolean upgraded;
 
     public nukeFollower(Body body) {
         this.body = body;
@@ -31,6 +32,7 @@ public class nukeFollower implements FollowerInterface {
         aiControllerHandler = new AiControllerHandler();
         timeCanExist = 200;
         born = 0;
+        upgraded = false;
     }
 
 
@@ -86,12 +88,20 @@ public class nukeFollower implements FollowerInterface {
     }
 
     @Override
-    public int updateDrone() {
-        if (levelhandler.getLevel() < 6) {
-            return 1000;
-        } else {
-            return 2000;
-        }
+    public void updateDrone() {
+        this.timeCanExist *= 10;
+
+    }
+
+    @Override
+    public boolean isUpgraded() {
+
+        return upgraded;
+    }
+
+    @Override
+    public void upgrade(Boolean upgrade) {
+
     }
 }
 

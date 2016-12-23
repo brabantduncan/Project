@@ -35,7 +35,12 @@ public interface FollowerInterface {
 
     void increaseBorn();
 
-    int updateDrone();
+    void updateDrone();
+
+    boolean isUpgraded();
+
+    void upgrade(Boolean upgrade);
+
 }
 
 

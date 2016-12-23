@@ -20,10 +20,10 @@ import java.util.ArrayList;
  */
 public class ShieldFollower implements FollowerInterface {
 
+    private  boolean isUpgraded;
     private Body body;
     private Body jointBox;
     private ArrayList<Body> bodies;
-    LevelHandler levelhandler;
 
     private Texture texture = new Texture("../assets/MinecraftIngots/shield.png");;
     private AiControllerHandler aiControllerHandler;
@@ -42,6 +42,7 @@ public class ShieldFollower implements FollowerInterface {
         timeCanExist = 2000;
         born =0;
         bodies = new ArrayList<Body>();
+        isUpgraded = false;
 
     }
 
@@ -110,13 +111,20 @@ public class ShieldFollower implements FollowerInterface {
     }
 
     @Override
-    public int updateDrone() {
-        if(levelhandler.getLevel()<6){
-            return 1000;
-        }
-        else {
-            return 2000;
-        }
+    public void updateDrone() {
+
+        timeCanExist +=1000;
+
+    }
+
+    @Override
+    public boolean isUpgraded() {
+        return isUpgraded;
+    }
+
+    @Override
+    public void upgrade(Boolean upgrade) {
+        this.isUpgraded = upgrade;
     }
 
 

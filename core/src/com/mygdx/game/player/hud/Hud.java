@@ -121,10 +121,19 @@ public class Hud implements HudInterFace {
         expLabel.setText(Integer.toString(exp));
         scoreLabel.setText(Integer.toString(score));
 
-        healthLabel.setText(Integer.toString(health));
+        healthLabel.setText(scanHealth(p));
         bombLabel.setText(translateBomb());
 
         levelLabel.setText(Integer.toString(level));
+    }
+
+    private String scanHealth(Player p) {
+        if (p.isInvincible()){
+            return "Overshield";
+        }
+        else {
+            return Integer.toString(p.getHealth());
+        }
     }
 
     @Override

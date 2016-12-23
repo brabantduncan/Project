@@ -94,6 +94,10 @@ public class Player {
         disabled = false;
     }
 
+    public boolean isInvincible() {
+        return invincible;
+    }
+
     public Player(Body playerBody, String playerName, String pet) {
 
         //Default Player
@@ -152,19 +156,7 @@ public class Player {
 
     public void setCurrentEXP(int extraEXP) {
 
-        int expBeforeLevelUp = neededExpCalc();
-        if ((expBeforeLevelUp <= currentEXP + extraEXP)) {
-            levelUp();
-
-            int remainingExp = (currentEXP + extraEXP) - expBeforeLevelUp;
-
-            setCurrentEXP(remainingExp);
-
-        } else {
-
-            currentEXP = 0;
-            currentEXP = extraEXP;
-        }
+       this.currentEXP += extraEXP;
 
 
     }

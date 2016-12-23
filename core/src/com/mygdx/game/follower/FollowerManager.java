@@ -31,6 +31,11 @@ public class FollowerManager {
         if (player.getFollower() != null) {
             player.getFollower().action(getMouseCoords(), bm);
         }
+        if (player.getCurrentEXP() == 500){
+            if (!player.getFollower().isUpgraded()){
+                player.getFollower().updateDrone();
+            }
+        }
 
     }
 

@@ -34,6 +34,10 @@ public class FrontWatcherFollower implements FollowerInterface {
     private int timeCanExist;
     private int born;
 
+
+
+    private boolean isUpgraded;
+
     public FrontWatcherFollower(Body body){
         this.body = body;
         setData();
@@ -41,6 +45,7 @@ public class FrontWatcherFollower implements FollowerInterface {
         aiControllerHandler = new AiControllerHandler();
         timeCanExist = 2000;
         born = 0;
+        isUpgraded = false;
     }
 
     @Override
@@ -101,14 +106,22 @@ public class FrontWatcherFollower implements FollowerInterface {
     }
 
     @Override
-    public int updateDrone() {
-        if(levelhandler.getLevel()<6){
-            return 1000;
-        }
-        else {
-            return 2000;
-        }
+    public void updateDrone() {
+
+        timeCanExist +=1000;
+
     }
+
+    @Override
+    public boolean isUpgraded() {
+        return isUpgraded;
+    }
+
+    @Override
+    public void upgrade(Boolean upgrade) {
+        this.isUpgraded = upgrade;
+    }
+
 
 
 }
