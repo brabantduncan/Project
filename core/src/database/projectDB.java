@@ -29,6 +29,7 @@ public class projectDB {
             //getInstance().updateHighestScoreInPlayer("Duncan1", 2);
             getInstance().loginCheck("duncan","dicks");
             getInstance().getDescription("FrontWatcher");
+            getInstance().getDifficultyParameter("HARD");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,6 +143,30 @@ public class projectDB {
             prep.close();
             System.out.println(description);
             return description;
+        }
+        catch (SQLException ex)
+        {
+            throw new SQLException("description not found", ex);
+        }
+    }
+
+    public int getDifficultyParameter(String difficultyFromState) throws SQLException {
+        try
+        {
+            int difficulty = 0;
+            String sql = "SELECT moreSpawn FROM difficulty WHERE dName = '"+difficultyFromState+"'";
+
+            PreparedStatement prep = this.connection.prepareStatement(sql);
+
+            ResultSet rs = prep.executeQuery();
+
+            rs.next();
+            difficulty += rs.getInt(1);
+
+            rs.close();
+            prep.close();
+            System.out.println(difficulty);
+            return difficulty;
         }
         catch (SQLException ex)
         {

@@ -58,7 +58,7 @@ public class BodyBuilder {
         fdef.shape = shape;
         fdef.density = 1000f;
         fdef.filter.categoryBits = Constants.Wall;
-        fdef.filter.maskBits = Constants.PLAYER | Constants.GEM;
+        fdef.filter.maskBits = Constants.PLAYER | Constants.GEM|Constants.ENEMY_BULLET;
 
 
         return world.createBody(def).createFixture(fdef).getBody();
@@ -82,7 +82,7 @@ public class BodyBuilder {
         fdef.shape = shape;
         fdef.density = 999999999999f;
         fdef.filter.categoryBits = Constants.PLAYER;//is a
-        fdef.filter.maskBits = Constants.Enemy | Constants.Wall | Constants.GEM; // I will colide with
+        fdef.filter.maskBits = Constants.Enemy | Constants.Wall | Constants.GEM |Constants.ENEMY_BULLET; // I will colide with
 
 
         return world.createBody(def).createFixture(fdef).getBody();
@@ -152,7 +152,7 @@ public class BodyBuilder {
         final FixtureDef nodeFixtureDefinition = createFixtureDefinition(shape, density);
         nodeFixtureDefinition.isSensor = false;
         nodeFixtureDefinition.filter.categoryBits = Constants.PLAYER;
-        nodeFixtureDefinition.filter.maskBits = Constants.Enemy;
+        nodeFixtureDefinition.filter.maskBits = Constants.Enemy | Constants.ENEMY_BULLET;
         body.createFixture(nodeFixtureDefinition);
         shape.dispose();
 
@@ -312,15 +312,15 @@ public class BodyBuilder {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(spawn.x, spawn.y);
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(1);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(2,2);
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
         fdef.density = 1.0f;
         fdef.friction = 0;
-        fdef.filter.maskBits =Constants.ENEMY_BULLET;
-        fdef.filter.categoryBits = Constants.Wall | Constants.FOLOWER | Constants.Wall;
+        fdef.filter.categoryBits =Constants.ENEMY_BULLET;
+        fdef.filter.maskBits = Constants.Wall | Constants.FOLOWER | Constants.Wall | Constants.PLAYER;
 
 
         return world.createBody(bodyDef).createFixture(fdef).getBody();

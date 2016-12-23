@@ -1,7 +1,6 @@
 package com.mygdx.game.colision;
 
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.utils.random.GaussianDoubleDistribution;
 import com.badlogic.gdx.audio.Music;
@@ -65,68 +64,34 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     }
 
-
     public void checkClause(Body b1, Body b2) {
 
-        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Enemy) || (b1.getUserData() instanceof Enemy && b2.getUserData() instanceof Player)) {
 
-            handlePlayerEnemy();
-
-        }
-        if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player)) || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
-            p.removeBullet(b1, b2);
-
-            if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
-
-                //music on collision with enemy
-
-                /*bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
-                bulletMusic.setVolume(0.02f);
-                bulletMusic.play();*/
-
-                p.removeEnemies(b1, b2);
-                if (b1.getUserData() instanceof EnemyInterface) {
-
-                    p.addCoordToBonusHandler(b1.getPosition());
-
-                }
-                if (b1.getUserData() instanceof EnemyInterface) {
-                    p.addCoordToBonusHandler(b1.getPosition());
-
-                }
-            }
-        }
-
-
-        if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
-
-            //zorgen dat wanneer de gem met muur collide dat alles weggaat
-            if (b1.getUserData() instanceof BonusInterface && b2.getUserData() instanceof  Player) {
-                System.out.println("Player picked gem");
-                p.getBonusHandler().setRemoveList(b2,b1);
-
-
-            }
-            else if (b1.getUserData() instanceof Player && b2.getUserData() instanceof  BonusInterface) {
-                System.out.println("Player picked gem");
-                p.getBonusHandler().setRemoveList(b1,b2);
-            }
-            else {
-                if(b1.getUserData() instanceof BonusInterface){
-                    p.getBonusHandler().removeFromField(b1);
-                }
-                else {
-                    p.getBonusHandler().removeFromField(b1);
-                }
-            }
-
-
-
-        }
-
+        handlePlayerEnemy(b1, b2);
+        bulletHit(b1, b2);
+        bonusHit(b1, b2);
         checkFollowerEnenmy(b1, b2);
+
+
+
+
     }
 
+    private void bonusHit(Body b1, Body b2) {
+        if (b1.getUserData() instanceof BonusInterface || b2.getUserData() instanceof BonusInterface) {
+            handleBonusCollision(b1, b2);
+        }
+    }
+
+    private void bulletHit(Body b1, Body b2) {
+        if ((b1.getUserData() instanceof Bullet && !(b2.getUserData() instanceof Player))
+                || (!(b1.getUserData() instanceof Player) && b2.getUserData() instanceof Bullet)) {
+
+            p.removeBullet(b1, b2);
+            checkBulletEnemy(b1, b2);
+        }
+
+    }
 
     public void checkFollowerEnenmy(Body b1, Body b2) {
 
@@ -134,7 +99,7 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
 
             if (b1.getUserData() instanceof FrontWatcherFollower || b2.getUserData() instanceof FrontWatcherFollower) {
-               // p.getPlayer().destroyFollower();
+                // p.getPlayer().destroyFollower();
             }
             if (b1.getUserData() instanceof ShieldFollower || b2.getUserData() instanceof ShieldFollower) {
                 sendBody(b1, b2);
@@ -146,13 +111,13 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
 
     }
 
+    public void handlePlayerEnemy(Body b1, Body b2) {
+        if ((b1.getUserData() instanceof Player && b2.getUserData() instanceof Enemy) || (b1.getUserData() instanceof Enemy && b2.getUserData() instanceof Player)) {
 
-    public void handlePlayerEnemy() {
-       // p.getPlayer().damage(50);
-
+            // p.getPlayer().damage(50);
+        }
 
     }
-
 
     public void sendBody(Body b1, Body b2) {
         if (b1.getUserData() instanceof EnemyInterface) {
@@ -161,6 +126,50 @@ public class CollisionDetector implements com.badlogic.gdx.physics.box2d.Contact
             p.getEnemyManager().removeEnemy(b2);
         }
     }
+
+    public void checkBulletEnemy(Body b1, Body b2) {
+
+        if (b1.getUserData() instanceof EnemyInterface || b2.getUserData() instanceof EnemyInterface) {
+
+            //music on collision with enemy
+
+                /*bulletMusic = Gdx.audio.newMusic(Gdx.files.internal("../assets/sounds/laser.mp3"));
+                bulletMusic.setVolume(0.02f);
+                bulletMusic.play();*/
+
+            p.removeEnemies(b1, b2);
+            if (b1.getUserData() instanceof EnemyInterface) {
+
+                p.addCoordToBonusHandler(b1.getPosition());
+
+            }
+            if (b1.getUserData() instanceof EnemyInterface) {
+                p.addCoordToBonusHandler(b1.getPosition());
+
+
+            }
+        }
+
+    }
+
+    public void handleBonusCollision(Body b1, Body b2) {
+        if (b1.getUserData() instanceof BonusInterface && b2.getUserData() instanceof Player) {
+            System.out.println("Player picked gem");
+            p.getBonusHandler().setRemoveList(b2, b1);
+
+        } else if (b1.getUserData() instanceof Player && b2.getUserData() instanceof BonusInterface) {
+            System.out.println("Player picked gem");
+            p.getBonusHandler().setRemoveList(b1, b2);
+        } else {
+            if (b1.getUserData() instanceof BonusInterface) {
+                p.getBonusHandler().removeFromField(b1);
+            } else {
+                p.getBonusHandler().removeFromField(b1);
+            }
+        }
+    }
+
+
 
 }
 

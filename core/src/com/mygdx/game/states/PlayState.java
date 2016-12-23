@@ -2,7 +2,6 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,14 +10,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bonus.BonusHandler;
 import com.mygdx.game.Bullet.Bullet;
-import com.mygdx.game.Bullet.BulletInterface;
 import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.LevelHandler;
 import com.mygdx.game.RenderHandler;
@@ -141,7 +138,7 @@ public class PlayState extends State implements GameInterface {
         followerManager = new FollowerManager();
 
 
-        //mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
+        mapObjects = TiledObjectUtil.parseTiledObjectLayer(map, world);
 
 
         createBorders();
@@ -264,7 +261,7 @@ public class PlayState extends State implements GameInterface {
 
     @Override
     public void removeBullet(Body b1, Body b2) {
-        if (b1.getUserData() instanceof BulletInterface) {
+        if (b1.getUserData() instanceof Bullet) {
             bm.removeBullet(b1);
         } else {
             bm.removeBullet(b2);

@@ -7,6 +7,8 @@ import com.mygdx.game.Bullet.BulletManager;
 import com.mygdx.game.controller.AiControllerHandler;
 import com.mygdx.game.follower.FollowerManager;
 import com.mygdx.game.player.Player;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+import constants.Constants;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,7 +23,7 @@ public class DragonEnemy implements EnemyInterface {
 
     private Body body;
 
-    private final int MOVEMENT_SPEED = 1;
+
 
     private Texture texture = new Texture("../assets/Monsters/darkdragon.png");
 
@@ -53,7 +55,7 @@ public class DragonEnemy implements EnemyInterface {
     @Override
     public void updatePosition(Vector2 playerPosition) {
 
-        aiControllerHandler.moveToPlayer(playerPosition,body);
+        aiControllerHandler.moveToPlayer(playerPosition,body, Constants.MOVEMENT_SPEED_DRAGON);
 
 
     }
@@ -93,7 +95,7 @@ public class DragonEnemy implements EnemyInterface {
 
     public void shoot(int random, Vector2 playerCoord, BulletManager bulletManager){
         if (random == 1){
-            aiControllerHandler.EnemyShoot(bulletManager,playerCoord,body,0);
+            aiControllerHandler.EnemyShoot(bulletManager,playerCoord,body,5);
         }
     }
 
